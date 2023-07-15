@@ -1,0 +1,3 @@
+<template>
+    <TermAndConditions></TermAndConditions>
+</template>

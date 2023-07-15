@@ -1,0 +1,61 @@
+{
+  "compilerOptions": {
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "jsx": "preserve",
+    "jsxFactory": "h",
+    "jsxFragmentFactory": "Fragment",
+    "paths": {
+      "#imports": [
+        "C:/xampp/htdocs/quintaldaspecas/frontend/.nuxt/types/nitro-imports"
+      ],
+      "#paths": [
+        "C:/xampp/htdocs/quintaldaspecas/frontend/node_modules/nuxt/dist/core/runtime/nitro/paths"
+      ],
+      "~": [
+        "C:/xampp/htdocs/quintaldaspecas/frontend"
+      ],
+      "~/*": [
+        "C:/xampp/htdocs/quintaldaspecas/frontend/*"
+      ],
+      "@": [
+        "C:/xampp/htdocs/quintaldaspecas/frontend"
+      ],
+      "@/*": [
+        "C:/xampp/htdocs/quintaldaspecas/frontend/*"
+      ],
+      "~~": [
+        "C:/xampp/htdocs/quintaldaspecas/frontend"
+      ],
+      "~~/*": [
+        "C:/xampp/htdocs/quintaldaspecas/frontend/*"
+      ],
+      "@@": [
+        "C:/xampp/htdocs/quintaldaspecas/frontend"
+      ],
+      "@@/*": [
+        "C:/xampp/htdocs/quintaldaspecas/frontend/*"
+      ],
+      "assets": [
+        "C:/xampp/htdocs/quintaldaspecas/frontend/assets"
+      ],
+      "public": [
+        "C:/xampp/htdocs/quintaldaspecas/frontend/public"
+      ],
+      "public/*": [
+        "C:/xampp/htdocs/quintaldaspecas/frontend/public/*"
+      ]
+    }
+  },
+  "include": [
+    "C:/xampp/htdocs/quintaldaspecas/frontend/.nuxt/types/nitro-nuxt.d.ts",
+    "./types/nitro.d.ts",
+    "../**/*",
+    "../server/**/*"
+  ]
+}
