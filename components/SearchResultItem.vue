@@ -19,7 +19,7 @@
                                     <div class="andes-carousel-snapped__wrapper" style="display: flex; will-change: transform; flex-direction: row; transition: transform 0ms ease 0s; transform: translate3d(0px, 0px, 0px);">
                                         <div role="group" class="andes-carousel-snapped__slide andes-carousel-snapped__slide--active"
                                             aria-label="1 de 1" style="width: 160px; margin-right: 0px;" data-slider="0">
-                                            <a href="#" class="ui-search-link" title="Par Lanterna Traseira Ecosport 2008 2009 2010 2011 2012 2013" rel="nofollow,sponsored">
+                                            <a  class="ui-search-link" title="Par Lanterna Traseira Ecosport 2008 2009 2010 2011 2012 2013" rel="nofollow,sponsored">
                                                 <img width="160" height="160" decoding="sync" src="https://http2.mlstatic.com/D_NQ_NP_706449-MLB49358088272_032022-V.webp" class="ui-search-result-image__element shops__image-element" fetchpriority="high" alt="Par Lanterna Traseira Ecosport 2008 2009 2010 2011 2012 2013">
                                             </a>
                                         </div>
@@ -40,7 +40,7 @@
                     <div class="ui-search-result__content-wrapper shops__result-content-wrapper">
                         <div class="ui-search-item__group ui-search-item__group--title shops__items-group">
                             <span class="ui-search-item__brand-discoverability ui-search-item__group__element shops__items-group-details"></span>
-                            <a href="#" class="ui-search-item__group__element shops__items-group-details ui-search-link" title="Par Lanterna Traseira Ecosport 2008 2009 2010 2011 2012 2013" rel="nofollow,sponsored">
+                            <a  class="ui-search-item__group__element shops__items-group-details ui-search-link" title="Par Lanterna Traseira Ecosport 2008 2009 2010 2011 2012 2013" rel="nofollow,sponsored">
                                 <h2 aria-level="3" class="ui-search-item__title shops__item-title">Par Lanterna Traseira Ecosport 2008 2009 2010 2011 2012 2013</h2>
                             </a>
                         </div>

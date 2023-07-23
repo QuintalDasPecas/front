@@ -7,7 +7,7 @@
         <div class="row container highlight-seeds" style="padding-top: 30px;">
              <div class="section-header">
                  <h2>Ofertas do dia</h2>
-                 <a href="#">Ver Todas</a>
+                 <a >Ver Todas</a>
              </div>
              <div class="carousel-container" style="width:1200px;min-width:1200px">
                  <div class="slick-initialized slick-slider">

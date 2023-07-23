@@ -57,7 +57,7 @@
                 </div> 
                 <div class="row g-2 justify-content-lg-center">
                     <div class="col-lg-6 col-6">
-                        <NuxtLink href="/" class="btn btn-secondary btn-lg" id="btnToGoBack" name="togoback">Voltar</NuxtLink>
+                        <NuxtLink to="#" class="btn btn-secondary btn-lg" id="btnToGoBack" name="togoback">Voltar</NuxtLink>
                     </div>
                     <div class="col-lg-6 col-6">
                         <button type="button" class="btn btn-success btn-lg" id="btnCofnirm" name="confirm" style="float: right;">Confirmar</button>

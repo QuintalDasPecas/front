@@ -9,7 +9,7 @@
             </div>
             <div class="ui-pdp-action-modal ui-box-component__action">
                 <div class="andes-tooltip__trigger">
-                    <a class="ui-pdp-action-modal__link" href="#">Ver mais sobre devoluções</a>
+                    <a class="ui-pdp-action-modal__link" >Ver mais sobre devoluções</a>
                 </div>
             </div>
         </div>

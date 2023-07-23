@@ -9,7 +9,7 @@
         <div class="ui-search-search-result shops__result">
           <span class="ui-search-search-result__quantity-results shops-custom-secondary-font">1.804.044 resultados</span>
         </div>
-        <a class="ui-search-styled-label screen-reader-only" href="#results">Ir para resultados</a>
+        <a class="ui-search-styled-label screen-reader-only" >Ir para resultados</a>
         <div class="ui-search-styled-label screen-reader-only" role="heading" aria-level="2">Filtros</div>
         <Filter></Filter>       
       </aside>

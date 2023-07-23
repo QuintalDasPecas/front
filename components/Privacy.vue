@@ -26,7 +26,7 @@
                             <div>Como usamos cookies no Mercado Livre</div>
                         </a><a href="#policies-update" id="Menu_cambiosEnDeclaración" class="sc-ksZaOG jFyPPC">
                             <div>Alterações na Declaração <br> de Privacidade</div>
-                        </a><a href="https://www.mercadolivre.com.br/ajuda/Pol%C3%ADticas-de-Privacidade_1442"
+                        </a><a 
                             id="Menu_LegalesDeclaracion" target="_blank" class="sc-ksZaOG jFyPPC">
                             <div>Jurídico: Declaração de <br> Privacidade</div>
                         </a></div>
@@ -685,7 +685,7 @@
                                                     target="_blank">Configure opções de segurança</a></div>
                                         </div>
                                         <div role="button" class="sc-himrzO bWQWpD">
-                                            <div><a href="https://www.mercadolivre.com.br/ajuda/17218"
+                                            <div><a href="#17218"
                                                     target="_blank">Exerça os direitos sobre seus dados</a></div>
                                         </div>
                                         <div role="button" class="sc-himrzO bWQWpD">
@@ -699,11 +699,11 @@
                                     <p class="sc-jIZahH JrcvG">Direitos e Responsabilidades</p>
                                     <div style="margin-top:0px !important">
                                         <div role="button" class="sc-himrzO bWQWpD">
-                                            <div><a href="https://www.mercadolivre.com.br/ajuda/Termos-e-condicoes-gerais-de-uso_1409"
+                                            <div><a 
                                                     target="_blank">Termos e condições de uso do site</a></div>
                                         </div>
                                         <div role="button" class="sc-himrzO bWQWpD">
-                                            <div><a href="https://www.mercadolivre.com.br/ajuda/Pol%C3%ADticas-de-Privacidade_1442"
+                                            <div><a href="#Pol%C3%ADticas-de-Privacidade_1442"
                                                     target="_blank">Declaração de privacidade</a></div>
                                         </div>
                                         <div role="button" class="sc-himrzO bWQWpD">
@@ -728,7 +728,7 @@
                                                     cookies</a></div>
                                         </div>
                                         <div role="button" class="sc-himrzO bWQWpD">
-                                            <div><a href="https://myaccount.mercadolivre.com.br/preferences/emails"
+                                            <div><a 
                                                     target="_blank">Configuração de e-mails</a></div>
                                         </div>
                                     </div>
@@ -754,7 +754,7 @@
                                 class="sc-fEOsli iHrWvx lazy-loadable"
                                 data-src="https://http2.mlstatic.com/frontend-assets/data-privacy-landing/arrow-icon.svg"
                                 alt=""></div><a
-                            href="https://www.mercadolivre.com.br/ajuda/Pol%C3%ADticas-de-Privacidade_1442"
+                            href="#Pol%C3%ADticas-de-Privacidade_1442"
                             id="Long_leerDeclaracion" target="_blank" class="sc-iNWwEs gybfSl">Você pode acessar nossa
                             declaração de privacidade completa para mais detalhes.</a>
                     </div>
@@ -1220,7 +1220,7 @@
                                             class="sc-fEOsli iHrWvx lazy-loadable"
                                             data-src="https://http2.mlstatic.com/frontend-assets/data-privacy-landing/arrow-icon.svg"
                                             alt=""></div><a
-                                        href="https://www.mercadolivre.com.br/ajuda/Termos-e-condicoes-gerais-de-uso_1409"
+                                        
                                         id="Long_leerTerminos" target="_blank" class="sc-iNWwEs gybfSl">Você pode ver
                                         mais detalhes sobre o uso das nossas plataformas nos Termos e Condições.</a>
                                 </div>
@@ -1408,7 +1408,7 @@
                                         fazer uma reclamação sobre como processamos seus dados pessoais, você pode
                                         entrar em contato com a autoridade de supervisão apropriada em seu país.
                                         <strong><a
-                                                href="https://www.mercadolivre.com.br/ajuda/Pol%C3%ADticas-de-Privacidade_1442"
+                                                href="#Pol%C3%ADticas-de-Privacidade_1442"
                                                 class="black-link" target="_blank">No anexo do seu país você pode
                                                 encontrar mais informações sobre como e antes de quem fazer a
                                                 reivindicação e como exercer seus direitos</a>.</strong></div>
@@ -1759,7 +1759,7 @@
                                             class="sc-fEOsli iHrWvx lazy-loadable"
                                             data-src="https://http2.mlstatic.com/frontend-assets/data-privacy-landing/lock-icon.svg"
                                             alt=""></div><a
-                                        href="https://www.mercadolivre.com.br/ajuda/Pol%C3%ADticas-de-Privacidade_1442"
+                                        href="#Pol%C3%ADticas-de-Privacidade_1442"
                                         id="Long_MasInfo_DatosRecolectados" target="_blank"
                                         class="sc-iNWwEs gybfSl">Confira para saber mais sobre quais dados coletamos e
                                         tratamos</a>
@@ -1994,7 +1994,7 @@
                                             class="sc-fEOsli iHrWvx lazy-loadable"
                                             data-src="https://http2.mlstatic.com/frontend-assets/data-privacy-landing/lock-icon.svg"
                                             alt=""></div><a
-                                        href="https://www.mercadolivre.com.br/ajuda/Pol%C3%ADticas-de-Privacidade_1442"
+                                        href="#Pol%C3%ADticas-de-Privacidade_1442"
                                         id="Policies_DataUsage" target="_blank" class="sc-iNWwEs gybfSl">Confira para
                                         saber mais sobre como compartilhamos seus dados pessoais</a>
                                 </div>
@@ -2158,7 +2158,7 @@
                                             class="sc-fEOsli iHrWvx lazy-loadable"
                                             data-src="https://http2.mlstatic.com/frontend-assets/data-privacy-landing/lock-icon.svg"
                                             alt=""></div><a
-                                        href="https://www.mercadolivre.com.br/ajuda/Pol%C3%ADticas-de-Privacidade_1442"
+                                        href="#Pol%C3%ADticas-de-Privacidade_1442"
                                         id="Long_MasInfo_CompartirTuInfo" target="_blank"
                                         class="sc-iNWwEs gybfSl">Confira para saber mais sobre como compartilhamos seus
                                         dados pessoais</a>
@@ -2400,7 +2400,7 @@
                                         <div class="sc-jOrMOR iRxhkE">
                                             <div>Se desativar determinados cookies, é possível que você não possa usar
                                                 algumas funcionalidades dos nossos sites. <a
-                                                    href="https://www.mercadolivre.com.br/ajuda/Pol%C3%ADticas-de-Privacidade_1442"
+                                                    href="#Pol%C3%ADticas-de-Privacidade_1442"
                                                     class="black-link" target="_blank">Consulte nossa Declaração de
                                                     Privacidade para mais informações</a> sobre o uso de cookies.</div>
                                         </div>
@@ -2545,7 +2545,7 @@
                             src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
                             class="sc-fEOsli iHrWvx lazy-loadable"
                             data-src="https://http2.mlstatic.com/frontend-assets/data-privacy-landing/arrow-icon.svg"
-                            alt=""></div><a href="ajuda/17934" id="legal-bases" target="_blank"
+                            alt=""></div><a  id="legal-bases" target="_blank"
                         class="sc-jIAOiI caxClB">Saiba mais sobre as bases legais que utilizamos no tratamento dos seus
                         dados pessoais</a>
                 </div>

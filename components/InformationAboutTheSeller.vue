@@ -53,7 +53,7 @@
                                        </li>
                                    </ul>
                                </div>
-                           </div><a href="#" target="_blank"
+                           </div><a  target="_blank"
                                class="ui-pdp-media__action ui-box-component__action">Ver mais dados deste vendedor<span
                                    class="ui-pdp--hide">Abrirá em uma nova janela</span></a>
     </div>

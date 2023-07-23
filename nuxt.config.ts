@@ -11,12 +11,15 @@ export default defineNuxtConfig({
     '~/css/vip.core.css',
     '~/css/insurtech.css',
     '~/css/swiper.css' ,
-    'primevue/resources/themes/lara-light-blue/theme.css',
+    'primevue/resources/themes/bootstrap4-light-blue/theme.css',
     'bootstrap/dist/css/bootstrap.min.css',
-    'bootstrap-icons/font/bootstrap-icons.min.css'  
+    'bootstrap-icons/font/bootstrap-icons.min.css' ,
+    'primeicons/primeicons.css',
+    '~/css/theme-custom.css' 
   ],
   build: {
 		transpile: ["primevue"]
 	},
   components: true,
+  ssr: false
 })

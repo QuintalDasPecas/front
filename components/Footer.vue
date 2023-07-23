@@ -1,4 +1,4 @@
-<template>
+<template>    
     <footer role="contentinfo" class="nav-footer footer-custom" >
         <div class="nav-footer-user-info nav-bounds">
             <div class="nav-footer-info-wrapper">
@@ -9,17 +9,17 @@
                     <nav class="nav-footer-navigation">
                         <ul class="nav-footer-navigation__menu">                           
                             <li class="nav-footer-navigation__item">                               
-                                <NuxtLink  href="/termandconditions" class="nav-footer-navigation__link">
+                                <NuxtLink  to="/termandconditions" class="nav-footer-navigation__link">
                                     Termos e condições
                                 </NuxtLink>
                             </li>
                             <li class="nav-footer-navigation__item">                               
-                                <NuxtLink  href="/privacy" class="nav-footer-navigation__link">
+                                <NuxtLink  to="/privacy" class="nav-footer-navigation__link">
                                     Como cuidamos da sua privacidade
                                 </NuxtLink>
                             </li>                            
                             <li class="nav-footer-navigation__item">                              
-                                <NuxtLink  href="/contact" class="nav-footer-navigation__link">
+                                <NuxtLink  to="/contact" class="nav-footer-navigation__link">
                                     Contato
                                 </NuxtLink>
                             </li>
@@ -32,7 +32,7 @@
                 </p>
             </div>
         </div>
-        <a class="nav-footer-hp" href="#">
+        <a class="nav-footer-hp" >
             Quintal das peças
         </a>
     </footer>

@@ -109,7 +109,7 @@
                     <div class="ui-pdp-price__payments-link" role="presentation">
                         <div class="ui-pdp-action-modal">
                             <div class="andes-tooltip__trigger">
-                                <a class="ui-pdp-action-modal__link" href="#">Ver meios de pagamento e promoções</a>
+                                <a class="ui-pdp-action-modal__link" >Ver meios de pagamento e promoções</a>
                             </div>
                         </div>
                     </div>

@@ -4,7 +4,7 @@
         <div class="ui-vip-payment_methods">
             <div class="ui-pdp-action-modal">
                 <div class="andes-tooltip__trigger">
-                    <a class="ui-pdp-action-modal__link" href="#">
+                    <a class="ui-pdp-action-modal__link" >
                         <div class="ui-pdp-media ui-vip-payment_methods__container ui-pdp-background-color--GREEN ui-pdp-color--WHITE">
                             <figure aria-hidden="true" class="ui-pdp-media__figure">
                                 <svg class="ui-pdp-icon ui-pdp-icon--installments ui-pdp-color--CARD ui-pdp-color--WHITE ui-vip-payment_methods__card"
@@ -70,7 +70,7 @@
         </div>
         <div class="ui-pdp-action-modal ui-box-component__action">
             <div class="andes-tooltip__trigger">
-                <a class="ui-pdp-action-modal__link" href="#">Conheça outros meios de pagamento</a>
+                <a class="ui-pdp-action-modal__link" >Conheça outros meios de pagamento</a>
             </div>
         </div>
     </div>
