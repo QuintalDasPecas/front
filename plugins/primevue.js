@@ -11,6 +11,13 @@ import InputText from 'primevue/inputtext';
 import Menubar from 'primevue/menubar';
 import SplitButton from 'primevue/splitbutton';
 import Toast from 'primevue/toast';
+import FileUpload from 'primevue/fileupload';
+import Dropdown from 'primevue/dropdown';
+import InputMask from 'primevue/inputmask';
+import Accordion from "primevue/accordion";
+import AccordionTab from "primevue/accordiontab"; 
+import Message from "primevue/message";
+import Card from "primevue/card"; 
 
 export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.use(PrimeVue, { ripple: true });
@@ -25,6 +32,12 @@ export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.component("Menubar", Menubar);
     nuxtApp.vueApp.component("SplitButton", SplitButton);
     nuxtApp.vueApp.component("Toast", Toast);
-    
+    nuxtApp.vueApp.component("FileUpload", FileUpload);
+    nuxtApp.vueApp.component("Dropdown", Dropdown);
+    nuxtApp.vueApp.component("InputMask", InputMask);
+    nuxtApp.vueApp.component("Accordion", Accordion);
+    nuxtApp.vueApp.component("AccordionTab", AccordionTab);
+    nuxtApp.vueApp.component("Message", Message);
+    nuxtApp.vueApp.component("Card", Card);
     //other components that you need
 });

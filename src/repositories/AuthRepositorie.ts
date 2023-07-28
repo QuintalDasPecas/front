@@ -1,21 +1,26 @@
-import model from 'src/http/Http';
+import CallApi from '@/src/http/CallApi';
 
 export default class AuthRepositorie{
 
-   static async store(formData: FormData){
-        return model.store(formData);
-   }
+     static async auth(formData: FormData){
+          CallApi.setEndPoint('login');
+          return await CallApi.auth(formData);
+     }
 
-   static async single(id: number){
-        return model.find(id);
-   }
+     static async store(formData: FormData){
+          return await CallApi.store(formData);
+     }
 
-   static async all(){
-        return model.all();
-   }
+     static async single(id: number){
+          return CallApi.find(id);
+     }
 
-   static async update(id: number, formData: FormData){
-        return model.update(id, formData);
-   }
+     static async all(){
+          return CallApi.all();
+     }
+
+     static async update(id: number, formData: FormData){
+          return CallApi.update(id, formData);
+     }
 
 }

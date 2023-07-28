@@ -86,3 +86,62 @@
 .link-entre:hover{
   color : #212529;
 }
+
+.panel{
+  border: 1px solid #ced4da;
+  border-radius: 15px;
+  padding-bottom: 15px;
+  padding-top: 20px;
+  background-color: #fff;
+}
+
+.box-button{
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+body{
+  background-color: #ededed!important;
+}
+
+.p-inputtext, form-control{
+  min-height: 48px;
+  font-size: 11px;
+} 
+
+.form-label{
+  font-size: 16px;
+  padding-top: 15px;
+  margin-bottom: 0px;
+}
+
+.p-dropdown{
+  width: 100%;
+  min-height: 48px;
+}
+
+.accordion-custom{
+  width: 100%;  
+  padding-top: 0px;
+  padding-bottom: 50px;
+}
+
+section>.container-recoverpassword {
+  padding-top: 10%;
+}
+
+.label-sm {
+  font-size: 12px;
+}
+
+.label-md {
+  font-size: 16px;
+}
+
+.label-lg{
+  font-size: 20px;
+}
+
+.teste{
+  size: 30px;
+}

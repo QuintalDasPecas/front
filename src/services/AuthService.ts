@@ -1,21 +1,25 @@
-import repositorie from 'src/repositories/AuthRepositorie';
+import repositorie from '@/src/repositories/AuthRepositorie';
 
 export default class AuhtService {
     
-    static async store(formData: FormData){
-        return repositorie.store(formData);
+    public async auth(formAuth: FormData){
+        return await repositorie.auth(formAuth);
     }
 
-    static async single(id: number){
+    public async store(formAuth: FormData){
+        return await repositorie.store(formAuth);
+    }
+
+    public async single(id: number){
         return repositorie.single(id);
     }
 
-    static async all(){
+    public async all(){
         return repositorie.all();
     }
 
-    static async update(id: number, formData: FormData){
-        return repositorie.update(id, formData);
+    public async update(id: number, formAuth: FormData){
+        return repositorie.update(id, formAuth);
     }
 
 }

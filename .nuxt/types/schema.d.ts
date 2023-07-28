@@ -15,7 +15,13 @@ declare module 'nuxt/schema' {
    },
   }
   interface PublicRuntimeConfig {
+   API_URL: string,
 
+   AUTH_URL: string,
+
+   CSRF_URL: string,
+
+   FRONTEND_URL: string,
   }
 }
 declare module 'vue' {

@@ -2,46 +2,47 @@
     <div class="home">
         <section data-testid="recommendations" class="recommendations" type="recommendations">
             <div class="container">
-                <div class="row g-8  justify-content-md-center">
+                <div class="row g-8  justify-content-lg-center">
                     <div class="col-lg-6">
-                        <Panel header="Login">
-                            <form @submit.prevent="handleSubmit" class="row">
+                        <div class="panel">
+                            <Message severity="error" v-if="errorMessage">{{ errorMessage }}</Message>
+                            <form method="POST" class="row">
                                 <div class="row g-2 justify-content-md-center">
-                                    <div class="col-lg-6 col-md-6 col-sm-8 col-4">
+                                    <div class="col-lg-10 col-md-6 col-sm-8 col-4">
                                         <label for="inputEmail" class="form-label">E-mail</label>                                        
-                                        <InputText class="form-control" v-model="FormData.email"/>
+                                        <InputText v-model="email" class="form-control" maxlength="50" />
                                     </div>
                                 </div>
                                 <div class="row g-2 justify-content-md-center">
-                                    <div class="col-lg-6 col-md-6 col-sm-8 col-4">
+                                    <div class="col-lg-10 col-md-6 col-sm-8 col-4">
                                         <label for="inputPassword" class="form-label">Senha</label>
-                                        <Password v-model="FormData.password"/>
+                                        <Password v-model="password" id="password" name="password" toggleMask autocomplete="off" :feedback="false" :maxlength="16" />
                                     </div>
                                 </div>
                                 <div class="row g-2 justify-content-md-center">
-                                    <div class="col-lg-3 col-md-3 col-sm-4 col-2">
+                                    <div class="col-lg-5 col-md-3 col-sm-4 col-2">
                                         <NuxtLink to="/" class="btn btn-primary btn-lg btn-width-defult">
                                             <i class="pi pi-arrow-left"></i> Voltar
                                         </NuxtLink>
                                     </div>
-                                    <div class="col-lg-3 col-md-3 col-sm-4 col-2">
-                                        <NuxtLink to="#" @click="clickAuth" class="btn btn-primary btn-lg btn-width-defult">
-                                            <i class="pi pi-check"></i> Enviar
+                                    <div class="col-lg-5 col-md-3 col-sm-4 col-2">
+                                        <NuxtLink @click="onSubmit" class="btn btn-primary btn-lg btn-width-defult">
+                                            <i class="pi pi-check"></i> Confirmar
                                         </NuxtLink>
                                     </div>
                                 </div>
                                 <div class="row g-2  justify-content-md-center">
-                                    <div class="col-lg-6 col-md-6 col-sm-8 col-4">
+                                    <div class="col-lg-10 col-md-3 col-sm-4 col-2">
                                         <NuxtLink to="/recoverpassword" class="btn btn-primary btn-lg btn-recover-password">Recuperar Senha</NuxtLink>
                                     </div>
                                 </div>
                                 <div class="row g-2  justify-content-md-center">
-                                    <div class="col-lg-6 col-md-6 col-sm-8 col-4">
+                                    <div class="col-lg-10 col-md-3 col-sm-4 col-2">
                                         <NuxtLink to="/register/users" style="width: 100%;" class="btn btn-primary btn-lg btn-register-user">Criar conta</NuxtLink>
                                     </div>
                                 </div>
                             </form>
-                        </Panel>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -49,38 +50,34 @@
     </div>
  </template>
 
-<script lang="ts">
+<script lang="ts" setup>
+import Auth from '@/src/services/AuthService';
+import { useForm } from 'vee-validate';
 
-import { Auth } from '@/src/services/Auth';
+const email = ref('');
+const password = ref('');
+const errorMessage = ref('');
+const { resetForm } = useForm();
 
-interface FormData {
-    email : string;
-    password : string;
-    remember : boolean;
-};
+async function onSubmit(){
+   
+    const formAuth = new FormData();
+    formAuth.append('email', email.value);
+    formAuth.append('password', password.value);
+    formAuth.append('remember', 'false');
+   
+    const { data: responseData, error: responseError } =  await (new Auth().auth(formAuth));
 
-const FormData: FormData = {
-    'email' : '',
-    'password' : '',
-    'remember' : false
-};
+    const status = responseData.value?.status;
 
-export default class Login {
-  
-  async enviarFormulario() {
-
-    // Chamar o método doAuth com as credenciais fornecidas
-    const isAuthSuccessful = (new Auth()).doAuth(FormData.email, FormData.password, FormData.remember);
-
-    // Verificar o resultado da autenticação
-    if (isAuthSuccessful) {
-      console.log('Autenticação bem-sucedida!');
-      // Aqui você pode redirecionar o usuário para a página após a autenticação bem-sucedida
-    } else {
-      console.log('Autenticação falhou!');
-      // Aqui você pode mostrar uma mensagem de erro ou lidar com a falha de autenticação
+    if(status === 200){
+        localStorage.setItem('logged', 'true');
+        localStorage.setItem('users',responseData.value?.data.user);
+        localStorage.setItem('userId',responseData.value?.data.id);
+        resetForm();   
+        navigateTo('/',{ external : true });          
     }
-  }
-}
 
+    errorMessage.value = responseError.value?.data.message ?? '';
+}
 </script>
