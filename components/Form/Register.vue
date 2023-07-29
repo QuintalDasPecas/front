@@ -1,5 +1,5 @@
-<template>  
-    <div class="home">
+<template>    
+   <div class="home" v-show="activedRegister">
         <section data-testid="recommendations" class="recommendations" type="recommendations">
             <div class="container">   
                 <div class="row justify-content-lg-center g-4">
@@ -7,52 +7,9 @@
                         <div class="panel">
                             <Message severity="success" v-if="successMessage">{{ successMessage }}</Message>
                             <Message severity="error" v-if="errorMessage">{{ errorMessage }}</Message>
-                            <form method="post" action="" class="row justify-content-lg-center g-2">
-                                <div class="row g-2 justify-content-lg-center">
-                                    <div class="col-lg-10 col-md-6 col-sm-8 col-4">
-                                        <label for="name" class="form-label">Nome</label>
-                                        <InputText type="text" v-model="name" class="form-control" id="name" name="name" autocomplete="off" :class="{ 'p-invalid': errorMessageName }" aria-describedby="text-error" maxlength="50" />
-                                        <small class="p-error" id="text-error" v-if="errorMessageName">{{ errorMessageName || '&nbsp;' }}</small>                           
-                                    </div>
-                                </div>
-                                <div class="row g-2 justify-content-lg-center">
-                                    <div class="col-lg-10 col-md-6 col-sm-8 col-4">
-                                        <label for="email" class="form-label">E-mail</label>
-                                        <InputText v-model="email" class="form-control" id="email" name="email" autocomplete="off" :class="{ 'p-invalid': errorMessageEmail }" aria-describedby="text-error" maxlength="50" />
-                                        <small class="p-error" id="text-error" v-if="errorMessageEmail">{{ errorMessageEmail || '&nbsp;' }}</small>
-                                    </div>
-                                </div>
-                                <div class="row g-2 justify-content-lg-center"> 
-                                    <div class="col-lg-10 col-md-6 col-sm-8 col-4">
-                                        <label for="password" class="form-label">Senha</label>
-                                        <br>
-                                        <Password v-model="password" id="password" name="password" toggleMask autocomplete="off" :feedback="false" :class="{ 'p-invalid': errorMessagePassword }" :maxlength="16" />
-                                        <small class="p-error" id="text-error" v-if="errorMessagePassword">{{ errorMessagePassword || '&nbsp;' }}</small>
-                                    </div>
-                                </div>
-                                <div class="row g-2 justify-content-lg-center">
-                                    <div class="col-lg-10 col-md-6 col-sm-8 col-4">
-                                        <label for="confirmPassword" class="form-label">Repetir Senha</label>
-                                        <br>
-                                        <Password v-model="password_confirmation" id="password_confirmation" name="password_confirmation" toggleMask autocomplete="off" :feedback="false" :class="{ 'p-invalid': errorMessagePasswordConfrimation }" :maxlength="16" />
-                                        <small class="p-error" id="text-error"  v-if="errorMessagePasswordConfrimation">{{ errorMessagePasswordConfrimation || '&nbsp;' }}</small>
-                                    </div>
-                                </div>
-                                <div class="row g-2 box-button justify-content-lg-center">
-                                    <div class="col-lg-5 col-md-6 col-sm-12 col-12">
-                                        <NuxtLink to="/login" class="btn btn-primary btn-lg btn-width-defult">
-                                            <i class="pi pi-arrow-left"></i>
-                                            Voltar
-                                        </NuxtLink>
-                                    </div>
-                                    <div class="col-lg-5 col-md-6 col-sm-12 col-12">
-                                        <NuxtLink  class="btn btn-primary btn-lg btn-width-defult" @click="onSubmit">
-                                            <i class="pi pi-check"></i>
-                                            Enviar
-                                        </NuxtLink>
-                                    </div>
-                                </div>
-                            </form>
+                            <PartialsTermConditions></PartialsTermConditions>
+                            <PartialsRegister></PartialsRegister>
+
                         </div>
                     </div>       
                 </div>
@@ -76,6 +33,7 @@ const errorMessagePasswordConfrimation = ref('');
 const successMessage = ref('');
 const errorMessage = ref('');
 const { resetForm } = useForm();
+const activedRegister = ref(true);
 
 async function validateField()
 {

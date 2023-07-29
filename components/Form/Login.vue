@@ -5,18 +5,18 @@
                 <div class="row g-8  justify-content-lg-center">
                     <div class="col-lg-6">
                         <div class="panel">
-                            <Message severity="error" v-if="errorMessage">{{ errorMessage }}</Message>
+                            <Message severity="error" v-for="(value, key) in errors" :key="key">{{ value }}</Message>
                             <form method="POST" class="row">
                                 <div class="row g-2 justify-content-md-center">
                                     <div class="col-lg-10 col-md-6 col-sm-8 col-4">
-                                        <label for="inputEmail" class="form-label">E-mail</label>                                        
-                                        <InputText v-model="email" class="form-control" maxlength="50" />
+                                        <label for="inputEmail" class="form-label label-lg">E-mail</label>                                        
+                                        <InputText v-model="email" size="large" class="form-control" maxlength="50" />
                                     </div>
                                 </div>
                                 <div class="row g-2 justify-content-md-center">
                                     <div class="col-lg-10 col-md-6 col-sm-8 col-4">
-                                        <label for="inputPassword" class="form-label">Senha</label>
-                                        <Password v-model="password" id="password" name="password" toggleMask autocomplete="off" :feedback="false" :maxlength="16" />
+                                        <label for="inputPassword" class="form-label label-lg">Senha</label>
+                                        <Password v-model="password" size="large" id="password" name="password" toggleMask autocomplete="off" :feedback="false" :maxlength="16" />
                                     </div>
                                 </div>
                                 <div class="row g-2 justify-content-md-center">
@@ -56,11 +56,11 @@ import { useForm } from 'vee-validate';
 
 const email = ref('');
 const password = ref('');
-const errorMessage = ref('');
+const errors = ref([]);
 const { resetForm } = useForm();
 
 async function onSubmit(){
-   
+    errors.value = [];
     const formAuth = new FormData();
     formAuth.append('email', email.value);
     formAuth.append('password', password.value);
@@ -78,6 +78,7 @@ async function onSubmit(){
         navigateTo('/',{ external : true });          
     }
 
-    errorMessage.value = responseError.value?.data.message ?? '';
+    errors.value = responseError.value?.data.errors ?? [];
 }
 </script>
+

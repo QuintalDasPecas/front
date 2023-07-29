@@ -3,10 +3,10 @@
         <section data-testid="recommendations" class="recommendations" type="recommendations">
             <div class="container">
                 <div class="row g-8  justify-content-lg-center">
-                    <div class="col-lg-6">
+                    <div class="col-lg-8">
                         <div class="center accordion-custom">
                             <Accordion>                                
-                                <AccordionTab header="Meus dados" :model="name">
+                                <AccordionTab header="Meus dados">
                                     <FormPersonalData></FormPersonalData>
                                 </AccordionTab>
                                 <AccordionTab header="Endereço">
@@ -16,7 +16,7 @@
                                     <FormChangePassword></FormChangePassword>
                                 </AccordionTab>
                                 <AccordionTab header="Arquivos">
-                                    <FormUpload></FormUpload>
+                                    <PartialsUploads></PartialsUploads>
                                 </AccordionTab>    
                             </Accordion>
                         </div>

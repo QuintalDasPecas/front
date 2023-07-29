@@ -1,17 +1,18 @@
-<template>
-   
+<template>   
     <div class="home">
         <section data-testid="recommendations" class="recommendations" type="recommendations">
             <div class="container-recoverpassword">
                 <div class="row  g-2 justify-content-md-center">  
-                    <div class="col-lg-4"> 
-                    <div class="panel">       
+                    <div class="col-lg-6"> 
+                    <div class="panel">    
+                        <Message severity="error" v-if="errorMessage">{{ errorMessage }}</Message> 
+                        <Message severity="success" v-if="successMessage">{{ successMessage }}</Message>   
                         <form class="row">
                             <div class="row g-2 justify-content-md-center">
                                 <div class="col-lg-10 col-md-12 col-sm-12 col-12">
                                     <label for="inputNome" class="form-label label-lg">E-mail</label>
                                     <br>
-                                    <InputText v-model="email" name="email" class="form-control" maxlength="50" />
+                                    <InputText v-model="email" size="large" name="email" class="form-control" maxlength="100" autocomplete="off"/>
                                 </div>
                             </div>  
                             <div class="row g-2 justify-content-md-center">
@@ -21,7 +22,7 @@
                                     </NuxtLink>
                                 </div>
                                 <div class="col-lg-5 col-md-6 col-sm-12 col-12">
-                                    <NuxtLink to="#" class="btn btn-primary btn-lg btn-width-defult">
+                                    <NuxtLink @click="doSubmit" class="btn btn-primary btn-lg btn-width-defult">
                                         <i class="pi pi-check"></i> Enviar
                                     </NuxtLink>
                                 </div>
@@ -34,9 +35,30 @@
         </section>
     </div>        
 </template>
-
-
 <script setup>
-const email = null;
+import Auth from '@/src/services/AuthService';
+import { useForm } from 'vee-validate';
 
+const email = ref('');
+const errorMessage = ref('');
+const successMessage = ref('');
+const { resetForm } = useForm();
+const formData = new FormData();
+
+async function doSubmit(){
+    errorMessage.value = '';
+    successMessage.value = '';
+    formData.append('email', email.value);
+    const { data: responseData, error : responseError} = await (new Auth().store(formData));
+
+    const status = responseData.value?.status;
+
+    if(status === 200){
+        email.value = '';
+        successMessage.value = responseData.value?.message;
+        resetForm();
+    }
+
+    errorMessage.value = responseError.value?.data.message ?? '';
+}
 </script>

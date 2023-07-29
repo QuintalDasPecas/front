@@ -18,6 +18,8 @@ import Accordion from "primevue/accordion";
 import AccordionTab from "primevue/accordiontab"; 
 import Message from "primevue/message";
 import Card from "primevue/card"; 
+import ToggleButton from "primevue/togglebutton";
+import Checkbox from "primevue/checkbox";
 
 export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.use(PrimeVue, { ripple: true });
@@ -39,5 +41,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.component("AccordionTab", AccordionTab);
     nuxtApp.vueApp.component("Message", Message);
     nuxtApp.vueApp.component("Card", Card);
+    nuxtApp.vueApp.component("ToggleButton",ToggleButton);
+    nuxtApp.vueApp.component("Checkbox",Checkbox);
     //other components that you need
 });

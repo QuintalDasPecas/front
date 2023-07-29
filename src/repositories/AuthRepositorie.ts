@@ -8,6 +8,7 @@ export default class AuthRepositorie{
      }
 
      static async store(formData: FormData){
+          CallApi.setEndPoint('forgot-password');
           return await CallApi.store(formData);
      }
 

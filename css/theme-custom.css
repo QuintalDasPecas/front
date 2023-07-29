@@ -92,28 +92,31 @@
   border-radius: 15px;
   padding-bottom: 15px;
   padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
   background-color: #fff;
 }
 
 .box-button{
-  padding-top: 20px;
+  padding-top: 10px;
   padding-bottom: 20px;
+  margin: 0%;
 }
 
 body{
   background-color: #ededed!important;
 }
 
-.p-inputtext, form-control{
+/* .p-inputtext, form-control{
   min-height: 48px;
   font-size: 11px;
-} 
-
+}  */
+/* 
 .form-label{
   font-size: 16px;
-  padding-top: 15px;
+  padding-top: 0px;
   margin-bottom: 0px;
-}
+} */
 
 .p-dropdown{
   width: 100%;
@@ -144,4 +147,31 @@ section>.container-recoverpassword {
 
 .teste{
   size: 30px;
+}
+
+.p-password-input{
+  font-size: 16px;
+}
+
+/* .p-inputtext .p-component{
+  font-size: 16px;
+} */
+
+
+.p-inputmask{
+  font-size: 16px;
+}
+
+.p-inputmask.p-inputmask-lg {
+  font-size: 1.25rem;
+  padding: 0.9375rem 0.9375rem;
+}
+
+.form-label {
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+}
+
+.p-accordion-header-text{
+  font-size: 20px;
 }
