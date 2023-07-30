@@ -31,13 +31,13 @@
             </div>
         </div>
         <div class="row g-2 box-button justify-content-lg-center">
-            <div class="col-lg-5 col-md-6 col-sm-12 col-12">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                 <NuxtLink to="/login" class="btn btn-primary btn-lg btn-width-defult">
                     <i class="pi pi-arrow-left"></i>
                     Voltar
                 </NuxtLink>
             </div>
-            <div class="col-lg-5 col-md-6 col-sm-12 col-12">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                 <NuxtLink  class="btn btn-primary btn-lg btn-width-defult" @click="onSubmit">
                     <i class="pi pi-check"></i>
                     Enviar

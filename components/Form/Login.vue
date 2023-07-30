@@ -75,7 +75,7 @@ async function onSubmit(){
         localStorage.setItem('users',responseData.value?.data.user);
         localStorage.setItem('userId',responseData.value?.data.id);
         resetForm();   
-        navigateTo('/',{ external : true });          
+        navigateTo('/',{ external : true });
     }
 
     errors.value = responseError.value?.data.errors ?? [];
