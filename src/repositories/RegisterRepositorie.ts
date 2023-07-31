@@ -1,8 +1,15 @@
 import CallApi from '@/src/http/CallApi';
 
 export default class RegisterRepositorie {
-  static async store(formData: FormData) {
-    CallApi.setEndPoint('register');
+  static async store(formData: FormData, typeRegister: number) {
+   
+    if( typeRegister === 1){
+      CallApi.setEndPoint('registerpj');
+    }
+
+    if( typeRegister === 2){
+      CallApi.setEndPoint('registerpf');
+    }    
     return await CallApi.store(formData);
   }
 

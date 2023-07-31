@@ -6,11 +6,11 @@
                     <div class="col-lg-6">
                         <div class="panel">
                             <Message severity="success" v-if="successMessage">{{ successMessage }}</Message>
-                            <Message severity="error" v-if="errorMessage">{{ errorMessage.message }}</Message>
+                            <Message severity="error" v-if="errorMessage.message" v-for="(value, key) in errorMessage.message" :key="key">{{ value[0] }}</Message>
                             <PartialsTermConditions @typeRegister="handleTypeRegister" v-if="activedTermRegister" />
                             <PartialsLegalEntityData :errorMessage="errorMessage" @setFormDataEntity="handleformDataEntity" v-if="typeRegister === 1" />
-                            <PartialsIndividualData v-if="typeRegister === 2" />
-                            <PartialsPassword @formDataPassword="handleformDataPassword" v-if="typeRegister === 1 || typeRegister === 2"/>
+                            <PartialsIndividualData :errorMessage="errorMessage" @setFormDataIndividual="handleformDataIndividual" v-if="typeRegister === 2" />
+                            <PartialsPassword @formDataPassword="handleformDataPassword" :errorMessage="errorMessage" v-if="typeRegister === 1 || typeRegister === 2"/>
                             <PartialsControlButton @onSubmit="handleOnSubmit" v-if="typeRegister === 1 || typeRegister === 2" :redirectUrl="redirectUrl"/>
                         </div>
                     </div>
@@ -39,13 +39,14 @@ export default {
   data() {
     return {
       successMessage: '',
-      errorMessage: { name: '', fantasyName: '', cnpj: '', stateRegistration: '',  email: '', password: '', newpassword: '', recoverpassword: '', message: ''},
+      errorMessage: { name: '', fantasyName: '', cpf:'', dataNascimento:'', cnpj: '', stateRegistration: '',  email: '', password: '', newpassword: '', recoverpassword: '', message: []},
       activedRegister: true,
       typeRegister: 0,
       activedTermRegister: true,
       redirectUrl: '/register/users',
       formDataEntity: { name: '', fantasyName: '', cnpj: '', stateRegistration:''},
-      formDataPassword: { email: '', password: '', newpassword: '', recoverpassword: ''},
+      formDataPassword: { email: '', password: '', recoverpassword: ''},
+      formDataIndividual: { name: '', cpf: '', dataNascimento: ''},
       isValid : true      
     };
   },
@@ -57,7 +58,6 @@ export default {
     handleformDataPassword( value ){
       this.formDataPassword.email = value.email;
       this.formDataPassword.password = value.password;
-      this.formDataPassword.newpassword = value.newpassword;
       this.formDataPassword.recoverpassword = value.recoverpassword;
     },
     handleformDataEntity( value ){
@@ -66,70 +66,121 @@ export default {
       this.formDataEntity.cnpj = value.cnpj;
       this.formDataEntity.stateRegistration = value.stateRegistration;
     },
+    handleformDataIndividual( value){
+      this.formDataIndividual.name = value.name;
+      this.formDataIndividual.cpf = value.cpf;
+      this.formDataIndividual.dataNascimento = value.dataNascimento;
+    },
     handleOnSubmit( value ){
-      if( value === true ){
-
-        this.validateField();
-        if ( !this.isValid ){
-            return false;
-        }
+      try{
        
-        const form = new FormData();
-        form.append('name', this.formDataEntity.name);
-        form.append('fantasyName', this.formDataEntity.fantasyName);
-        form.append('stateRegistration', this.formDataEntity.stateRegistration);
-        form.append('cnpj', this.formDataEntity.cnpj);
-        form.append('email', this.formDataPassword.email)
-        form.append('password', this.formDataPassword.password);
-        form.append('password_confirmation', this.formDataPassword.recoverpassword);
-
-        const re = new Register();
-        const responseData = re.store(form);
-         console.log(responseData)      
-         
-        if( !responseData ){
-          this.errorMessage.message = 'Erro ao efetuar cadastro.';
-          return false;
-        }
-
-        this.successMessage = "Cadastro efetuado!";
+        this.errorMessage.message = false;
         
-        const { resetForm } = useForm();
-        resetForm();
-      }  
+        if( value === true ){
+
+          this.validateField();
+          if ( !this.isValid ){
+              return false;
+          }
+        
+          const form = new FormData();          
+          const register = new Register();
+
+          if( this.typeRegister == 1){
+            form.append('name', this.formDataEntity.name);
+            form.append('fantasy_name', this.formDataEntity.fantasyName);
+            form.append('state_registration', this.formDataEntity.stateRegistration);
+            form.append('cpf_cnpj', this.formDataEntity.cnpj);
+            form.append('email', this.formDataPassword.email)
+            form.append('password', this.formDataPassword.password);
+            form.append('password_confirmation', this.formDataPassword.recoverpassword);
+          }
+          
+          if( this.typeRegister == 2){
+            form.append('name', this.formDataIndividual.name);
+            form.append('cpf_cnpj', this.formDataIndividual.cpf);
+            form.append('data_nascimento', this.formDataIndividual.dataNascimento);
+            form.append('email', this.formDataIndividual.email)
+            form.append('password', this.formDataIndividual.password);
+            form.append('password_confirmation', this.formDataIndividual.recoverpassword);
+          }
+          
+          const responseData = register.store(form, this.typeRegister);
+          
+          if( responseData.error.value?.data.errors ){
+            this.errorMessage.message = responseData.error.value?.data.errors;
+            return false;
+          }
+
+          this.successMessage = "Cadastro efetuado!";
+          
+          const { resetForm } = useForm();
+          resetForm();
+        } 
+
+      }catch( error ){
+
+        this.errorMessage.message = error.message;
+      
+      } 
     },
     validateField(){
         this.errorMessage = {
           cnpj : '',
+          cpf : '',
+          dataNascimento : '',
           name : '',
           fantasyName : '',
           stateRegistration : '',
           email : '',
           password : '',
-          newpassword : '',
           recoverpassword : ''
         };
 
         this.isValid = true;
-        if ( !this.formDataEntity.name ){
-          this.errorMessage.name = 'Campo obrigatório';
-          this.isValid = false;
+
+        if( this.typeRegister === 1){
+
+          if ( !this.formDataEntity.name ){
+            this.errorMessage.name = 'Campo obrigatório';
+            this.isValid = false;
+          }
+
+          if ( !this.formDataEntity.fantasyName ){
+            this.errorMessage.fantasyName = 'Campo obrigatório';
+            this.isValid = false;
+          }
+
+          if ( !this.formDataEntity.cnpj ){
+            this.errorMessage.cnpj = 'Campo obrigatório';
+            this.isValid = false;
+          }
+
+          if ( !this.formDataEntity.stateRegistration ){
+            this.errorMessage.stateRegistration = 'Campo obrigatório';
+            this.isValid = false;
+          }
+
         }
 
-        if ( !this.formDataEntity.fantasyName ){
-          this.errorMessage.fantasyName = 'Campo obrigatório';
-          this.isValid = false;
-        }
+        if( this.typeRegister === 2){
 
-        if ( !this.formDataEntity.cnpj ){
-          this.errorMessage.cnpj = 'Campo obrigatório';
-          this.isValid = false;
-        }
+          if ( !this.formDataIndividual.name ){
+            this.errorMessage.name = 'Campo obrigatório';
+            this.isValid = false;
+          }        
 
-        if ( !this.formDataEntity.stateRegistration ){
-          this.errorMessage.stateRegistration = 'Campo obrigatório';
-          this.isValid = false;
-        }
+          if ( !this.formDataIndividual.cpf ){
+            this.errorMessage.cpf = 'Campo obrigatório';
+            this.isValid = false;
+          }
+
+          if ( !this.formDataEntity.dataNascimento ){
+            this.errorMessage.dataNascimento = 'Campo obrigatório';
+            this.isValid = false;
+          }       
+
+        }        
 
         if ( !this.formDataPassword.email ){
           this.errorMessage.email = 'Campo obrigatório';
@@ -138,11 +189,6 @@ export default {
 
         if ( !this.formDataPassword.password ){
           this.errorMessage.password = 'Campo obrigatório';
-          this.isValid = false;
-        }
-
-        if ( !this.formDataPassword.newpassword ){
-          this.errorMessage.newpassword = 'Campo obrigatório';
           this.isValid = false;
         }
 

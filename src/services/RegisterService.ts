@@ -16,15 +16,8 @@ const formRegister: FormRegister = {
 
 export default class RegisterService {
     
-    public async store(formRegister: FormData){
-        
-        // const formData = new FormData();
-        // formData.append('name' , formRegister.name);
-        // formData.append('email' , formRegister.email);
-        // formData.append('password' , formRegister.password);
-        // formData.append('password_confirmation' , formRegister.password_confirmation);
-
-        return await repositorie.store(formRegister);
+    public async store(formRegister: FormData, typeRegister: number){
+        return await repositorie.store(formRegister, typeRegister);
     }
 
     public async single(id: number){

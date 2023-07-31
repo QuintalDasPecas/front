@@ -44,13 +44,8 @@
         methods:{
             setFormDataEntity(value){
                 this.$emit('setFormDataEntity', value);
-                console.log(this.errorMessage)
             }
         },
         emits: ['setFormDataEntity'],
     }
-
-    
-
-
 </script>
