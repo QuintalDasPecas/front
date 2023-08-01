@@ -2,8 +2,8 @@
     <div class="home" v-show="activedRegister">
         <section data-testid="recommendations" class="recommendations" type="recommendations">
             <div class="container">   
-                <div class="row justify-content-lg-center g-4">
-                    <div class="col-lg-6">
+                <div class="row justify-content-center g-4">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-6">
                         <div class="panel">
                             <Message severity="success" v-if="successMessage">{{ successMessage }}</Message>
                             <Message severity="error" v-if="errorMessage.message" v-for="(value, key) in errorMessage.message" :key="key">{{ value[0] }}</Message>
@@ -86,24 +86,13 @@ export default {
           const form = new FormData();          
           const register = new Register();
 
-          if( this.typeRegister == 1){
-            form.append('name', this.formDataEntity.name);
-            form.append('fantasy_name', this.formDataEntity.fantasyName);
-            form.append('state_registration', this.formDataEntity.stateRegistration);
-            form.append('cpf_cnpj', this.formDataEntity.cnpj);
-            form.append('email', this.formDataPassword.email)
-            form.append('password', this.formDataPassword.password);
-            form.append('password_confirmation', this.formDataPassword.recoverpassword);
-          }
-          
-          if( this.typeRegister == 2){
-            form.append('name', this.formDataIndividual.name);
-            form.append('cpf_cnpj', this.formDataIndividual.cpf);
-            form.append('data_nascimento', this.formDataIndividual.dataNascimento);
-            form.append('email', this.formDataIndividual.email)
-            form.append('password', this.formDataIndividual.password);
-            form.append('password_confirmation', this.formDataIndividual.recoverpassword);
-          }
+          let cpf_cnpj = this.formDataEntity.cnpj.replace(/[./\\-]/g, '');
+
+          form.append('name', this.formDataEntity.name);
+          form.append('cpf_cnpj', cpf_cnpj);
+          form.append('email', this.formDataPassword.email)
+          form.append('password', this.formDataPassword.password);
+          form.append('password_confirmation', this.formDataPassword.recoverpassword);
           
           const responseData = register.store(form, this.typeRegister);
           

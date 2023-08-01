@@ -1,20 +1,20 @@
 <template>
-     <div class="row g-2 justify-content-lg-center">
-        <div class="col-lg-12 col-md-6 col-sm-8 col-4">
+     <div class="row g-2 justify-content-center">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-12">
             <label for="inputEmail" class="form-label label-lg">E-mail</label>                                        
             <InputText type="email" class="form-control" @blur="setFormDataPassword(formData)" v-model="formData.email" size="large" id="inputEmail" name="email" :feedback="false" toggle-mask autocomplete="off" :maxlength="150" />
             <small class="p-error" id="text-error" v-if="errorMessage.email">{{ errorMessage.email || '&nbsp;' }}</small>
         </div>
     </div>   
-    <div class="row g-2 justify-content-lg-center">
-        <div class="col-lg-12 col-md-6 col-sm-8 col-4">
+    <div class="row g-2 justify-content-center">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-12">
             <label for="inputPassword" class="form-label label-lg">Nova senha</label>
             <Password @blur="setFormDataPassword(formData)" v-model="formData.password" size="large" id="password" name="password" :feedback="false" toggle-mask autocomplete="off" :maxlength="16" />
             <small class="p-error" id="text-error" v-if="errorMessage.password">{{ errorMessage.password || '&nbsp;' }}</small>
         </div>
     </div>
-    <div class="row g-2 justify-content-lg-center">
-        <div class="col-lg-12 col-md-6 col-sm-8 col-4">
+    <div class="row g-2 justify-content-center">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-12">
             <label for="inputPassword" class="form-label label-lg">Repetir nova senha</label>
             <Password @blur="setFormDataPassword(formData)" v-model="formData.recoverpassword" size="large" id="password" name="password" :feedback="false" toggle-mask autocomplete="off" :maxlength="16" />
             <small class="p-error" id="text-error" v-if="errorMessage.recoverpassword">{{ errorMessage.recoverpassword || '&nbsp;' }}</small>

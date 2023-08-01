@@ -2,42 +2,42 @@
     <div class="home">
         <section data-testid="recommendations" class="recommendations" type="recommendations">
             <div class="container">
-                <div class="row g-8  justify-content-lg-center">
-                    <div class="col-lg-6">
+                <div class="row g-8  justify-content-lg-center justify-content-md-center justify-content-sm-center justify-content-col-center">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-6">
                         <div class="panel">
-                            <Message severity="error" v-for="(value, key) in errors" :key="key">{{ value }}</Message>
+                            <Message severity="error" v-for="(value, key) in errors" :key="key">{{ value[0] }}</Message>
                             <form method="POST" class="row">
-                                <div class="row g-2 justify-content-md-center">
-                                    <div class="col-lg-10 col-md-6 col-sm-8 col-4">
+                                <div class="row g-2 justify-content-center">
+                                    <div class="col-lg-10 col-md-10 col-sm-10 col-10">
                                         <label for="inputEmail" class="form-label label-lg">E-mail</label>                                        
                                         <InputText v-model="email" size="large" class="form-control" maxlength="50" />
                                     </div>
                                 </div>
-                                <div class="row g-2 justify-content-md-center">
-                                    <div class="col-lg-10 col-md-6 col-sm-8 col-4">
+                                <div class="row g-2 justify-content-center">
+                                    <div class="col-lg-10 col-md-10 col-sm-10 col-10">
                                         <label for="inputPassword" class="form-label label-lg">Senha</label>
                                         <Password v-model="password" size="large" id="password" name="password" toggleMask autocomplete="off" :feedback="false" :maxlength="16" />
                                     </div>
                                 </div>
-                                <div class="row g-2 justify-content-md-center">
-                                    <div class="col-lg-5 col-md-3 col-sm-4 col-2">
+                                <div class="row g-2 justify-content-center">
+                                    <div class="col-lg-5 col-md-5 col-sm-5 col-5">
                                         <NuxtLink to="/" class="btn btn-primary btn-lg btn-width-defult">
                                             <i class="pi pi-arrow-left"></i> Voltar
                                         </NuxtLink>
                                     </div>
-                                    <div class="col-lg-5 col-md-3 col-sm-4 col-2">
+                                    <div class="col-lg-5 col-md-5 col-sm-5 col-5">
                                         <NuxtLink @click="onSubmit" class="btn btn-primary btn-lg btn-width-defult">
                                             <i class="pi pi-check"></i> Confirmar
                                         </NuxtLink>
                                     </div>
                                 </div>
-                                <div class="row g-2  justify-content-md-center">
-                                    <div class="col-lg-10 col-md-3 col-sm-4 col-2">
+                                <div class="row g-2  justify-content-center">
+                                    <div class="col-lg-10 col-md-10 col-sm-10 col-10">
                                         <NuxtLink to="/recoverpassword" class="btn btn-primary btn-lg btn-recover-password">Recuperar Senha</NuxtLink>
                                     </div>
                                 </div>
-                                <div class="row g-2  justify-content-md-center">
-                                    <div class="col-lg-10 col-md-3 col-sm-4 col-2">
+                                <div class="row g-2  justify-content-center">
+                                    <div class="col-lg-10 col-md-10 col-sm-10 col-10">
                                         <NuxtLink to="/register/users" style="width: 100%;" class="btn btn-primary btn-lg btn-register-user">Criar conta</NuxtLink>
                                     </div>
                                 </div>
@@ -78,7 +78,9 @@ async function onSubmit(){
         navigateTo('/',{ external : true });
     }
 
-    errors.value = responseError.value?.data.errors ?? [];
+    if( responseError.value?.data.errors ){
+           errors.value = responseError.value?.data.errors;
+    }
 }
 </script>
 

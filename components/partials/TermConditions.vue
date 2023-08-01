@@ -1,22 +1,22 @@
 <template>    
-    <div class="row justify-content-lg-center">
-        <div class="col-lg-1 d-flex justify-content-center align-self-center">             
+    <div class="row justify-content-center">
+        <div class="col-lg-1 col-md1 col-sm-1 col-1 d-flex justify-content-center align-self-center">             
             <Checkbox @click="acceptTermCondition" v-model="termCondition" inputId="termCondition" name="termCondition" value="true" />                    
         </div>
-        <div class="col-lg-11">
+        <div class="col-lg-10 col-md-10 col-sm-10 col-10">
             <label for="termCondition" class="ml-2">Aceito os Termos e condições e autorizo o uso de meus dados de acordo com a Declaração de privacidade.</label>
         </div>
     </div>
-    <div class="row justify-content-lg-center">
+    <div class="row justify-content-center">
         <br>
     </div>
-    <div class="row justify-content-lg-center">
-        <div class="col-lg-5">            
+    <div class="row justify-content-center">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-4 d-grid gap-2 d-flex justify-content-start">            
             <ToggleButton @click="typeRegister(1)" :disabled="isDisabledEntity" v-model="type[1]"  onLabel="Conta empresa" offLabel="Conta empresa" onIcon="pi pi-building" offIcon="pi pi-building" class="w-9rem" />
         </div>
-        <div class="col-lg-2">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-4">
         </div>
-        <div class="col-lg-5 d-grid gap-2 d-md-flex justify-content-md-end">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-4 d-grid gap-2 d-flex justify-content-end">
             <ToggleButton @click="typeRegister(2)" :disabled="isDisabledPerson" v-model="type[2]" onLabel="Conta pessoal" offLabel="Conta pessoal" onIcon="pi pi-user" offIcon="pi pi-user" class="w-9rem" />
         </div>
     </div>

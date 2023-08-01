@@ -4,27 +4,27 @@ export default class RegisterRepositorie {
   static async store(formData: FormData, typeRegister: number) {
    
     if( typeRegister === 1){
-      CallApi.setEndPoint('registerpj');
+      CallApi.setEndPoint('registerentity');
     }
 
     if( typeRegister === 2){
-      CallApi.setEndPoint('registerpf');
+      CallApi.setEndPoint('registerentity');
     }    
     return await CallApi.store(formData);
   }
 
   static async single(id: number) {
-    CallApi.setEndPoint('register');
+    CallApi.setEndPoint('registerentity');
     return CallApi.find(id);
   }
 
   static async all() {
-    CallApi.setEndPoint('register');
+    CallApi.setEndPoint('registerentity');
     return CallApi.all();
   }
 
   static async update(id: number, formData: FormData) {
-    CallApi.setEndPoint('register');
+    CallApi.setEndPoint('registerentity');
     return CallApi.update(id, formData);
   }
 }
