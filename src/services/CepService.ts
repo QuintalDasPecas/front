@@ -1,7 +1,7 @@
 
 export default class CepService{
     
-    static async fetchCepData(cepInput: string)
+    public async fetchCepData(cepInput: string)
     {
         let cep = cepInput.replace('.','').replace('-','');
 

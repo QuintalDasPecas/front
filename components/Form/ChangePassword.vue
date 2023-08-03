@@ -2,7 +2,7 @@
     <div class="home">
         <section data-testid="recommendations" class="recommendations" type="recommendations">
             <div class="container">
-                <div class="row g-8  justify-content-lg-center">
+                <div class="row g-8  justify-content-center">
                     <div class="col-lg-12">
                         <div class="panel">
                             <form>

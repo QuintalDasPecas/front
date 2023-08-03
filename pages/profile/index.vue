@@ -2,13 +2,10 @@
     <div class="home">
         <section data-testid="recommendations" class="recommendations" type="recommendations">
             <div class="container">
-                <div class="row g-8  justify-content-lg-center">
-                    <div class="col-lg-8">
+                <div class="row g-8  justify-content-center">
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-10 ">
                         <div class="center accordion-custom">
-                            <Accordion>                                
-                                <AccordionTab header="Meus dados">
-                                    <FormPersonalData></FormPersonalData>
-                                </AccordionTab>
+                            <Accordion>
                                 <AccordionTab header="Endereço">
                                     <FormAddress></FormAddress>
                                 </AccordionTab>
@@ -26,15 +23,13 @@
         </section>
     </div>                    
 </template>
-<script setup>
+<script>
+import FormAddress from '~/components/Form/Address.vue';
 
-const users = ref(localStorage.getItem('users'));
-const userId = ref(localStorage.getItem('userId'));
-const name = ref('');
-
-name.value = users.value;
-
-console.log(userId.value, users.value);
-
+export default{
+    components: {
+        FormAddress
+    }
+}
 
 </script>

@@ -8,7 +8,7 @@ export default class EntityRepositorie {
 
   static async single(id: number) {
     CallApi.setEndPoint('entity');
-    return CallApi.find(id);
+    return await CallApi.find(id);
   }
 
   static async all() {

@@ -7,7 +7,7 @@ export default class EntityService {
     }
 
     public async single(id: number){
-        return repositorie.single(id);
+        return await repositorie.single(id);
     }
 
     public async all(){

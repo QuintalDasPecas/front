@@ -1,17 +1,20 @@
-<template>    
+<template>
+    <PartialsValidationEmailNotification v-show="notification" />       
     <div class="home" v-show="activedRegister">
         <section data-testid="recommendations" class="recommendations" type="recommendations">
             <div class="container">   
                 <div class="row justify-content-center g-4">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-6">
                         <div class="panel">
+                          <form>                            
                             <Message severity="success" v-if="successMessage">{{ successMessage }}</Message>
                             <Message severity="error" v-if="errorMessage.message" v-for="(value, key) in errorMessage.message" :key="key">{{ value[0] }}</Message>
                             <PartialsTermConditions @typeRegister="handleTypeRegister" v-if="activedTermRegister" />
                             <PartialsLegalEntityData :errorMessage="errorMessage" @setFormDataEntity="handleformDataEntity" v-if="typeRegister === 1" />
                             <PartialsIndividualData :errorMessage="errorMessage" @setFormDataIndividual="handleformDataIndividual" v-if="typeRegister === 2" />
                             <PartialsPassword @formDataPassword="handleformDataPassword" :errorMessage="errorMessage" v-if="typeRegister === 1 || typeRegister === 2"/>
-                            <PartialsControlButton @onSubmit="handleOnSubmit" v-if="typeRegister === 1 || typeRegister === 2" :redirectUrl="redirectUrl"/>
+                            <PartialsControlButton @onSubmit="handleOnSubmit" v-if="typeRegister === 1 || typeRegister === 2" :redirectUrl="redirectUrl"/>                           
+                          </form>
                         </div>
                     </div>
                 </div>
@@ -26,7 +29,6 @@ import IndividualData from '~/components/partials/IndividualData.vue';
 import Password from '~/components/partials/Password.vue';
 import ControlButton from '~/components/partials/ControlButton.vue';
 import Register from '@/src/services/RegisterService';
-import { useForm } from 'vee-validate';
 
 export default {
   components: {
@@ -39,15 +41,16 @@ export default {
   data() {
     return {
       successMessage: '',
-      errorMessage: { name: '', fantasyName: '', cpf:'', dataNascimento:'', cnpj: '', stateRegistration: '',  email: '', password: '', newpassword: '', recoverpassword: '', message: []},
+      errorMessage: { name: '', cpf_cnpj: '', email: '', password: '', recoverpassword: '', message: []},
       activedRegister: true,
       typeRegister: 0,
       activedTermRegister: true,
       redirectUrl: '/register/users',
-      formDataEntity: { name: '', fantasyName: '', cnpj: '', stateRegistration:''},
+      formDataEntity: { name: '', cpf_cnpj: ''},
       formDataPassword: { email: '', password: '', recoverpassword: ''},
-      formDataIndividual: { name: '', cpf: '', dataNascimento: ''},
-      isValid : true      
+      formDataIndividual: { name: '', cpf_cnpj: ''},
+      isValid : true,      
+      notification : false
     };
   },
   methods: {
@@ -62,20 +65,16 @@ export default {
     },
     handleformDataEntity( value ){
       this.formDataEntity.name = value.name;
-      this.formDataEntity.fantasyName = value.fantasyName;
-      this.formDataEntity.cnpj = value.cnpj;
-      this.formDataEntity.stateRegistration = value.stateRegistration;
+      this.formDataEntity.cpf_cnpj = value.cpf_cnpj;
     },
     handleformDataIndividual( value){
       this.formDataIndividual.name = value.name;
-      this.formDataIndividual.cpf = value.cpf;
-      this.formDataIndividual.dataNascimento = value.dataNascimento;
+      this.formDataIndividual.cpf_cnpj = value.cpf_cnpj;
     },
-    handleOnSubmit( value ){
+    async handleOnSubmit( value ){
       try{
        
         this.errorMessage.message = false;
-        
         if( value === true ){
 
           this.validateField();
@@ -86,41 +85,43 @@ export default {
           const form = new FormData();          
           const register = new Register();
 
-          let cpf_cnpj = this.formDataEntity.cnpj.replace(/[./\\-]/g, '');
+          let name = this.formDataEntity.name ? this.formDataEntity.name : '';
+          name = name ? name : this.formDataIndividual.name;
+          let cpf_cnpj = this.formDataEntity.cpf_cnpj;
+          cpf_cnpj = cpf_cnpj ? cpf_cnpj : this.formDataIndividual.cpf_cnpj;
+          cpf_cnpj = cpf_cnpj.replace(/[./\\-]/g, '');
 
-          form.append('name', this.formDataEntity.name);
+          form.append('name', name);
           form.append('cpf_cnpj', cpf_cnpj);
           form.append('email', this.formDataPassword.email)
           form.append('password', this.formDataPassword.password);
           form.append('password_confirmation', this.formDataPassword.recoverpassword);
           
-          const responseData = register.store(form, this.typeRegister);
+          const responseData = await register.store(form, this.typeRegister);
           
           if( responseData.error.value?.data.errors ){
             this.errorMessage.message = responseData.error.value?.data.errors;
             return false;
           }
 
-          this.successMessage = "Cadastro efetuado!";
-          
-          const { resetForm } = useForm();
-          resetForm();
+          this.successMessage = "Cadastro efetuado!";  
+          this.typeRegister = 0;
+          this.notification = true;
+          this.activedRegister = false;
+
+         navigateTo('/register/users');
         } 
 
       }catch( error ){
 
-        this.errorMessage.message = error.message;
+        this.errorMessage.message = { errors :  [error.message] };
       
       } 
     },
     validateField(){
         this.errorMessage = {
-          cnpj : '',
-          cpf : '',
-          dataNascimento : '',
+          cpf_cnpj : '',
           name : '',
-          fantasyName : '',
-          stateRegistration : '',
           email : '',
           password : '',
           recoverpassword : ''
@@ -135,21 +136,10 @@ export default {
             this.isValid = false;
           }
 
-          if ( !this.formDataEntity.fantasyName ){
-            this.errorMessage.fantasyName = 'Campo obrigatório';
-            this.isValid = false;
-          }
-
-          if ( !this.formDataEntity.cnpj ){
+          if ( !this.formDataEntity.cpf_cnpj ){
             this.errorMessage.cnpj = 'Campo obrigatório';
             this.isValid = false;
           }
-
-          if ( !this.formDataEntity.stateRegistration ){
-            this.errorMessage.stateRegistration = 'Campo obrigatório';
-            this.isValid = false;
-          }
-
         }
 
         if( this.typeRegister === 2){
@@ -159,15 +149,10 @@ export default {
             this.isValid = false;
           }        
 
-          if ( !this.formDataIndividual.cpf ){
+          if ( !this.formDataIndividual.cpf_cnpj ){
             this.errorMessage.cpf = 'Campo obrigatório';
             this.isValid = false;
           }
-
-          if ( !this.formDataEntity.dataNascimento ){
-            this.errorMessage.dataNascimento = 'Campo obrigatório';
-            this.isValid = false;
-          }       
 
         }        
 

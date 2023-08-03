@@ -7,16 +7,11 @@
         </div>
     </div>
     <div class="row g-2 justify-content-center">
-        <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-12">
             <label for="inputCPF" class="form-label label-lg">CPF</label>
-            <InputMask @blur="setFormDataIndividual(formData)" id="basic" mask="999.999.999-99" v-model="formData.cpf" class="form-control p-inputmask p-inputmask-lg"  />
+            <InputMask @blur="setFormDataIndividual(formData)" id="basic" mask="999.999.999-99" v-model="formData.cpf_cnpj" class="form-control p-inputmask p-inputmask-lg"  />
             <small class="p-error" id="text-error" v-if="errorMessage.cpf">{{ errorMessage.cpf || '&nbsp;' }}</small>
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-            <label for="inputBirthDate" class="form-label label-lg">Data Nascimento</label>
-            <InputMask @blur="setFormDataIndividual(formData)" id="basic" mask="99/99/9999" v-model="formData.dataNascimento" class="form-control p-inputmask p-inputmask-lg"  />
-            <small class="p-error" id="text-error" v-if="errorMessage.dataNascimento">{{ errorMessage.dataNascimento || '&nbsp;' }}</small>
-        </div>
+        </div>       
     </div>
 </template>
 <script>
@@ -30,8 +25,7 @@
             return{
                 formData : {
                     name : '',
-                    cpf : '',
-                    dataNascimento : ''
+                    cpf_cnpj : '',
                 }
             };
         },

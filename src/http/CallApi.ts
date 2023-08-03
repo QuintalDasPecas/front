@@ -105,7 +105,7 @@ export default class CallApi{
     static async find(id: Number){
         
         const apiUrl = useRuntimeConfig().public.API_URL + this.getEndPoint();
-        const { error, data } = await useFetch( apiUrl, {
+        return await useFetch( apiUrl, {
             onRequest({ request, options }) {
                 options.query = {'id' : id};
                 options.method = 'GET';
@@ -122,7 +122,7 @@ export default class CallApi{
 
     static async all(){
         const apiUrl = useRuntimeConfig().public.API_URL + this.getEndPoint();
-        await useFetch( apiUrl, {
+        return await useFetch( apiUrl, {
             onRequest({ request, options }) {
                 options.method = 'GET';
             },
@@ -136,12 +136,22 @@ export default class CallApi{
     }
 
     static async update(id: number, FormData: FormData){
-        const apiUrl = useRuntimeConfig().public.API_URL + this.getEndPoint();
-        await useFetch( apiUrl , {
+        let apiUrl = useRuntimeConfig().public.API_URL + this.getEndPoint();
+        apiUrl += '/' + id;
+        option.body = utils.formDataToUrlEncoded(FormData);
+        return await useFetch( apiUrl, {
             onRequest({ request, options }) {
-                options.query = {'id' : id};
+                options.headers = {
+                    'mode' : option.headers.mode,
+                    'credentials' : option.headers.credentials,
+                    'Accept' : option.headers.Accept,
+                   'Content-Type' : option.headers.ContentType
+                };
                 options.method = 'PUT';
-                options.body = FormData;
+                options.body = option.body;
+            },
+            onRequestError({ request, options, error }) {
+                console.log(error);
             },
             onResponse({ request, response, options }) {
                 return response._data;
@@ -154,7 +164,7 @@ export default class CallApi{
 
     static async destroy(id: number){
         const apiUrl = useRuntimeConfig().public.API_URL + this.getEndPoint();
-        await useFetch( apiUrl, {
+        return await useFetch( apiUrl, {
             onRequest({ request, options }) {
                 options.query = {'id' : id};
                 options.method = 'DELETE';
