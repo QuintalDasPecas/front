@@ -1,11 +1,23 @@
+
 <template>
-    <FileUpload name="demo[]" url="./upload.php" @upload="onTemplatedUpload($event)" :multiple="true" accept="image/*" :maxFileSize="1000000" @select="onSelectedFiles">
+    <div class="card">
+        <DataTable v-model:selection="selectedProduct" :value="products" dataKey="id" tableStyle="min-width: 50rem">
+    <Column selectionMode="multiple" headerStyle="width: 3rem"></Column>
+            <Column field="name" header="Name"></Column>
+            <Column field="format" header="Formato"></Column>
+            <Column field="size" header="Tamanho"></Column>
+            <Column field="entity" header="Entidade"></Column>
+        </DataTable>
+    </div>
+    <br>
+    <Message severity="success" v-if="successMessage">{{ successMessage }}</Message>
+    <FileUpload name="files[]" :url="url" @upload="onTemplatedUpload($event)" :multiple="true" accept="image/*" :maxFileSize="1000000" @select="onSelectedFiles">
         <template #header="{ chooseCallback, uploadCallback, clearCallback, files }">
             <div class="flex flex-wrap justify-content-between align-items-center flex-1 gap-2">
                 <div class="flex gap-2">
                     <Button @click="chooseCallback()" icon="pi pi-images" rounded outlined></Button>
-                    <Button @click="uploadEvent(uploadCallback)" icon="pi pi-cloud-upload" rounded outlined severity="success" :disabled="!files || files.length === 0"></Button>
-                    <Button @click="clearCallback()" icon="pi pi-times" rounded outlined severity="danger" :disabled="!files || files.length === 0"></Button>
+                    <Button @click="uploadEvent()" icon="pi pi-cloud-upload" rounded outlined severity="success" :disabled="!files || files.length === 0"></Button>
+                    <Button @click="clearCallback();ClearMsg();" icon="pi pi-times" rounded outlined severity="danger" :disabled="!files || files.length === 0"></Button>
                 </div>
                 <ProgressBar :value="totalSizePercent" :showValue="false" :class="['md:w-20rem h-1rem w-full md:ml-auto', { 'exceeded-progress-bar': totalSizePercent > 100 }]">
                     <span class="white-space-nowrap">{{ totalSize }}B / 1Mb</span>
@@ -50,3 +62,98 @@
             </template>
     </FileUpload>
 </template>
+<script>
+import uploadService from '@/src/services/UploadService';
+import { ProductService } from '@/src/services/ProductService';
+
+export default {    
+    props: {
+        url:{
+            type: String,
+            default: 'upload'
+        }
+    },
+    data() {
+        return {
+            files: [],
+            totalSize: 0,
+            totalSizePercent: 0,
+            successMessage: '',
+            products: null,
+            columns: null,
+            selectedProduct: null,
+        };
+    },
+    methods: {
+        onRemoveTemplatingFile(file, removeFileCallback, index) {
+            removeFileCallback(index);
+            this.totalSize -= parseInt(this.formatSize(file.size));
+            this.totalSizePercent = this.totalSize / 10;
+            this.onTemplatedUpload('');
+        },
+        onClearTemplatingUpload(clear) {
+            clear();
+            this.totalSize = 0;
+            this.totalSizePercent = 0;    
+            this.onTemplatedUpload('');        
+        },
+        onSelectedFiles(event) {
+            this.files = event.files;
+            this.files.forEach((file) => {
+                this.totalSize += parseInt(this.formatSize(file.size));
+            });
+        },
+        async uploadEvent() {
+           this.totalSizePercent = this.totalSize / 10;
+
+           const formData = new FormData();        
+           formData.append('file', this.files[0], this.files[0].name);
+           formData.append('user_id', localStorage.getItem('userId'));
+           formData.append('entity_id', 4);
+
+           const service = new uploadService();
+           const responseData = await service.Upload(formData);
+
+           if (responseData.data._rawValue.status == 201){
+                this.onTemplatedUpload('Upload realizado com sucesso.');
+           }
+        },
+        onTemplatedUpload( msg ) {
+            this.successMessage = msg;
+            console.log( msg )
+        },
+        formatSize(bytes) {
+            if (bytes === 0) {
+                return '0 B';
+            }
+
+            let k = 1000,
+                dm = 3,
+                sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
+                i = Math.floor(Math.log(bytes) / Math.log(k));
+
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+        },
+        ClearMsg(){
+            this.onTemplatedUpload('');
+        },
+        onRowEditSave(event) {
+            let { newData, index } = event;
+
+            this.products[index] = newData;
+        },
+    },
+    created() {
+        this.columns = [
+            { field: 'name', header: 'Name' },
+            { field: 'format', header: 'Tipo' },
+            { field: 'size', header: 'Tamanho' },
+            { field: 'entity', header: 'Entidade' },
+            { field: 'action', header: 'Ação' }
+        ];
+    },
+    mounted() {
+        ProductService.getProductsMini().then((data) => (this.products = data));
+    }
+};
+</script>

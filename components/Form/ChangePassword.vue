@@ -3,35 +3,37 @@
         <section data-testid="recommendations" class="recommendations" type="recommendations">
             <div class="container">
                 <div class="row g-8  justify-content-center">
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col12">
                         <div class="panel">
                             <form>
+                                <Message severity="success" v-if="successMessage">{{ successMessage }}</Message>
+                                <Message severity="error" v-if="errorMessage.message" v-for="(value, key) in errorMessage.message" :key="key">{{ value[0] }}</Message>
                                 <div class="row g-2 justify-content-lg-center">
-                                    <div class="col-lg-10 col-md-6 col-sm-8 col-4">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                                         <label for="inputPassword" class="form-label label-lg">Senha atual</label>                                        
-                                        <Password v-model="password" size="large" id="password" name="password" :feedback="false" toggle-mask autocomplete="off" :maxlength="16" />
+                                        <Password v-model="formData.password" size="large" id="password" name="password" :feedback="false" toggle-mask autocomplete="off" :maxlength="16" />
                                     </div>
                                 </div>
                                 <div class="row g-2 justify-content-lg-center">
-                                    <div class="col-lg-10 col-md-6 col-sm-8 col-4">
-                                        <label for="inputPassword" class="form-label label-lg">Nova senha</label>
-                                        <Password v-model="newpassword" size="large" id="password" name="password" :feedback="false" toggle-mask autocomplete="off" :maxlength="16" />
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                                        <label for="inputNewPassword" class="form-label label-lg">Nova senha</label>
+                                        <Password v-model="formData.newpassword" size="large" id="newpassword" name="newpassword" :feedback="false" toggle-mask autocomplete="off" :maxlength="16" />
                                     </div>
                                 </div>
                                 <div class="row g-2 justify-content-lg-center">
-                                    <div class="col-lg-10 col-md-6 col-sm-8 col-4">
-                                        <label for="inputPassword" class="form-label label-lg">Repetir nova senha</label>
-                                        <Password v-model="recoverpassword" size="large" id="password" name="password" :feedback="false" toggle-mask autocomplete="off" :maxlength="16" />
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                                        <label for="inputRecoverPassword" class="form-label label-lg">Repetir nova senha</label>
+                                        <Password v-model="formData.recoverpassword" size="large" id="recoverpassword" name="recoverpassword" :feedback="false" toggle-mask autocomplete="off" :maxlength="16" />
                                     </div>
                                 </div>
                                 <div class="row box-button justify-content-lg-center">
-                                    <div class="col-lg-5 col-md-3 col-sm-4 col-2">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-6">
                                         <NuxtLink to="" class="btn btn-primary btn-lg btn-width-defult">
                                             <i class="pi pi-arrow-left"></i> Voltar
                                         </NuxtLink>
                                     </div>
-                                    <div class="col-lg-5 col-md-3 col-sm-4 col-2">
-                                        <NuxtLink class="btn btn-primary btn-lg btn-width-defult">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                                        <NuxtLink class="btn btn-primary btn-lg btn-width-defult" @click="handleOnSubmit()" >
                                             <i class="pi pi-check"></i> Enviar
                                         </NuxtLink>
                                     </div>
@@ -46,8 +48,59 @@
 </template>
 <script>
 
-const password = ref('');
-const newpassword = ref('');
-const recoverpassword = ref('');
+import Service from '@/src/services/ChangePasswordSrevice';
 
+export default{
+
+    components:{
+
+    },
+    data() {
+        return{
+            formData : {
+                password : '',
+                newpassword : '',
+                recoverpassword : '',
+
+            },
+            successMessage: '',
+            errorMessage: {
+                message : ''
+            }
+        }
+    },
+    methods:{
+        async handleOnSubmit(){
+            try{
+                const form = new FormData();
+                form.append('current_password',this.formData.password);
+                form.append('password',this.formData.newpassword);
+                form.append('password_confirmation',this.formData.recoverpassword);
+
+                const service = new Service();
+                const userId = localStorage.getItem('userId');
+                const responseData = await service.update(userId, form);
+            
+                const status = !responseData.data ? responseData.data._rawValue.status : 500;
+                
+                if (status === 200){
+                    this.successMessage = responseData.data._rawValue.message;
+                    return true;
+                }
+
+                if( responseData.error.value?.data.errors ){
+                    this.errorMessage.message = responseData.error.value?.data.errors;
+                    return false;
+                }
+
+                console.log(responseData)
+
+            }catch( error ){
+                console.log( error )
+                this.errorMessage.message = { errors :  [error.message] };
+
+            }  
+        }       
+    },
+}
 </script>

@@ -20,6 +20,7 @@ import Message from "primevue/message";
 import Card from "primevue/card"; 
 import ToggleButton from "primevue/togglebutton";
 import Checkbox from "primevue/checkbox";
+import ToastService from "primevue/toastservice";
 
 export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.use(PrimeVue, { ripple: true });
@@ -43,5 +44,6 @@ export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.component("Card", Card);
     nuxtApp.vueApp.component("ToggleButton",ToggleButton);
     nuxtApp.vueApp.component("Checkbox",Checkbox);
+    nuxtApp.vueApp.component("ToastService",ToastService);
     //other components that you need
 });

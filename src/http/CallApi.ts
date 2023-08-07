@@ -187,4 +187,27 @@ export default class CallApi{
     static setEndPoint(newEndPoint: string) {
         this.endPoint = newEndPoint;
     }
+
+    static async Upload(myForm: FormData){
+
+        const apiUrl = useRuntimeConfig().public.API_URL + this.getEndPoint();        
+        return await useFetch( apiUrl, {
+            onRequest({ request, options }) {
+                options.headers = {
+                    'mode' : option.headers.mode,
+                    'credentials' : option.headers.credentials,
+                    'Accept' : option.headers.Accept
+                };
+                options.method = 'POST';
+                options.body = myForm;
+            },
+            onResponse({ request, response, options }) {
+                return response._data;
+            },
+            onResponseError({ request, response, options }) {
+                return response._data;
+            }
+        });
+
+    }
 }

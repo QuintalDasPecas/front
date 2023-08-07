@@ -7,13 +7,13 @@
                         <div class="center accordion-custom">
                             <Accordion>
                                 <AccordionTab header="Endereço">
-                                    <FormAddress></FormAddress>
+                                    <FormAddress />
                                 </AccordionTab>
                                 <AccordionTab header="Alterar senha">
-                                    <FormChangePassword></FormChangePassword>
+                                    <FormChangePassword />
                                 </AccordionTab>
                                 <AccordionTab header="Arquivos">
-                                    <PartialsUploads></PartialsUploads>
+                                    <FormUploads />
                                 </AccordionTab>    
                             </Accordion>
                         </div>

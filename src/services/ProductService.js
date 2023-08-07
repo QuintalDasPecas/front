@@ -7,10 +7,10 @@ export const ProductService = {
                 name: 'Bamboo Watch',
                 description: 'Product Description',
                 image: 'bamboo-watch.jpg',
-                price: 65,
-                category: 'Accessories',
+                size: 65,
+                format: 'Accessories',
                 quantity: 24,
-                inventoryStatus: 'INSTOCK',
+                entity: 'INSTOCK',
                 rating: 5
             },
             {
@@ -19,10 +19,10 @@ export const ProductService = {
                 name: 'Black Watch',
                 description: 'Product Description',
                 image: 'black-watch.jpg',
-                price: 72,
-                category: 'Accessories',
+                size: 72,
+                format: 'Accessories',
                 quantity: 61,
-                inventoryStatus: 'INSTOCK',
+                entity: 'INSTOCK',
                 rating: 4
             },
             {
@@ -31,10 +31,10 @@ export const ProductService = {
                 name: 'Blue Band',
                 description: 'Product Description',
                 image: 'blue-band.jpg',
-                price: 79,
-                category: 'Fitness',
+                size: 79,
+                format: 'Fitness',
                 quantity: 2,
-                inventoryStatus: 'LOWSTOCK',
+                entity: 'LOWSTOCK',
                 rating: 3
             },
             {
@@ -43,10 +43,10 @@ export const ProductService = {
                 name: 'Blue T-Shirt',
                 description: 'Product Description',
                 image: 'blue-t-shirt.jpg',
-                price: 29,
-                category: 'Clothing',
+                size: 29,
+                format: 'Clothing',
                 quantity: 25,
-                inventoryStatus: 'INSTOCK',
+                entity: 'INSTOCK',
                 rating: 5
             },
             {
@@ -55,10 +55,10 @@ export const ProductService = {
                 name: 'Bracelet',
                 description: 'Product Description',
                 image: 'bracelet.jpg',
-                price: 15,
-                category: 'Accessories',
+                size: 15,
+                format: 'Accessories',
                 quantity: 73,
-                inventoryStatus: 'INSTOCK',
+                entity: 'INSTOCK',
                 rating: 4
             },
             {
@@ -67,10 +67,10 @@ export const ProductService = {
                 name: 'Brown Purse',
                 description: 'Product Description',
                 image: 'brown-purse.jpg',
-                price: 120,
-                category: 'Accessories',
+                size: 120,
+                format: 'Accessories',
                 quantity: 0,
-                inventoryStatus: 'OUTOFSTOCK',
+                entity: 'OUTOFSTOCK',
                 rating: 4
             },
             {
@@ -79,10 +79,10 @@ export const ProductService = {
                 name: 'Chakra Bracelet',
                 description: 'Product Description',
                 image: 'chakra-bracelet.jpg',
-                price: 32,
-                category: 'Accessories',
+                size: 32,
+                format: 'Accessories',
                 quantity: 5,
-                inventoryStatus: 'LOWSTOCK',
+                entity: 'LOWSTOCK',
                 rating: 3
             },
             {
@@ -91,10 +91,10 @@ export const ProductService = {
                 name: 'Galaxy Earrings',
                 description: 'Product Description',
                 image: 'galaxy-earrings.jpg',
-                price: 34,
-                category: 'Accessories',
+                size: 34,
+                format: 'Accessories',
                 quantity: 23,
-                inventoryStatus: 'INSTOCK',
+                entity: 'INSTOCK',
                 rating: 5
             },
             {
@@ -103,10 +103,10 @@ export const ProductService = {
                 name: 'Game Controller',
                 description: 'Product Description',
                 image: 'game-controller.jpg',
-                price: 99,
-                category: 'Electronics',
+                size: 99,
+                format: 'Electronics',
                 quantity: 2,
-                inventoryStatus: 'LOWSTOCK',
+                entity: 'LOWSTOCK',
                 rating: 4
             },
             {
@@ -115,10 +115,10 @@ export const ProductService = {
                 name: 'Gaming Set',
                 description: 'Product Description',
                 image: 'gaming-set.jpg',
-                price: 299,
-                category: 'Electronics',
+                size: 299,
+                format: 'Electronics',
                 quantity: 63,
-                inventoryStatus: 'INSTOCK',
+                entity: 'INSTOCK',
                 rating: 3
             },
             {
@@ -127,10 +127,10 @@ export const ProductService = {
                 name: 'Gold Phone Case',
                 description: 'Product Description',
                 image: 'gold-phone-case.jpg',
-                price: 24,
-                category: 'Accessories',
+                size: 24,
+                format: 'Accessories',
                 quantity: 0,
-                inventoryStatus: 'OUTOFSTOCK',
+                entity: 'OUTOFSTOCK',
                 rating: 4
             },
             {
@@ -139,10 +139,10 @@ export const ProductService = {
                 name: 'Green Earbuds',
                 description: 'Product Description',
                 image: 'green-earbuds.jpg',
-                price: 89,
-                category: 'Electronics',
+                size: 89,
+                format: 'Electronics',
                 quantity: 23,
-                inventoryStatus: 'INSTOCK',
+                entity: 'INSTOCK',
                 rating: 4
             },
             {
@@ -151,10 +151,10 @@ export const ProductService = {
                 name: 'Green T-Shirt',
                 description: 'Product Description',
                 image: 'green-t-shirt.jpg',
-                price: 49,
-                category: 'Clothing',
+                size: 49,
+                format: 'Clothing',
                 quantity: 74,
-                inventoryStatus: 'INSTOCK',
+                entity: 'INSTOCK',
                 rating: 5
             },
             {
@@ -163,10 +163,10 @@ export const ProductService = {
                 name: 'Grey T-Shirt',
                 description: 'Product Description',
                 image: 'grey-t-shirt.jpg',
-                price: 48,
-                category: 'Clothing',
+                size: 48,
+                format: 'Clothing',
                 quantity: 0,
-                inventoryStatus: 'OUTOFSTOCK',
+                entity: 'OUTOFSTOCK',
                 rating: 3
             },
             {
@@ -175,10 +175,10 @@ export const ProductService = {
                 name: 'Headphones',
                 description: 'Product Description',
                 image: 'headphones.jpg',
-                price: 175,
-                category: 'Electronics',
+                size: 175,
+                format: 'Electronics',
                 quantity: 8,
-                inventoryStatus: 'LOWSTOCK',
+                entity: 'LOWSTOCK',
                 rating: 5
             },
             {
@@ -187,10 +187,10 @@ export const ProductService = {
                 name: 'Light Green T-Shirt',
                 description: 'Product Description',
                 image: 'light-green-t-shirt.jpg',
-                price: 49,
-                category: 'Clothing',
+                size: 49,
+                format: 'Clothing',
                 quantity: 34,
-                inventoryStatus: 'INSTOCK',
+                entity: 'INSTOCK',
                 rating: 4
             },
             {
@@ -199,10 +199,10 @@ export const ProductService = {
                 name: 'Lime Band',
                 description: 'Product Description',
                 image: 'lime-band.jpg',
-                price: 79,
-                category: 'Fitness',
+                size: 79,
+                format: 'Fitness',
                 quantity: 12,
-                inventoryStatus: 'INSTOCK',
+                entity: 'INSTOCK',
                 rating: 3
             },
             {
@@ -211,10 +211,10 @@ export const ProductService = {
                 name: 'Mini Speakers',
                 description: 'Product Description',
                 image: 'mini-speakers.jpg',
-                price: 85,
-                category: 'Clothing',
+                size: 85,
+                format: 'Clothing',
                 quantity: 42,
-                inventoryStatus: 'INSTOCK',
+                entity: 'INSTOCK',
                 rating: 4
             },
             {
@@ -223,10 +223,10 @@ export const ProductService = {
                 name: 'Painted Phone Case',
                 description: 'Product Description',
                 image: 'painted-phone-case.jpg',
-                price: 56,
-                category: 'Accessories',
+                size: 56,
+                format: 'Accessories',
                 quantity: 41,
-                inventoryStatus: 'INSTOCK',
+                entity: 'INSTOCK',
                 rating: 5
             },
             {
@@ -235,10 +235,10 @@ export const ProductService = {
                 name: 'Pink Band',
                 description: 'Product Description',
                 image: 'pink-band.jpg',
-                price: 79,
-                category: 'Fitness',
+                size: 79,
+                format: 'Fitness',
                 quantity: 63,
-                inventoryStatus: 'INSTOCK',
+                entity: 'INSTOCK',
                 rating: 4
             },
             {
@@ -247,10 +247,10 @@ export const ProductService = {
                 name: 'Pink Purse',
                 description: 'Product Description',
                 image: 'pink-purse.jpg',
-                price: 110,
-                category: 'Accessories',
+                size: 110,
+                format: 'Accessories',
                 quantity: 0,
-                inventoryStatus: 'OUTOFSTOCK',
+                entity: 'OUTOFSTOCK',
                 rating: 4
             },
             {
@@ -259,10 +259,10 @@ export const ProductService = {
                 name: 'Purple Band',
                 description: 'Product Description',
                 image: 'purple-band.jpg',
-                price: 79,
-                category: 'Fitness',
+                size: 79,
+                format: 'Fitness',
                 quantity: 6,
-                inventoryStatus: 'LOWSTOCK',
+                entity: 'LOWSTOCK',
                 rating: 3
             },
             {
@@ -271,10 +271,10 @@ export const ProductService = {
                 name: 'Purple Gemstone Necklace',
                 description: 'Product Description',
                 image: 'purple-gemstone-necklace.jpg',
-                price: 45,
-                category: 'Accessories',
+                size: 45,
+                format: 'Accessories',
                 quantity: 62,
-                inventoryStatus: 'INSTOCK',
+                entity: 'INSTOCK',
                 rating: 4
             },
             {
@@ -283,10 +283,10 @@ export const ProductService = {
                 name: 'Purple T-Shirt',
                 description: 'Product Description',
                 image: 'purple-t-shirt.jpg',
-                price: 49,
-                category: 'Clothing',
+                size: 49,
+                format: 'Clothing',
                 quantity: 2,
-                inventoryStatus: 'LOWSTOCK',
+                entity: 'LOWSTOCK',
                 rating: 5
             },
             {
@@ -295,10 +295,10 @@ export const ProductService = {
                 name: 'Shoes',
                 description: 'Product Description',
                 image: 'shoes.jpg',
-                price: 64,
-                category: 'Clothing',
+                size: 64,
+                format: 'Clothing',
                 quantity: 0,
-                inventoryStatus: 'INSTOCK',
+                entity: 'INSTOCK',
                 rating: 4
             },
             {
@@ -307,10 +307,10 @@ export const ProductService = {
                 name: 'Sneakers',
                 description: 'Product Description',
                 image: 'sneakers.jpg',
-                price: 78,
-                category: 'Clothing',
+                size: 78,
+                format: 'Clothing',
                 quantity: 52,
-                inventoryStatus: 'INSTOCK',
+                entity: 'INSTOCK',
                 rating: 4
             },
             {
@@ -319,10 +319,10 @@ export const ProductService = {
                 name: 'Teal T-Shirt',
                 description: 'Product Description',
                 image: 'teal-t-shirt.jpg',
-                price: 49,
-                category: 'Clothing',
+                size: 49,
+                format: 'Clothing',
                 quantity: 3,
-                inventoryStatus: 'LOWSTOCK',
+                entity: 'LOWSTOCK',
                 rating: 3
             },
             {
@@ -331,10 +331,10 @@ export const ProductService = {
                 name: 'Yellow Earbuds',
                 description: 'Product Description',
                 image: 'yellow-earbuds.jpg',
-                price: 89,
-                category: 'Electronics',
+                size: 89,
+                format: 'Electronics',
                 quantity: 35,
-                inventoryStatus: 'INSTOCK',
+                entity: 'INSTOCK',
                 rating: 3
             },
             {
@@ -343,10 +343,10 @@ export const ProductService = {
                 name: 'Yoga Mat',
                 description: 'Product Description',
                 image: 'yoga-mat.jpg',
-                price: 20,
-                category: 'Fitness',
+                size: 20,
+                format: 'Fitness',
                 quantity: 15,
-                inventoryStatus: 'INSTOCK',
+                entity: 'INSTOCK',
                 rating: 5
             },
             {
@@ -355,10 +355,10 @@ export const ProductService = {
                 name: 'Yoga Set',
                 description: 'Product Description',
                 image: 'yoga-set.jpg',
-                price: 20,
-                category: 'Fitness',
+                size: 20,
+                format: 'Fitness',
                 quantity: 25,
-                inventoryStatus: 'INSTOCK',
+                entity: 'INSTOCK',
                 rating: 8
             }
         ];
@@ -372,10 +372,10 @@ export const ProductService = {
                 name: 'Bamboo Watch',
                 description: 'Product Description',
                 image: 'bamboo-watch.jpg',
-                price: 65,
-                category: 'Accessories',
+                size: 65,
+                format: 'Accessories',
                 quantity: 24,
-                inventoryStatus: 'INSTOCK',
+                entity: 'INSTOCK',
                 rating: 5,
                 orders: [
                     {
@@ -422,10 +422,10 @@ export const ProductService = {
                 name: 'Black Watch',
                 description: 'Product Description',
                 image: 'black-watch.jpg',
-                price: 72,
-                category: 'Accessories',
+                size: 72,
+                format: 'Accessories',
                 quantity: 61,
-                inventoryStatus: 'INSTOCK',
+                entity: 'INSTOCK',
                 rating: 4,
                 orders: [
                     {
@@ -454,10 +454,10 @@ export const ProductService = {
                 name: 'Blue Band',
                 description: 'Product Description',
                 image: 'blue-band.jpg',
-                price: 79,
-                category: 'Fitness',
+                size: 79,
+                format: 'Fitness',
                 quantity: 2,
-                inventoryStatus: 'LOWSTOCK',
+                entity: 'LOWSTOCK',
                 rating: 3,
                 orders: [
                     {
@@ -486,10 +486,10 @@ export const ProductService = {
                 name: 'Blue T-Shirt',
                 description: 'Product Description',
                 image: 'blue-t-shirt.jpg',
-                price: 29,
-                category: 'Clothing',
+                size: 29,
+                format: 'Clothing',
                 quantity: 25,
-                inventoryStatus: 'INSTOCK',
+                entity: 'INSTOCK',
                 rating: 5,
                 orders: []
             },
@@ -499,10 +499,10 @@ export const ProductService = {
                 name: 'Bracelet',
                 description: 'Product Description',
                 image: 'bracelet.jpg',
-                price: 15,
-                category: 'Accessories',
+                size: 15,
+                format: 'Accessories',
                 quantity: 73,
-                inventoryStatus: 'INSTOCK',
+                entity: 'INSTOCK',
                 rating: 4,
                 orders: [
                     {
@@ -531,10 +531,10 @@ export const ProductService = {
                 name: 'Brown Purse',
                 description: 'Product Description',
                 image: 'brown-purse.jpg',
-                price: 120,
-                category: 'Accessories',
+                size: 120,
+                format: 'Accessories',
                 quantity: 0,
-                inventoryStatus: 'OUTOFSTOCK',
+                entity: 'OUTOFSTOCK',
                 rating: 4,
                 orders: [
                     {
@@ -572,10 +572,10 @@ export const ProductService = {
                 name: 'Chakra Bracelet',
                 description: 'Product Description',
                 image: 'chakra-bracelet.jpg',
-                price: 32,
-                category: 'Accessories',
+                size: 32,
+                format: 'Accessories',
                 quantity: 5,
-                inventoryStatus: 'LOWSTOCK',
+                entity: 'LOWSTOCK',
                 rating: 3,
                 orders: [
                     {
@@ -604,10 +604,10 @@ export const ProductService = {
                 name: 'Galaxy Earrings',
                 description: 'Product Description',
                 image: 'galaxy-earrings.jpg',
-                price: 34,
-                category: 'Accessories',
+                size: 34,
+                format: 'Accessories',
                 quantity: 23,
-                inventoryStatus: 'INSTOCK',
+                entity: 'INSTOCK',
                 rating: 5,
                 orders: [
                     {
@@ -627,10 +627,10 @@ export const ProductService = {
                 name: 'Game Controller',
                 description: 'Product Description',
                 image: 'game-controller.jpg',
-                price: 99,
-                category: 'Electronics',
+                size: 99,
+                format: 'Electronics',
                 quantity: 2,
-                inventoryStatus: 'LOWSTOCK',
+                entity: 'LOWSTOCK',
                 rating: 4,
                 orders: [
                     {
@@ -659,10 +659,10 @@ export const ProductService = {
                 name: 'Gaming Set',
                 description: 'Product Description',
                 image: 'gaming-set.jpg',
-                price: 299,
-                category: 'Electronics',
+                size: 299,
+                format: 'Electronics',
                 quantity: 63,
-                inventoryStatus: 'INSTOCK',
+                entity: 'INSTOCK',
                 rating: 3,
                 orders: [
                     {
@@ -709,10 +709,10 @@ export const ProductService = {
                 name: 'Gold Phone Case',
                 description: 'Product Description',
                 image: 'gold-phone-case.jpg',
-                price: 24,
-                category: 'Accessories',
+                size: 24,
+                format: 'Accessories',
                 quantity: 0,
-                inventoryStatus: 'OUTOFSTOCK',
+                entity: 'OUTOFSTOCK',
                 rating: 4,
                 orders: [
                     {
@@ -741,10 +741,10 @@ export const ProductService = {
                 name: 'Green Earbuds',
                 description: 'Product Description',
                 image: 'green-earbuds.jpg',
-                price: 89,
-                category: 'Electronics',
+                size: 89,
+                format: 'Electronics',
                 quantity: 23,
-                inventoryStatus: 'INSTOCK',
+                entity: 'INSTOCK',
                 rating: 4,
                 orders: [
                     {
@@ -764,10 +764,10 @@ export const ProductService = {
                 name: 'Green T-Shirt',
                 description: 'Product Description',
                 image: 'green-t-shirt.jpg',
-                price: 49,
-                category: 'Clothing',
+                size: 49,
+                format: 'Clothing',
                 quantity: 74,
-                inventoryStatus: 'INSTOCK',
+                entity: 'INSTOCK',
                 rating: 5,
                 orders: [
                     {
@@ -796,10 +796,10 @@ export const ProductService = {
                 name: 'Grey T-Shirt',
                 description: 'Product Description',
                 image: 'grey-t-shirt.jpg',
-                price: 48,
-                category: 'Clothing',
+                size: 48,
+                format: 'Clothing',
                 quantity: 0,
-                inventoryStatus: 'OUTOFSTOCK',
+                entity: 'OUTOFSTOCK',
                 rating: 3,
                 orders: [
                     {
@@ -819,10 +819,10 @@ export const ProductService = {
                 name: 'Headphones',
                 description: 'Product Description',
                 image: 'headphones.jpg',
-                price: 175,
-                category: 'Electronics',
+                size: 175,
+                format: 'Electronics',
                 quantity: 8,
-                inventoryStatus: 'LOWSTOCK',
+                entity: 'LOWSTOCK',
                 rating: 5,
                 orders: [
                     {
@@ -851,10 +851,10 @@ export const ProductService = {
                 name: 'Light Green T-Shirt',
                 description: 'Product Description',
                 image: 'light-green-t-shirt.jpg',
-                price: 49,
-                category: 'Clothing',
+                size: 49,
+                format: 'Clothing',
                 quantity: 34,
-                inventoryStatus: 'INSTOCK',
+                entity: 'INSTOCK',
                 rating: 4,
                 orders: [
                     {
@@ -874,10 +874,10 @@ export const ProductService = {
                 name: 'Lime Band',
                 description: 'Product Description',
                 image: 'lime-band.jpg',
-                price: 79,
-                category: 'Fitness',
+                size: 79,
+                format: 'Fitness',
                 quantity: 12,
-                inventoryStatus: 'INSTOCK',
+                entity: 'INSTOCK',
                 rating: 3,
                 orders: []
             },
@@ -887,10 +887,10 @@ export const ProductService = {
                 name: 'Mini Speakers',
                 description: 'Product Description',
                 image: 'mini-speakers.jpg',
-                price: 85,
-                category: 'Clothing',
+                size: 85,
+                format: 'Clothing',
                 quantity: 42,
-                inventoryStatus: 'INSTOCK',
+                entity: 'INSTOCK',
                 rating: 4,
                 orders: [
                     {
@@ -910,10 +910,10 @@ export const ProductService = {
                 name: 'Painted Phone Case',
                 description: 'Product Description',
                 image: 'painted-phone-case.jpg',
-                price: 56,
-                category: 'Accessories',
+                size: 56,
+                format: 'Accessories',
                 quantity: 41,
-                inventoryStatus: 'INSTOCK',
+                entity: 'INSTOCK',
                 rating: 5,
                 orders: [
                     {
@@ -942,10 +942,10 @@ export const ProductService = {
                 name: 'Pink Band',
                 description: 'Product Description',
                 image: 'pink-band.jpg',
-                price: 79,
-                category: 'Fitness',
+                size: 79,
+                format: 'Fitness',
                 quantity: 63,
-                inventoryStatus: 'INSTOCK',
+                entity: 'INSTOCK',
                 rating: 4,
                 orders: []
             },
@@ -955,10 +955,10 @@ export const ProductService = {
                 name: 'Pink Purse',
                 description: 'Product Description',
                 image: 'pink-purse.jpg',
-                price: 110,
-                category: 'Accessories',
+                size: 110,
+                format: 'Accessories',
                 quantity: 0,
-                inventoryStatus: 'OUTOFSTOCK',
+                entity: 'OUTOFSTOCK',
                 rating: 4,
                 orders: [
                     {
@@ -987,10 +987,10 @@ export const ProductService = {
                 name: 'Purple Band',
                 description: 'Product Description',
                 image: 'purple-band.jpg',
-                price: 79,
-                category: 'Fitness',
+                size: 79,
+                format: 'Fitness',
                 quantity: 6,
-                inventoryStatus: 'LOWSTOCK',
+                entity: 'LOWSTOCK',
                 rating: 3,
                 orders: [
                     {
@@ -1010,10 +1010,10 @@ export const ProductService = {
                 name: 'Purple Gemstone Necklace',
                 description: 'Product Description',
                 image: 'purple-gemstone-necklace.jpg',
-                price: 45,
-                category: 'Accessories',
+                size: 45,
+                format: 'Accessories',
                 quantity: 62,
-                inventoryStatus: 'INSTOCK',
+                entity: 'INSTOCK',
                 rating: 4,
                 orders: [
                     {
@@ -1042,10 +1042,10 @@ export const ProductService = {
                 name: 'Purple T-Shirt',
                 description: 'Product Description',
                 image: 'purple-t-shirt.jpg',
-                price: 49,
-                category: 'Clothing',
+                size: 49,
+                format: 'Clothing',
                 quantity: 2,
-                inventoryStatus: 'LOWSTOCK',
+                entity: 'LOWSTOCK',
                 rating: 5,
                 orders: [
                     {
@@ -1065,10 +1065,10 @@ export const ProductService = {
                 name: 'Shoes',
                 description: 'Product Description',
                 image: 'shoes.jpg',
-                price: 64,
-                category: 'Clothing',
+                size: 64,
+                format: 'Clothing',
                 quantity: 0,
-                inventoryStatus: 'INSTOCK',
+                entity: 'INSTOCK',
                 rating: 4,
                 orders: []
             },
@@ -1078,10 +1078,10 @@ export const ProductService = {
                 name: 'Sneakers',
                 description: 'Product Description',
                 image: 'sneakers.jpg',
-                price: 78,
-                category: 'Clothing',
+                size: 78,
+                format: 'Clothing',
                 quantity: 52,
-                inventoryStatus: 'INSTOCK',
+                entity: 'INSTOCK',
                 rating: 4,
                 orders: [
                     {
@@ -1110,10 +1110,10 @@ export const ProductService = {
                 name: 'Teal T-Shirt',
                 description: 'Product Description',
                 image: 'teal-t-shirt.jpg',
-                price: 49,
-                category: 'Clothing',
+                size: 49,
+                format: 'Clothing',
                 quantity: 3,
-                inventoryStatus: 'LOWSTOCK',
+                entity: 'LOWSTOCK',
                 rating: 3,
                 orders: [
                     {
@@ -1133,10 +1133,10 @@ export const ProductService = {
                 name: 'Yellow Earbuds',
                 description: 'Product Description',
                 image: 'yellow-earbuds.jpg',
-                price: 89,
-                category: 'Electronics',
+                size: 89,
+                format: 'Electronics',
                 quantity: 35,
-                inventoryStatus: 'INSTOCK',
+                entity: 'INSTOCK',
                 rating: 3,
                 orders: [
                     {
@@ -1165,10 +1165,10 @@ export const ProductService = {
                 name: 'Yoga Mat',
                 description: 'Product Description',
                 image: 'yoga-mat.jpg',
-                price: 20,
-                category: 'Fitness',
+                size: 20,
+                format: 'Fitness',
                 quantity: 15,
-                inventoryStatus: 'INSTOCK',
+                entity: 'INSTOCK',
                 rating: 5,
                 orders: []
             },
@@ -1178,10 +1178,10 @@ export const ProductService = {
                 name: 'Yoga Set',
                 description: 'Product Description',
                 image: 'yoga-set.jpg',
-                price: 20,
-                category: 'Fitness',
+                size: 20,
+                format: 'Fitness',
                 quantity: 25,
-                inventoryStatus: 'INSTOCK',
+                entity: 'INSTOCK',
                 rating: 8,
                 orders: [
                     {
