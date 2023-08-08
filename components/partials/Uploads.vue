@@ -1,16 +1,19 @@
 
 <template>
+     <Message severity="success" v-if="successMessage">{{ successMessage }}</Message>
     <div class="card">
-        <DataTable v-model:selection="selectedProduct" :value="products" dataKey="id" tableStyle="min-width: 50rem">
-    <Column selectionMode="multiple" headerStyle="width: 3rem"></Column>
-            <Column field="name" header="Name"></Column>
+        <DataTable v-model:selection="selected" :value="entityFilesData" dataKey="id" tableStyle="min-width: 50rem">
+            <Column selectionMode="multiple" headerStyle="width: 3rem"></Column>
+            <Column field="file_name" header="Nome"></Column>
             <Column field="format" header="Formato"></Column>
             <Column field="size" header="Tamanho"></Column>
-            <Column field="entity" header="Entidade"></Column>
-        </DataTable>
+            <Column field="name" header="Entidade"></Column>
+        </DataTable>       
     </div>
-    <br>
-    <Message severity="success" v-if="successMessage">{{ successMessage }}</Message>
+    <div class="card flex justify-content-center flex-wrap gap-3"> 
+        <Button label="Excluir" severity="danger" icon="pi pi-trash" @click="handleOnDelete()" />
+    </div>
+    <br>  
     <FileUpload name="files[]" :url="url" @upload="onTemplatedUpload($event)" :multiple="true" accept="image/*" :maxFileSize="1000000" @select="onSelectedFiles">
         <template #header="{ chooseCallback, uploadCallback, clearCallback, files }">
             <div class="flex flex-wrap justify-content-between align-items-center flex-1 gap-2">
@@ -64,7 +67,7 @@
 </template>
 <script>
 import uploadService from '@/src/services/UploadService';
-import { ProductService } from '@/src/services/ProductService';
+import entityFileService from '@/src/services/EntityFileService';
 
 export default {    
     props: {
@@ -81,7 +84,9 @@ export default {
             successMessage: '',
             products: null,
             columns: null,
-            selectedProduct: null,
+            selected: null,
+            entityFilesData: null,
+            metaKey: true
         };
     },
     methods: {
@@ -116,11 +121,12 @@ export default {
 
            if (responseData.data._rawValue.status == 201){
                 this.onTemplatedUpload('Upload realizado com sucesso.');
+                this.getEntityFileByEntityId();
+                this.clearCallback();
            }
         },
         onTemplatedUpload( msg ) {
             this.successMessage = msg;
-            console.log( msg )
         },
         formatSize(bytes) {
             if (bytes === 0) {
@@ -141,19 +147,39 @@ export default {
             let { newData, index } = event;
 
             this.products[index] = newData;
+        },        
+        async getEntityFileByEntityId(){           
+           
+            const entityId = 4; // Substitua isso por localStorage.getItem('entityId');
+            const entity = new entityFileService();
+            const responseData = await entity.getFileByEntityId(entityId);
+            const status = responseData.data._rawValue ? responseData.data._rawValue.status : [];
+
+            if (status === 200) {
+                this.entityFilesData = responseData.data._rawValue.data; // Resolva a Promise com os dados
+            }            
         },
+        async handleOnDelete(){
+            const deletePromises = [];
+            this.entityFilesData = null; 
+            const entity = new entityFileService();
+            this.selected.forEach((register)=>{                            
+                deletePromises.push(entity.destroy(register.id));                          
+            });          
+            await Promise.all(deletePromises);  
+            this.getEntityFileByEntityId();                
+        }
     },
     created() {
         this.columns = [
-            { field: 'name', header: 'Name' },
+            { field: 'file_name', header: 'Name' },
             { field: 'format', header: 'Tipo' },
             { field: 'size', header: 'Tamanho' },
-            { field: 'entity', header: 'Entidade' },
-            { field: 'action', header: 'Ação' }
+            { field: 'name', header: 'Entidade' }
         ];
     },
     mounted() {
-        ProductService.getProductsMini().then((data) => (this.products = data));
+        this.getEntityFileByEntityId();
     }
 };
 </script>

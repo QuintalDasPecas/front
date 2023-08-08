@@ -21,6 +21,8 @@ import Card from "primevue/card";
 import ToggleButton from "primevue/togglebutton";
 import Checkbox from "primevue/checkbox";
 import ToastService from "primevue/toastservice";
+import ProgressBar from "primevue/progressbar";
+import Badge from "primevue/badge";
 
 export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.use(PrimeVue, { ripple: true });
@@ -45,5 +47,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.component("ToggleButton",ToggleButton);
     nuxtApp.vueApp.component("Checkbox",Checkbox);
     nuxtApp.vueApp.component("ToastService",ToastService);
+    nuxtApp.vueApp.component("ProgressBar",ProgressBar);
+    nuxtApp.vueApp.component("Badge",Badge);    
     //other components that you need
 });
