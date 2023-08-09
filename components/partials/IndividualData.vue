@@ -19,15 +19,11 @@
         props : {
             errorMessage : {
                 type : Object
+            },
+            formData: {
+                type: Object,
+                required: true
             }
-        },
-        data(){
-            return{
-                formData : {
-                    name : '',
-                    cpf_cnpj : '',
-                }
-            };
         },
         methods:{
             setFormDataIndividual(value){

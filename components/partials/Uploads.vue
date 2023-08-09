@@ -10,7 +10,7 @@
             <Column field="name" header="Entidade"></Column>
         </DataTable>       
     </div>
-    <div class="card flex justify-content-center flex-wrap gap-3"> 
+    <div class="d-grip  d-md-flex gap-3 justify-content-end TestDeleteButton"> 
         <Button label="Excluir" severity="danger" icon="pi pi-trash" @click="handleOnDelete()" />
     </div>
     <br>  
@@ -150,7 +150,12 @@ export default {
         },        
         async getEntityFileByEntityId(){           
            
-            const entityId = 4; // Substitua isso por localStorage.getItem('entityId');
+            const entityId = localStorage.getItem('entityId');
+            
+            if( !entityId ){
+                return false;
+            }
+            
             const entity = new entityFileService();
             const responseData = await entity.getFileByEntityId(entityId);
             const status = responseData.data._rawValue ? responseData.data._rawValue.status : [];

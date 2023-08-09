@@ -21,8 +21,8 @@ export default {
         }  
     },
     methods:{
-        redirectTo(redirectUrl){
-            navigateTo(redirectUrl, { external : true });            
+        redirectTo( redirectUrl ){
+            navigateTo(redirectUrl, { external : true });
         },
         onSubmit( value ){
             this.$emit('onSubmit', value)

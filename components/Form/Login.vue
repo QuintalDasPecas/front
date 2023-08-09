@@ -74,6 +74,7 @@ async function onSubmit(){
         localStorage.setItem('logged', 'true');
         localStorage.setItem('users',responseData.value?.data.user);
         localStorage.setItem('userId',responseData.value?.data.id);
+        localStorage.setItem('entityId',responseData.value?.data.entityId);
         resetForm();   
         navigateTo('/',{ external : true });
     }

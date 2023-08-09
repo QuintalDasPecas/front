@@ -19,6 +19,7 @@
     import Entity from '@/src/services/EntityService';
     import Cep from '@/src/services/CepService';
     import PartialsAddress from '~/components/partials/Address.vue';
+    
     export default{
         components:{
             PartialsAddress
@@ -40,8 +41,12 @@
         methods:{
             async handleOnLoad(){
                 const userId = localStorage.getItem('userId');
-                const entityId = 4 ;
+                const entityId = localStorage.getItem('entityId'); ;
                 
+                if( !entityId ){
+                    return false;
+                }
+
                 const entity = new Entity();
                 const responseData = await entity.single(entityId);
                 const status = responseData.data._value?.status;
@@ -59,7 +64,7 @@
                 
             },
             async handleOnSubmit( value ){
-                const entityId = 21 ;
+                const entityId = 4 ;
                 const form = new FormData();// dados
                 form.append('zipcode', this.formData.zipcode);
                 form.append('address',this.formData.address);
@@ -71,7 +76,6 @@
 
                 const entity = new Entity();
                 const responseData = await entity.update(entityId, form);
-                console.log();
                     
             },
             async handleFetchCepData( zipcode ){

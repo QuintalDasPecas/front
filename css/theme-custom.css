@@ -181,3 +181,6 @@ section>.container-recoverpassword {
 .btn-type-register{
   width: 100%;
 }
+.TestDeleteButton{
+  padding: 5px;
+}

@@ -19,16 +19,12 @@
         props : {
             errorMessage : {
                 type : Object
+            },
+            formData: {
+                type: Object,
+                required: true
             }
-        },
-        data(){
-            return{
-                formData : {
-                    cpf_cnpj : '',
-                    name : ''
-                }
-            };
-        },
+        },       
         methods:{
             setFormDataEntity(value){
                 this.$emit('setFormDataEntity', value);

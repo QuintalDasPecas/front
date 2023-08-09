@@ -51,10 +51,7 @@
 import Service from '@/src/services/ChangePasswordSrevice';
 
 export default{
-
-    components:{
-
-    },
+    
     data() {
         return{
             formData : {
