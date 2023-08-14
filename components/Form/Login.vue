@@ -33,7 +33,7 @@
                                 </div>
                                 <div class="row g-2  justify-content-center">
                                     <div class="col-lg-10 col-md-10 col-sm-10 col-10">
-                                        <NuxtLink to="/recoverpassword" class="btn btn-primary btn-lg btn-recover-password">Recuperar Senha</NuxtLink>
+                                        <NuxtLink to="/forgotpassword" class="btn btn-primary btn-lg btn-recover-password">Recuperar Senha</NuxtLink>
                                     </div>
                                 </div>
                                 <div class="row g-2  justify-content-center">

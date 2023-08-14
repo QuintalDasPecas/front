@@ -1,3 +1,0 @@
-<template>
-    <FormRecoverPassword></FormRecoverPassword>
-</template>
