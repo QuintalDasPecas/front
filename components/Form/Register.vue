@@ -8,10 +8,10 @@
                         <div class="panel">
                           <form>                            
                             <Message severity="success" v-if="successMessage">{{ successMessage }}</Message>
-                            <Message severity="error" v-if="errorMessage.message" v-for="(value, key) in errorMessage.message" :key="key">{{ value[0] }}</Message>
+                            <Message severity="error" v-if="errorMessage.message" v-for="(value, key) in errorMessage.message" :key="key">{{ value[0]  }}</Message>
                             <PartialsTermConditions @typeRegister="handleTypeRegister" v-if="activedTermRegister" />
-                            <PartialsLegalEntityData :errorMessage="errorMessage" @setFormDataEntity="handleformDataEntity" v-if="typeRegister === 1" />
-                            <PartialsIndividualData :errorMessage="errorMessage" @setFormDataIndividual="handleformDataIndividual" v-if="typeRegister === 2" />
+                            <PartialsLegalEntityData :formData="formDataEntity" :errorMessage="errorMessage" @setFormDataEntity="handleformDataEntity" v-if="typeRegister === 1" />
+                            <PartialsIndividualData :formData="formDataIndividual" :errorMessage="errorMessage" @setFormDataIndividual="handleformDataIndividual" v-if="typeRegister === 2" />
                             <PartialsPassword @formDataPassword="handleformDataPassword" :errorMessage="errorMessage" v-if="typeRegister === 1 || typeRegister === 2"/>
                             <PartialsControlButton @onSubmit="handleOnSubmit" v-if="typeRegister === 1 || typeRegister === 2" :redirectUrl="redirectUrl"/>                           
                           </form>
@@ -74,7 +74,7 @@ export default {
     async handleOnSubmit( value ){
       try{
        
-        this.errorMessage.message = false;
+        this.errorMessage.message = [];
         if( value === true ){
 
           this.validateField();
@@ -97,19 +97,25 @@ export default {
           form.append('password', this.formDataPassword.password);
           form.append('password_confirmation', this.formDataPassword.recoverpassword);
           
-          const responseData = await register.store(form, this.typeRegister);
+          const { data: responseData, error: responseError } = await register.store(form, this.typeRegister);
+          let status = responseData.value ? responseData._rawValue.status : null;
+          status = status ?? (responseError.value ? responseError.value.statusCode : null);
           
-          if( responseData.error.value?.data.errors ){
-            this.errorMessage.message = responseData.error.value?.data.errors;
-            return false;
+          if( status == 201 ){
+            this.successMessage = "Cadastro efetuado!";
+            this.typeRegister = 0;
+            this.notification = true;
+            this.activedRegister = false;
           }
 
-          this.successMessage = "Cadastro efetuado!";  
-          this.typeRegister = 0;
-          this.notification = true;
-          this.activedRegister = false;
+          if( status == 400 ){
+            const error = responseError.value.data.data;
+            error.forEach(function(value){
+             const tt = value;
+             console.log(tt);
+            })  
 
-         navigateTo('/register/users');
+          }
         } 
 
       }catch( error ){
