@@ -8,7 +8,7 @@
                         <div class="panel">
                           <form>                            
                             <Message severity="success" v-if="successMessage">{{ successMessage }}</Message>
-                            <Message severity="error" v-if="errorMessage.message" v-for="(value, key) in errorMessage.message" :key="key">{{ value[0]  }}</Message>
+                            <Message severity="error" v-if="errorMessage.message" v-for="(value, key) in errorMessage.message" :key="key">{{ value[0] }}</Message>
                             <PartialsTermConditions @typeRegister="handleTypeRegister" v-if="activedTermRegister" />
                             <PartialsLegalEntityData :formData="formDataEntity" :errorMessage="errorMessage" @setFormDataEntity="handleformDataEntity" v-if="typeRegister === 1" />
                             <PartialsIndividualData :formData="formDataIndividual" :errorMessage="errorMessage" @setFormDataIndividual="handleformDataIndividual" v-if="typeRegister === 2" />
@@ -73,8 +73,7 @@ export default {
     },
     async handleOnSubmit( value ){
       try{
-       
-        this.errorMessage.message = [];
+        this.errorMessage.message = '';
         if( value === true ){
 
           this.validateField();
@@ -109,13 +108,9 @@ export default {
           }
 
           if( status == 400 ){
-            const error = responseError.value.data.data;
-            error.forEach(function(value){
-             const tt = value;
-             console.log(tt);
-            })  
-
+            this.errorMessage.message = responseError.value.data.data[0];
           }
+          
         } 
 
       }catch( error ){

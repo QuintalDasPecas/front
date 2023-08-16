@@ -19,10 +19,12 @@
     </Toolbar>
 </template>
 <script setup>
+import Logout from "@/src/services/LogoutService";
 
 const users = ref('');
 const logged = ref(false);
 const items = ref([]);
+const logout = new Logout();
 
 const menu = [
     {
@@ -56,6 +58,7 @@ const toLogout = () => {
     localStorage.removeItem('users');
     users.value = '';
     logged.value = false;
+    logout.logout();
     navigateTo('/');
 }
 

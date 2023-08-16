@@ -93,10 +93,10 @@ export default class CallApi{
                 console.log(error);
             },
             onResponse({ request, response, options }) {
-                return response._data;
+                //return response._data;
             },
             onResponseError({ request, response, options }) {
-                return response._data;
+                //return response._data;
             }
         });
 
@@ -200,6 +200,49 @@ export default class CallApi{
                 };
                 options.method = 'POST';
                 options.body = myForm;
+            },
+            onResponse({ request, response, options }) {
+                return response._data;
+            },
+            onResponseError({ request, response, options }) {
+                return response._data;
+            }
+        });
+
+    }
+
+    static async resetPassword(token: string, FormData: FormData){
+        let apiUrl = useRuntimeConfig().public.API_URL + this.getEndPoint();
+        option.body = utils.formDataToUrlEncoded(FormData);
+        return await useFetch( apiUrl, {
+            onRequest({ request, options }) {
+                options.headers = {
+                    'mode' : option.headers.mode,
+                    'credentials' : option.headers.credentials,
+                    'Accept' : option.headers.Accept,
+                   'Content-Type' : option.headers.ContentType
+                };
+                options.method = 'POST';
+                options.body = option.body;
+            },
+            onRequestError({ request, options, error }) {
+                console.log(error);
+            },
+            onResponse({ request, response, options }) {
+                //return response._data;
+            },
+            onResponseError({ request, response, options }) {
+                //return response._data;
+            }
+        });
+    }
+
+    static async logout(){
+        
+        const apiUrl = useRuntimeConfig().public.API_URL + this.getEndPoint();
+        return await useFetch( apiUrl, {
+            onRequest({ request, options }) {
+                options.method = 'GET';
             },
             onResponse({ request, response, options }) {
                 return response._data;

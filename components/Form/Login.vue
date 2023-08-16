@@ -72,15 +72,15 @@ async function onSubmit(){
 
     if(status === 200){
         localStorage.setItem('logged', 'true');
-        localStorage.setItem('users',responseData.value?.data.user);
-        localStorage.setItem('userId',responseData.value?.data.id);
-        localStorage.setItem('entityId',responseData.value?.data.entityId);
+        localStorage.setItem('users', responseData._rawValue.data[0].original.data.name);
+        localStorage.setItem('userId', responseData._rawValue.data[0].original.data.userId);
+        localStorage.setItem('entityId', responseData._rawValue.data[0].original.data.entityId);
         resetForm();   
         navigateTo('/',{ external : true });
     }
 
-    if( responseError.value?.data.errors ){
-           errors.value = responseError.value?.data.errors;
+    if( responseError.value?.data.data[0] ){
+           errors.value = responseError.value?.data.data[0];
     }
 }
 </script>

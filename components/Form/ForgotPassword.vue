@@ -51,14 +51,15 @@ async function doSubmit(){
     formData.append('email', email.value);
     const { data: responseData, error : responseError} = await (new Service().ForgotPassword(formData));
 
-    const status = responseData._rawValue.status;
-    console.log(responseData);
+    let status = responseData.value ? responseData._rawValue.status : null;
+    status = status ?? (responseError.value ? responseError.value.statusCode : null);
+    
     if(status === 200){
         email.value = '';
         successMessage.value = responseData._rawValue.message;
         resetForm();
     }
 
-    errorMessage.value = responseError.value?.data.message ?? '';
+    errorMessage.value = responseError.value?.data.data.error[0] ?? '';
 }
 </script>
