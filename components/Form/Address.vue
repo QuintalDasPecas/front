@@ -41,7 +41,7 @@
         methods:{
             async handleOnLoad(){
                 const userId = localStorage.getItem('userId');
-                const entityId = localStorage.getItem('entityId'); ;
+                const entityId = localStorage.getItem('entityId');
                 
                 if( !entityId ){
                     return false;
@@ -64,7 +64,7 @@
                 
             },
             async handleOnSubmit( value ){
-                const entityId = 4 ;
+                const entityId = localStorage.getItem('entityId');
                 const form = new FormData();// dados
                 form.append('zipcode', this.formData.zipcode);
                 form.append('address',this.formData.address);

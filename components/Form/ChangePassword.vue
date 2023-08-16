@@ -8,7 +8,6 @@
                             <form>
                                 <Message severity="success" v-if="successMessage">{{ successMessage }}</Message>
                                 <Message severity="error" v-if="errorMessage.message" v-for="(value, key) in errorMessage.message" :key="key">{{ value[0] }}</Message>
-                                <InputText v-model="formData.token"></InputText>
                                 <div class="row g-2 justify-content-lg-center">
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                                         <label for="inputPassword" class="form-label label-lg">Senha atual</label>                                        
@@ -49,7 +48,7 @@
 </template>
 <script>
 
-import Service from '@/src/services/ChangePasswordSrevice';
+import Service from '@/src/services/ChangePasswordService';
 
 export default{
     data() {

@@ -114,7 +114,7 @@ export default {
            const formData = new FormData();        
            formData.append('file', this.files[0], this.files[0].name);
            formData.append('user_id', localStorage.getItem('userId'));
-           formData.append('entity_id', 4);
+           formData.append('entity_id', localStorage.getItem('entityId'));
 
            const service = new uploadService();
            const responseData = await service.Upload(formData);
