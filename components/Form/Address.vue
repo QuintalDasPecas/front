@@ -6,6 +6,8 @@
                     <div class="col-lg-12 col-md-12 col-sm-12 col12">
                         <div class="panel">
                             <form>
+                                <Message severity="success" v-if="successMessage">{{ successMessage }}</Message>
+                                <Message severity="error" v-if="errorMessage.message" v-for="(value, key) in errorMessage.message" :key="key">{{ value[0] }}</Message>
                                 <PartialsAddress @handleOnSubmit="handleOnSubmit" @handleFetchCepData="handleFetchCepData" :formData="formData" :isDisabled="isDisabled" />
                             </form>
                         </div>
@@ -34,7 +36,9 @@
                     neighborhood : '',
                     city : '',
                     state : '',
-                },                
+                },    
+                successMessage:'',
+                errorMessage: {message:''},
                 isDisabled: false
             }
         },
@@ -64,6 +68,9 @@
                 
             },
             async handleOnSubmit( value ){
+                this.successMessage = '';
+                this.errorMessage.message = '';
+
                 const entityId = localStorage.getItem('entityId');
                 const form = new FormData();// dados
                 form.append('zipcode', this.formData.zipcode);
@@ -75,8 +82,16 @@
                 form.append('state',this.formData.state);
 
                 const entity = new Entity();
-                const responseData = await entity.update(entityId, form);
-                    
+                const { data: responseData, error: responseError } = await entity.updateAddress(entityId, form); 
+                let status = responseData.value ? responseData._rawValue.status : null;
+                status = status ?? (responseError.value ? responseError.value.statusCode : null);
+                if ( status === 201){
+                    this.successMessage = "Registro atualizado com sucesso!";
+                    this.notification = true;
+                }
+                if( status == 400 ){
+                    this.errorMessage.message = responseError.value.data.data[0];
+                }
             },
             async handleFetchCepData( zipcode ){
 

@@ -1,6 +1,6 @@
 export default defineNuxtRouteMiddleware((to, from) => {
-    const userId = localStorage.getItem('userId');
-    if (!userId) {
+    const logged = localStorage.getItem('logged');
+    if (!logged) {
         return navigateTo('/');
     }
   })

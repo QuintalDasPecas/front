@@ -73,6 +73,7 @@ export default {
     },
     async handleOnSubmit( value ){
       try{
+        this.successMessage = '';
         this.errorMessage.message = '';
         if( value === true ){
 

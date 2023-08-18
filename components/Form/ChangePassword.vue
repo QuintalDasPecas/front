@@ -17,13 +17,13 @@
                                 <div class="row g-2 justify-content-lg-center">
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                                         <label for="inputNewPassword" class="form-label label-lg">Nova senha</label>
-                                        <Password v-model="formData.newpassword" size="large" id="newpassword" name="newpassword" :feedback="false" toggle-mask autocomplete="off" :maxlength="16" />
+                                        <Password v-model="formData.newpassword" size="large" id="newpassword2" name="newpassword" :feedback="false" toggle-mask autocomplete="off" :maxlength="16" />
                                     </div>
                                 </div>
                                 <div class="row g-2 justify-content-lg-center">
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                                         <label for="inputRecoverPassword" class="form-label label-lg">Repetir nova senha</label>
-                                        <Password v-model="formData.recoverpassword" size="large" id="recoverpassword" name="recoverpassword" :feedback="false" toggle-mask autocomplete="off" :maxlength="16" />
+                                        <Password v-model="formData.recoverpassword" size="large" id="recoverpassword2" name="recoverpassword" :feedback="false" toggle-mask autocomplete="off" :maxlength="16" />
                                     </div>
                                 </div>
                                 <div class="row box-button justify-content-lg-center">
@@ -67,6 +67,9 @@ export default{
     },
     methods:{
         async handleOnSubmit(){
+            this.successMessage = '';
+            this.errorMessage.message = '';
+
             try{
                 const route = useRoute();
                 const form = new FormData();
@@ -77,18 +80,22 @@ export default{
 
                 const service = new Service();
                 const userId = localStorage.getItem('userId');
-                const responseData = await service.update(userId, form);
-            
-                const status = !responseData.data ? responseData.data._rawValue.status : 500;
+                const { data: responseData, error: responseError }= await service.update(userId, form);
+
+                let status = responseData.value ? responseData._rawValue.status : null;
+                status = status ?? (responseError.value ? responseError.value.statusCode : null);
                 
+                if ( status === 201){
+                    this.successMessage = "Registro atualizado com sucesso!";
+                    this.notification = true;
+                }
+                if( status >= 400 ){
+                    this.errorMessage.message = responseError.value.data.data[0];
+                }
+                            
                 if (status === 200){
                     this.successMessage = responseData.data._rawValue.message;
                     return true;
-                }
-
-                if( responseData.error.value?.data.errors ){
-                    this.errorMessage.message = responseData.error.value?.data.errors;
-                    return false;
                 }
 
             }catch( error ){

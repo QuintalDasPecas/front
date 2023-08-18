@@ -16,8 +16,12 @@ export default class EntityRepositorie {
     return CallApi.all();
   }
 
-  static async update(id: number, formData: FormData) {
-    CallApi.setEndPoint('entity');
+  static async updateAddress(id: number, formData: FormData) {
+    CallApi.setEndPoint('entity/address');
+    return CallApi.update(id, formData);
+  }
+  static async updatePersonalData(id: number, formData: FormData) {
+    CallApi.setEndPoint('entity/personaldata');
     return CallApi.update(id, formData);
   }
 }

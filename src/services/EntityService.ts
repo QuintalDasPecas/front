@@ -14,8 +14,12 @@ export default class EntityService {
         return repositorie.all();
     }
 
-    public async update(id: number, formEntity: FormData){
-        return repositorie.update(id, formEntity);
+    public async updateAddress(id: number, formEntity: FormData){
+        return repositorie.updateAddress(id, formEntity);
+    }
+
+    public async updatePersonalData(id: number, formEntity: FormData){
+        return repositorie.updatePersonalData(id, formEntity);
     }
 
 }

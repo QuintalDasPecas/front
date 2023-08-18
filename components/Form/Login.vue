@@ -16,7 +16,7 @@
                                 <div class="row g-2 justify-content-center">
                                     <div class="col-lg-10 col-md-10 col-sm-10 col-10">
                                         <label for="inputPassword" class="form-label label-lg">Senha</label>
-                                        <Password v-model="password" size="large" id="password" name="password" toggleMask autocomplete="off" :feedback="false" :maxlength="16" />
+                                        <Password v-model="password" size="large" id="password" toggleMask :feedback="false" :maxlength="16" />
                                     </div>
                                 </div>
                                 <div class="row g-2 justify-content-center">
@@ -50,37 +50,41 @@
     </div>
  </template>
 
-<script lang="ts" setup>
+<script>
 import Auth from '@/src/services/AuthService';
-import { useForm } from 'vee-validate';
 
-const email = ref('');
-const password = ref('');
-const errors = ref([]);
-const { resetForm } = useForm();
+export default {
+    data(){
+        return {
+            email: '',
+            password: '',
+            errors: []
+        };
+    },
+    methods: {
+        async onSubmit(){
+            this.errors = [];
+            const formAuth = new FormData();
+            formAuth.append('email', this.email);
+            formAuth.append('password', this.password);
+            formAuth.append('remember', 'false');
+        
+            const { data: responseData, error: responseError } = await (new Auth().auth(formAuth));
+            let status = responseData.value ? responseData._rawValue.status : null;
+            status = status ?? (responseError.value ? responseError.value.statusCode : null);
 
-async function onSubmit(){
-    errors.value = [];
-    const formAuth = new FormData();
-    formAuth.append('email', email.value);
-    formAuth.append('password', password.value);
-    formAuth.append('remember', 'false');
-   
-    const { data: responseData, error: responseError } =  await (new Auth().auth(formAuth));
+            if(status === 200){
+                localStorage.setItem('logged', 'true');
+                localStorage.setItem('users', responseData._rawValue.data[0].original.data.name);
+                localStorage.setItem('userId', responseData._rawValue.data[0].original.data.userId);
+                localStorage.setItem('entityId', responseData._rawValue.data[0].original.data.entityId);
+                navigateTo('/',{ external : true });
+            }
 
-    const status = responseData.value?.status;
-
-    if(status === 200){
-        localStorage.setItem('logged', 'true');
-        localStorage.setItem('users', responseData._rawValue.data[0].original.data.name);
-        localStorage.setItem('userId', responseData._rawValue.data[0].original.data.userId);
-        localStorage.setItem('entityId', responseData._rawValue.data[0].original.data.entityId);
-        resetForm();   
-        navigateTo('/',{ external : true });
-    }
-
-    if( responseError.value?.data.data[0] ){
-           errors.value = responseError.value?.data.data[0];
+            if( responseError.value?.data.data[0] ){
+                this.errors = responseError.value?.data.data[0];
+            }
+        }
     }
 }
 </script>

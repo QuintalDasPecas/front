@@ -56,6 +56,9 @@ const toProfile = () => {
 const toLogout = () => {
     localStorage.removeItem('logged');
     localStorage.removeItem('users');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('entityId');
+
     users.value = '';
     logged.value = false;
     logout.logout();

@@ -1,6 +1,7 @@
 
 <template>
-     <Message severity="success" v-if="successMessage">{{ successMessage }}</Message>
+    <Message severity="success" v-if="successMessage">{{ successMessage }}</Message>
+    <Message severity="error" v-if="errorMessage">{{ errorMessage }}</Message>
     <div class="card">
         <DataTable v-model:selection="selected" :value="entityFilesData" dataKey="id" tableStyle="min-width: 50rem">
             <Column selectionMode="multiple" headerStyle="width: 3rem"></Column>
@@ -60,7 +61,7 @@
         <template #empty>
                 <div class="flex align-items-center justify-content-center flex-column">
                     <i class="pi pi-cloud-upload border-2 border-circle p-5 text-8xl text-400 border-400" />
-                    <p class="mt-4 mb-0">Drag and drop files to here to upload.</p>
+                    <p class="mt-4 mb-0">Arraste e solte os arquivos aqui para fazer o upload.</p>
                 </div>
             </template>
     </FileUpload>
@@ -81,6 +82,7 @@ export default {
             files: [],
             totalSize: 0,
             totalSizePercent: 0,
+            errorMessage: '',
             successMessage: '',
             products: null,
             columns: null,
@@ -109,6 +111,7 @@ export default {
             });
         },
         async uploadEvent() {
+           this.successMessage = '';
            this.totalSizePercent = this.totalSize / 10;
 
            const formData = new FormData();        
@@ -165,12 +168,21 @@ export default {
             }            
         },
         async handleOnDelete(){
+            this.successMessage = '';
+            
+            if( !this.selected ){
+                this.errorMessage = 'Selecione um documento para ser excluído.';
+                return false;
+            }
+
             const deletePromises = [];
             this.entityFilesData = null; 
             const entity = new entityFileService();
+
             this.selected.forEach((register)=>{                            
                 deletePromises.push(entity.destroy(register.id));                          
             });          
+
             await Promise.all(deletePromises);  
             this.getEntityFileByEntityId();                
         }
