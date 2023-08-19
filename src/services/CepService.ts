@@ -6,7 +6,7 @@ export default class CepService{
         let cep = cepInput.replace('.','').replace('-','');
 
         if (cep) {    
-            return await useFetch( `http://viacep.com.br/ws/${cep}/json/`, {
+            return await useFetch( `https://viacep.com.br/ws/${cep}/json/`, {
                 onRequest({ request, options }) {                    
                     options.headers = {                           
                         'Accept' : 'application/json'
