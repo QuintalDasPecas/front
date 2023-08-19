@@ -70,7 +70,7 @@ export default{
 
                 const service = new Service();
                 const {data: responseData, error: responseError } = await service.resetPassword(route.params.slug, form);
-                console.log(responseData);
+               
                 let status = responseData.value ? responseData._rawValue.status : null;
                 status = status ?? (responseError.value ? responseError.value.statusCode : null);
                 

@@ -124,10 +124,16 @@ const _inlineRuntimeConfig = {
     }
   },
   "public": {
-    "API_URL": "http://127.0.0.1:8000/api/",
-    "AUTH_URL": "login",
-    "CSRF_URL": "http://127.0.0.1:8000/sanctum/csrf-cookie",
-    "FRONTEND_URL": "http://127.0.0.1:3000"
+    "enviroment": {
+      "dev": {
+        "host": "http://localhost"
+      },
+      "prod": {
+        "host": "https://quintaldaspecas.com.br"
+      }
+    },
+    "apiUrl": "/backend/public/api/",
+    "csrf": "/backend/public/sanctum/csrf-cookie"
   }
 };
 const ENV_PREFIX = "NITRO_";

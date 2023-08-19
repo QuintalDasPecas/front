@@ -27,9 +27,8 @@ export default class CallApi{
 
     static endPoint = '';
 
-    static async sactum(){
-        let apiUrl = useRuntimeConfig().public.CSRF_URL;
-      
+    static async sactum(){        
+        const apiUrl = utils.getEnviromentHost(useRuntimeConfig().public.csrf);      
         await useFetch( apiUrl, {
             onRequest({ request, options }) {
                 options.headers = {
@@ -47,9 +46,8 @@ export default class CallApi{
         
         await this.sactum();
 
-        let apiUrl = useRuntimeConfig().public.API_URL + useRuntimeConfig().public.AUTH_URL;               
+        const apiUrl = utils.getEnviromentHost(this.getEndPoint());
         option.body = utils.formDataToUrlEncoded(myForm);
-
        return await useFetch( apiUrl, {
             onRequest({ request, options }) {
                 options.headers = {
@@ -76,7 +74,7 @@ export default class CallApi{
 
     static async store(myForm: FormData){
 
-        const apiUrl = useRuntimeConfig().public.API_URL + this.getEndPoint();
+        const apiUrl = utils.getEnviromentHost(this.getEndPoint());  
         option.body = utils.formDataToUrlEncoded(myForm);
         return await useFetch( apiUrl, {
             onRequest({ request, options }) {
@@ -104,7 +102,7 @@ export default class CallApi{
 
     static async find(id: Number){
         
-        const apiUrl = useRuntimeConfig().public.API_URL + this.getEndPoint();
+        const apiUrl = utils.getEnviromentHost(useRuntimeConfig().public.apiUrl + this.getEndPoint());
         return await useFetch( apiUrl, {
             onRequest({ request, options }) {
                 options.query = {'id' : id};
@@ -121,7 +119,7 @@ export default class CallApi{
     }
 
     static async all(){
-        const apiUrl = useRuntimeConfig().public.API_URL + this.getEndPoint();
+        const apiUrl = utils.getEnviromentHost(useRuntimeConfig().public.apiUrl + this.getEndPoint());
         return await useFetch( apiUrl, {
             onRequest({ request, options }) {
                 options.method = 'GET';
@@ -136,8 +134,7 @@ export default class CallApi{
     }
 
     static async update(id: number, FormData: FormData){
-        let apiUrl = useRuntimeConfig().public.API_URL + this.getEndPoint();
-        apiUrl += '/' + id;
+        const apiUrl = utils.getEnviromentHost(useRuntimeConfig().public.apiUrl + this.getEndPoint() + '/${id}');
         option.body = utils.formDataToUrlEncoded(FormData);
         return await useFetch( apiUrl, {
             onRequest({ request, options }) {
@@ -163,7 +160,7 @@ export default class CallApi{
     }
 
     static async destroy(id: number){
-        const apiUrl = useRuntimeConfig().public.API_URL + this.getEndPoint();
+        const apiUrl = utils.getEnviromentHost(useRuntimeConfig().public.apiUrl + this.getEndPoint());
         return await useFetch( apiUrl, {
             onRequest({ request, options }) {
                 options.query = {'id' : id};
@@ -180,7 +177,7 @@ export default class CallApi{
 
      // Método getter para obter o endPoint atual
     static getEndPoint() {
-        return this.endPoint;
+        return useRuntimeConfig().public.apiUrl + this.endPoint;
     }
 
     // Método setter para definir o novo endPoint
@@ -190,7 +187,7 @@ export default class CallApi{
 
     static async Upload(myForm: FormData){
 
-        const apiUrl = useRuntimeConfig().public.API_URL + this.getEndPoint();        
+        const apiUrl = utils.getEnviromentHost(this.getEndPoint());        
         return await useFetch( apiUrl, {
             onRequest({ request, options }) {
                 options.headers = {
@@ -212,7 +209,7 @@ export default class CallApi{
     }
 
     static async resetPassword(token: string, FormData: FormData){
-        let apiUrl = useRuntimeConfig().public.API_URL + this.getEndPoint();
+        let apiUrl = this.getEndPoint();
         option.body = utils.formDataToUrlEncoded(FormData);
         return await useFetch( apiUrl, {
             onRequest({ request, options }) {
@@ -239,7 +236,7 @@ export default class CallApi{
 
     static async logout(){
         
-        const apiUrl = useRuntimeConfig().public.API_URL + this.getEndPoint();
+        const apiUrl = utils.getEnviromentHost(this.getEndPoint());
         return await useFetch( apiUrl, {
             onRequest({ request, options }) {
                 options.method = 'GET';
