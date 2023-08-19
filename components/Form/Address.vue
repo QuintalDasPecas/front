@@ -97,18 +97,19 @@
 
                 if( zipcode ){
                     this.isDisabled = false;
-                    const cep = new Cep();
-                    const responseData =  await cep.fetchCepData(zipcode);
                     
+                    const cep = new Cep();
+                    const {data: responseData, error: responseError } =  await cep.fetchCepData(zipcode);
+
                     this.formData.address = '';
                     this.formData.comment = '';
                     this.formData.number = '';
                     this.formData.neighborhood = '';
 
-                    this.formData.address = responseData.data._rawValue.logradouro;
-                    this.formData.neighborhood = responseData.data._rawValue.bairro;
-                    this.formData.city = responseData.data._rawValue.localidade;
-                    this.formData.state = responseData.data._rawValue.uf;
+                    this.formData.address = responseData._rawValue.logradouro;
+                    this.formData.neighborhood = responseData._rawValue.bairro;
+                    this.formData.city = responseData._rawValue.localidade;
+                    this.formData.state = responseData._rawValue.uf;
                     this.isDisabled = false;                
                 }                
             }

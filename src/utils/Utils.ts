@@ -15,17 +15,17 @@ export default class Utils {
 
     static getEnviroment(): string
     {   
-        const hostname: string = useRequestURL().hostname;
+        const hostName: string = useRequestURL().origin;
         const hostProd: string = useRuntimeConfig().public.enviroment.prod.host;
-        return hostProd === hostname ? 'production' : 'development';
+        return hostProd === hostName ? 'production' : 'development';
     }
 
     static getEnviromentHost( route: string ): string
     {   
         if( this.getEnviroment() === 'development'){
-            return useRuntimeConfig().public.enviroment.dev.host + route;
+            return useRuntimeConfig().public.enviroment.dev.host + useRuntimeConfig().public.apiUrl + route;
         }
-        return useRuntimeConfig().public.enviroment.prod.host + route;
+        return useRuntimeConfig().public.enviroment.prod.host  + useRuntimeConfig().public.apiUrl + route;
     }
       
 }

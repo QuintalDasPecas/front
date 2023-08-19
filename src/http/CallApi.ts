@@ -60,7 +60,7 @@ export default class CallApi{
                 options.body = option.body;
             },
             onRequestError({ request, options, error }) {
-                console.log(error);
+                //console.log(error);
             },
             onResponse({ request, response, options }) {
                //return response._data;
@@ -88,7 +88,7 @@ export default class CallApi{
                 options.body = option.body;
             },
             onRequestError({ request, options, error }) {
-                console.log(error);
+                //console.log(error);
             },
             onResponse({ request, response, options }) {
                 //return response._data;
@@ -102,7 +102,7 @@ export default class CallApi{
 
     static async find(id: Number){
         
-        const apiUrl = utils.getEnviromentHost(useRuntimeConfig().public.apiUrl + this.getEndPoint());
+        const apiUrl = utils.getEnviromentHost(this.getEndPoint());
         return await useFetch( apiUrl, {
             onRequest({ request, options }) {
                 options.query = {'id' : id};
@@ -119,7 +119,7 @@ export default class CallApi{
     }
 
     static async all(){
-        const apiUrl = utils.getEnviromentHost(useRuntimeConfig().public.apiUrl + this.getEndPoint());
+        const apiUrl = utils.getEnviromentHost(this.getEndPoint());
         return await useFetch( apiUrl, {
             onRequest({ request, options }) {
                 options.method = 'GET';
@@ -134,7 +134,7 @@ export default class CallApi{
     }
 
     static async update(id: number, FormData: FormData){
-        const apiUrl = utils.getEnviromentHost(useRuntimeConfig().public.apiUrl + this.getEndPoint() + '/${id}');
+        const apiUrl = utils.getEnviromentHost(this.getEndPoint()) + '/' + id;
         option.body = utils.formDataToUrlEncoded(FormData);
         return await useFetch( apiUrl, {
             onRequest({ request, options }) {
@@ -160,7 +160,7 @@ export default class CallApi{
     }
 
     static async destroy(id: number){
-        const apiUrl = utils.getEnviromentHost(useRuntimeConfig().public.apiUrl + this.getEndPoint());
+        const apiUrl = utils.getEnviromentHost(this.getEndPoint());
         return await useFetch( apiUrl, {
             onRequest({ request, options }) {
                 options.query = {'id' : id};
@@ -177,7 +177,7 @@ export default class CallApi{
 
      // Método getter para obter o endPoint atual
     static getEndPoint() {
-        return useRuntimeConfig().public.apiUrl + this.endPoint;
+        return this.endPoint;
     }
 
     // Método setter para definir o novo endPoint
@@ -187,7 +187,7 @@ export default class CallApi{
 
     static async Upload(myForm: FormData){
 
-        const apiUrl = utils.getEnviromentHost(this.getEndPoint());        
+        const apiUrl = utils.getEnviromentHost(this.getEndPoint());
         return await useFetch( apiUrl, {
             onRequest({ request, options }) {
                 options.headers = {
@@ -209,7 +209,7 @@ export default class CallApi{
     }
 
     static async resetPassword(token: string, FormData: FormData){
-        let apiUrl = this.getEndPoint();
+        const apiUrl = utils.getEnviromentHost(this.getEndPoint());
         option.body = utils.formDataToUrlEncoded(FormData);
         return await useFetch( apiUrl, {
             onRequest({ request, options }) {

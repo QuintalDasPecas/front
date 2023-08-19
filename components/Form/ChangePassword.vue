@@ -87,8 +87,11 @@ export default{
                 
                 if ( status === 201){
                     this.successMessage = "Registro atualizado com sucesso!";
-                    this.notification = true;
+                    this.formData.password = '';
+                    this.formData.current_password = '';
+                    this.formData.recoverpassword = '';
                 }
+                
                 if( status >= 400 ){
                     this.errorMessage.message = responseError.value.data.data[0];
                 }
