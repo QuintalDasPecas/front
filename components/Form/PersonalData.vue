@@ -1,34 +1,5 @@
-<template>    
-    <div class="home" v-show="pf">
-        <section data-testid="recommendations" class="recommendations" type="recommendations">
-            <div class="container">
-                <div class="row g-8  justify-content-lg-center">
-                    <div class="col-lg-10">
-                        <div class="panel">
-                            <form>       
-                                <Message severity="success" v-if="successMessage">{{ successMessage }}</Message>
-                                <Message severity="error" v-if="errorMessage.message" v-for="(value, key) in errorMessage.message" :key="key">{{ value[0] }}</Message>                         
-                                <PartialsIndividualData :formData="formData" :errorMessage="errorMessage" @setFormDataIndividual="handleformDataIndividual" v-if="typeRegister === 2"></PartialsIndividualData>
-                                <div class="row g-2 box-button justify-content-lg-center">
-                                    <div class="col-lg-6 col-md-3 col-sm-4 col-2">
-                                        <NuxtLink class="btn btn-primary btn-lg btn-width-defult">
-                                            <i class="pi pi-arrow-left"></i> Voltar
-                                        </NuxtLink>
-                                    </div>
-                                    <div class="col-lg-6 col-md-3 col-sm-4 col-2">
-                                        <NuxtLink @click="handleSubmit()" class="btn btn-primary btn-lg btn-width-defult">
-                                            <i class="pi pi-check"></i> Confirmar
-                                        </NuxtLink>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-    <div class="home" v-show="pj">
+<template> 
+    <div class="home">
         <section data-testid="recommendations" class="recommendations" type="recommendations">
             <div class="container">
                 <div class="row g-8  justify-content-lg-center">
@@ -38,6 +9,7 @@
                                 <Message severity="success" v-if="successMessage">{{ successMessage }}</Message>
                                 <Message severity="error" v-if="errorMessage.message" v-for="(value, key) in errorMessage.message" :key="key">{{ value[0] }}</Message>                            
                                 <PartialsLegalEntityData :formData="formData" :errorMessage="errorMessage" @setFormDataEntity="handleformDataEntity" v-if="typeRegister === 1" ></PartialsLegalEntityData>                                               
+                                <PartialsIndividualData :formData="formData" :errorMessage="errorMessage" @setFormDataIndividual="handleformDataIndividual" v-if="typeRegister === 2"></PartialsIndividualData>
                                 <div class="row g-2 box-button justify-content-lg-center">
                                     <div class="col-lg-6 col-md-12 col-sm-12 col-12">
                                         <NuxtLink class="btn btn-primary btn-lg btn-width-defult">
@@ -99,7 +71,8 @@
 
                 if( status === 200 ){
                     this.formData.name = responseData.data._rawValue.data.name;
-                    this.formData.cpf_cnpj = responseData.data._rawValue.data.value;
+                    this.formData.cpf_cnpj = responseData.data._rawValue.data.cpfcnpj;
+                    this.typeRegister = responseData.data._rawValue.data.document_type == 'CNPJ' ? 1 : 2;
                 }
             },
             async handleSubmit(){

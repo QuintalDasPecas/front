@@ -22,7 +22,7 @@ export default class Utils {
 
     static getEnviromentHost( route: string ): string
     {   
-        if( this.getEnviroment() === 'development'){
+        if( this.getEnviroment() === 'development' ){
             return useRuntimeConfig().public.enviroment.dev.host + useRuntimeConfig().public.apiUrl + route;
         }
         return useRuntimeConfig().public.enviroment.prod.host  + useRuntimeConfig().public.apiUrl + route;

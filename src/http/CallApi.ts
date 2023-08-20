@@ -28,7 +28,7 @@ export default class CallApi{
     static endPoint = '';
 
     static async sactum(){        
-        const apiUrl = utils.getEnviromentHost(useRuntimeConfig().public.csrf);      
+        const apiUrl = useRuntimeConfig().public.csrf;
         await useFetch( apiUrl, {
             onRequest({ request, options }) {
                 options.headers = {
