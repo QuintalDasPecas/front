@@ -5,7 +5,7 @@
         <template #center>
             <span class="p-input-icon-right">
                 <i class="pi pi-search" />
-                <InputText  placeholder="Search" class="p-inputtext-search"/>           
+                <InputText  placeholder="Buscar produtos, marcas e muito mais" class="p-inputtext-search"/>           
             </span>
         </template>
         <template #end>
@@ -18,60 +18,67 @@
         </template>
     </Toolbar>
 </template>
-<script setup>
+<script>
 import Logout from "@/src/services/LogoutService";
 
-const users = ref('');
-const logged = ref(false);
-const items = ref([]);
-const logout = new Logout();
+export default {
+    data(){
+        return {
+            users: '',
+            logged: '',
+            items: [],
+            menu: [
+                {
+                    label: 'Usuário',
+                    icon: 'pi pi-fw pi-user',
+                    items: [
+                        {
+                            label: 'Meu perfil',
+                            command : () => { toProfile() }
+                        },           
+                        {
+                            label: 'Anúncios',
+                            command : () => { this.toAdverts() }
+                        },
+                        {
+                            label: 'Sair',
+                            command : () => { this.toLogout() }
+                        }
+                    ]
+                }   
+            ]
+        }
+    },
+    methods: {
+        toProfile(){
+            navigateTo('/profile');
+        },
+        toInit(){
+            this.users = localStorage.getItem('users') ?? '';
+            this.menu[0].label = this.users;    
+            this.logged = localStorage.getItem('logged') ? true : false;
+            this.items = this.menu;
+        },
+        toAdverts(){
+            navigateTo('/adverts');
+            console.log('a')
+        },
+        toLogout(){
+            localStorage.removeItem('logged');
+            localStorage.removeItem('users');
+            localStorage.removeItem('userId');
+            localStorage.removeItem('entityId');
 
-const menu = [
-    {
-        label: 'Usuário',
-        icon: 'pi pi-fw pi-user',
-        items: [
-            {
-                label: 'Meu perfil',
-                command : () => { toProfile() }
-            },           
-            {
-                label: 'Anúncios'
-            },
-            {
-                label: 'Sair',
-                command : () => { toLogout() }
-            }
-        ]
-    }   
-]
+            this.users = '';
+            this.logged = false;
 
-const toProfile = () => {
-    if( !logged.value ){
-        return false;
+            const logout = new Logout();
+            logout.logout();
+            navigateTo('/');
+        }
+    },
+    mounted(){
+        this.toInit();
     }
-    navigateTo('/profile');
-}
-
-const toLogout = () => {
-    localStorage.removeItem('logged');
-    localStorage.removeItem('users');
-    localStorage.removeItem('userId');
-    localStorage.removeItem('entityId');
-
-    users.value = '';
-    logged.value = false;
-    logout.logout();
-    navigateTo('/');
-}
-
-const init = () => {
-    users.value = localStorage.getItem('users') ?? '';
-    menu[0].label = users.value;    
-    logged.value = localStorage.getItem('logged') ? true : false;
-    items.value = menu;
-}
-
-init();
-
+}   
 </script>

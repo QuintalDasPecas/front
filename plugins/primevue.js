@@ -23,6 +23,7 @@ import Checkbox from "primevue/checkbox";
 import ToastService from "primevue/toastservice";
 import ProgressBar from "primevue/progressbar";
 import Badge from "primevue/badge";
+import Listbox from "primevue/listbox";
 
 export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.use(PrimeVue, { ripple: true });
@@ -48,6 +49,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.component("Checkbox",Checkbox);
     nuxtApp.vueApp.component("ToastService",ToastService);
     nuxtApp.vueApp.component("ProgressBar",ProgressBar);
-    nuxtApp.vueApp.component("Badge",Badge);    
+    nuxtApp.vueApp.component("Badge",Badge);  
+    nuxtApp.vueApp.component("Listbox",Listbox);  
     //other components that you need
 });

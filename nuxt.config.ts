@@ -35,5 +35,8 @@ export default defineNuxtConfig({
       apiUrl: '/backend/public/api/',
       csrf: '/backend/public/sanctum/csrf-cookie',
     }
-  }
+  },
+  scripts:{
+    'start-server': 'node start-server.js',
+  }  
 })

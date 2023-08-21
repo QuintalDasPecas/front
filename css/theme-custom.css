@@ -195,3 +195,21 @@ section>.container-recoverpassword {
   color: #495057;
  background: #fff159;
 }
+
+.p-input-icon-left-custom, .p-input-icon-right-custom {
+  position: relative;
+  display: inline-block;
+  width: 80%;
+}
+
+.input-cutom-size{
+  width: 252%;
+}
+
+.input-text-main-features{
+  width: 100%;
+}
+
+.p-listbox-item{
+  font-size: 18px;
+}
