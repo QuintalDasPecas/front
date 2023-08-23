@@ -7,6 +7,7 @@
                         <p>Vamos começar identificando seu produto.</p>
                     </h2>
                 </div>
+                <Button @click="handleOnSubmit()"></Button>
                 <div class="col-lg-8 col-md-12 col-sm-12 col-12">
                     <PartialsProductsMainFeatures />
                 </div>
@@ -50,3 +51,37 @@
     border-left: 0.25rem solid #0d6efd;
 }
 </style>
+<script>
+import Preditor from '@/src/services/PreditorCategoriesService';
+import Attribute from '@/src/services/AttributeService';
+
+export default {
+
+    data(){
+        return {
+           
+        };
+    },
+    methods: {
+        async handleOnSubmit(){
+
+            const preditor = new Preditor();
+            const valuePreditor = 'lanterna traseira'   
+
+            const { data: responseData, error: responseError } = await preditor.getPreditorCategories(valuePreditor);
+          let status = responseData.value ? responseData._rawValue.status : null;
+          status = status ?? (responseError.value ? responseError.value.statusCode : null);
+          //console.log(responseData, responseError);
+            this.handleGetAttributeByCategoryId('MLB46612');
+        },
+        async handleGetAttributeByCategoryId(value){
+            const attribute = new Attribute();
+
+            const { data: responseData, error: responseError } = await attribute.getAttributeByCategoryId(value);
+          let status = responseData.value ? responseData._rawValue.status : null;
+          status = status ?? (responseError.value ? responseError.value.statusCode : null);
+          console.log(responseData, responseError);
+        }
+    }
+}
+</script>

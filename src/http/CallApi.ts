@@ -250,4 +250,22 @@ export default class CallApi{
         });
 
     }
+
+    static async getWhere(value: string){
+        
+        const apiUrl = utils.getEnviromentHost(this.getEndPoint());
+        return await useFetch( apiUrl, {
+            onRequest({ request, options }) {
+                options.query = {'name' : value};
+                options.method = 'GET';
+            },
+            onResponse({ request, response, options }) {
+                return response._data;
+            },
+            onResponseError({ request, response, options }) {
+                return response._data;
+            }
+        });
+
+    }
 }
