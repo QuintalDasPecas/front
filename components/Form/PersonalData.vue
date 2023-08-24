@@ -89,7 +89,7 @@
                 const { data: responseData, error: responseError } =  await entity.updatePersonalData(entityId, formEntity);
                 let status = responseData.value ? responseData._rawValue.status : null;
                 status = status ?? (responseError.value ? responseError.value.statusCode : null);
-                console.log(status);
+              
                 if ( status === 201){
                     this.successMessage = "Dados pessoais atualizado com sucesso!";
                 }

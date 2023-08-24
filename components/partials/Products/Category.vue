@@ -5,7 +5,7 @@
         <template #content>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-                    <Listbox v-model="selectedCity" :options="cities" optionLabel="name" />
+                    <Listbox v-model="selectedCategory" :options="formList" filter optionLabel="name" class="w-full md:w-14rem" />   
                 </div>               
             </div>
         </template>
@@ -15,7 +15,7 @@
                 <div class="col-lg-3 col-md-3 col-sm-3 col-3 d-grid gap-3 d-md-flex justify-content-end"></div> 
                 <div class="col-lg-3 col-md-3 col-sm-3 col-3 d-grid gap-3 d-md-flex justify-content-end"></div>
                 <div class="col-lg-3 col-md-3 col-sm-3 col-3 d-grid gap-3 d-md-flex justify-content-end">
-                    <Button label="Confirmar" size="large" class="float-end"/>
+                    <Button  @click="handleGetSelected()" label="Confirmar" size="large" class="float-end"/>
                 </div>
             </div>
         </template>
@@ -23,17 +23,22 @@
 </template>
 <script>
 export default {
+    props: {       
+        formList: {
+            type: Object,
+            required: true
+        },
+    },
     data() {
-        return {
-            selectedCity: null,
-            cities: [
-                { name: 'aaaa', code: 'a' },
-                { name: 'bbbbb', code: 'b' },
-                { name: 'London', code: 'LDN' },
-                { name: 'Istanbul', code: 'IST' },
-                { name: 'Paris', code: 'PRS' }
-            ]
+        return {           
+            selectedCategory: null           
         };
-    }
+    },
+    methods:{
+        async handleGetSelected(){
+            this.$emit('handleGetSelected', this.selectedCategory  );
+        }
+    },
+    emits: ['handleGetSelected']
 };
 </script>
