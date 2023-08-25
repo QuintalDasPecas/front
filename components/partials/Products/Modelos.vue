@@ -1,25 +1,31 @@
 <template>
     <Card>
-        <template #title>{{ component.name }} </template>
-        <template #subtitle>{{ component.hint }}</template>
+        <template #title >{{ label }} 
+            <span  v-Tooltip.top="tooltip" v-if="tooltip">
+                <i class="pi pi-question-circle"></i>
+            </span>
+        </template>
+        <template #subtitle>{{ hint }}</template>
         <template #content>
-            <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-                <Listbox @click="handleGetSelected(selected)" v-model="selected" v-if="component.type=='list'" :options="component.options" filter optionLabel="name" class="w-full md:w-14rem" listStyle="max-height:250px" />   
-                <InputText v-model="value" v-if="component.type=='number' || component.type=='string' || component.type=='number_unit'"  size="large" class="input-text-main-features" />              
+            <div class="col-lg-12 col-md-12 col-sm-12 col-12">              
+                <InputText v-if="component === 'TEXT_INPUT' || component === 'NUMBER_INPUT'" v-model="value"  size="large" class="input-text-main-features" />  
+                <Dropdown v-if="component === 'COMBO'" v-model="selected" :options="options" optionLabel="name" placeholder="Selecione" class="w-full md:w-14rem" />            
             </div>
-            <div class="row" v-if="component.type=='boolean'">
-                <div class="col-lg-6 col-md-6 col-sm-6 col-6" >
+            <div class="row" v-if="component === 'BOOLEAN_INPUT'">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-3" ></div>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-3" >
                     <div class="flex align-items-center" >
                     <RadioButton v-model="radiovalue" inputId="radiobuttonyes" name="" value="Sim" />
                         <label for="radiobuttonyes" class="ml-2 form-label"> Sim</label>
                     </div>
                 </div>
-                <div class="col-lg-6 col-md-6 col-sm-6 col-6">    
+                <div class="col-lg-3 col-md-3 col-sm-3 col-3">    
                     <div class="flex align-items-center">
                         <RadioButton v-model="radiovalue" inputId="radiobuttonno" name="" value="Não" />
                         <label for="radiobuttonno" class="ml-2 form-label"> Não</label>
                     </div>
                 </div>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-3" ></div>
             </div>  
         </template> 
         <template #footer>
@@ -44,11 +50,19 @@ export default {
         },
         component: {
             type: Object,
-            required: true,
-            default: {
-                hint: '',
-                name: ''
-            }
+            required: true
+        },
+        label: {
+            type: Object,
+            required: true
+        },
+        tooltip: {
+            type: Object,
+            required: false
+        },
+        hint: {
+            type: Object,
+            required: false
         }
     },
     data() {

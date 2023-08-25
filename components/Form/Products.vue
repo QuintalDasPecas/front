@@ -7,17 +7,19 @@
                         <p>Vamos começar identificando seu produto.</p>
                     </h2>
                 </div>
-                <Button @click="handleOnSubmit()"></Button>
                 <div class="col-lg-8 col-md-12 col-sm-12 col-12">
                     <PartialsProductsMainFeatures @handleSubmitPredict="handleSubmitPredict"/>
                 </div>
                 <div class="col-lg-8 col-md-12 col-sm-12 col-12">
                     <PartialsProductsCategory  :formList="formList" @handleGetSelected="handleGetSelected"/>
-                </div>               
-                <div class="col-lg-8 col-md-12 col-sm-12 col-12" v-for="(value, key) in componentData" v-if="ver">
-                    <PartialsProductsModelos :component="value" :options="[]" :value="formData" id="key" />
-                    <!-- <PartialsProductsRegulatoryInformation /> -->
+                </div>       
+                <div class="row justify-content-lg-center" v-for="(value, key) in componentData"  v-if="ver"> 
+                    <div class="col-lg-8 col-md-12 col-sm-12 col-12  g-4" v-for="( group , key) in value">
+                        <PartialsProductsModelos  :component="group.component" :label="group.attributes[0].name" :hint="group.ui_config.hint" :tooltip="group.ui_config.tooltip" :options="group.attributes[0].values" :value="formData" id="key" />                       
+                    </div>
                 </div>
+               
+                 <!-- <PartialsProductsRegulatoryInformation /> -->
                 <!-- <div class="col-lg-8 col-md-12 col-sm-12 col-12">
                     <PartialsProductsProductDataSheet />
                 </div>
@@ -102,18 +104,21 @@ export default {
         async handleForm( value ){
             let comp = [];
             let options = [];
-            value.forEach(function( value, key ){
-                value.value_type = value.value_type == 'string' && value.values ? 'list' : value.value_type;
-                let opt = value.values ?? [];
-                options = [];
-                opt.forEach(function( valueOpt, keyOpt ){
-                    options[keyOpt] = {code: valueOpt.id, name: valueOpt.name}
-                });                
-                comp[key] = {type: value.value_type, name: value.name, hint: value.hint, options: options }
+            value.groups.forEach(function( value, key ){
+                // value.value_type = value.value_type == 'string' && value.values ? 'list' : value.value_type;
+                // let opt = value.values ?? [];
+                // options = [];
+                // opt.forEach(function( valueOpt, keyOpt ){
+                //     options[keyOpt] = {code: valueOpt.id, name: valueOpt.name}
+                // });                
+                // comp[key] = {type: value.value_type, name: value.name, hint: value.hint, options: options }
+
+                comp[key] = value.components;
             });
 
             this.componentData = comp;
             this.ver = true;
+            console.log(this.componentData);
         }
     }
 }

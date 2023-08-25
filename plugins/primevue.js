@@ -24,7 +24,8 @@ import ToastService from "primevue/toastservice";
 import ProgressBar from "primevue/progressbar";
 import Badge from "primevue/badge";
 import Listbox from "primevue/listbox";
-import RadioButton from "primevue/RadioButton";
+import RadioButton from "primevue/radiobutton";
+import Tooltip from 'primevue/tooltip';
 
 export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.use(PrimeVue, { ripple: true });
@@ -53,6 +54,9 @@ export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.component("Badge",Badge);  
     nuxtApp.vueApp.component("Listbox",Listbox); 
     nuxtApp.vueApp.component("RadioButton",RadioButton); 
+    nuxtApp.vueApp.directive("Tooltip", Tooltip);
+    nuxtApp.vueApp.component("Tooltip",Tooltip); 
+    
     
     //other components that you need
 });
