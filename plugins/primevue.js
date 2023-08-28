@@ -26,6 +26,7 @@ import Badge from "primevue/badge";
 import Listbox from "primevue/listbox";
 import RadioButton from "primevue/radiobutton";
 import Tooltip from 'primevue/tooltip';
+import InputNumber from 'primevue/inputnumber';
 
 export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.use(PrimeVue, { ripple: true });
@@ -56,6 +57,8 @@ export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.component("RadioButton",RadioButton); 
     nuxtApp.vueApp.directive("Tooltip", Tooltip);
     nuxtApp.vueApp.component("Tooltip",Tooltip); 
+    nuxtApp.vueApp.component("InputNumber",InputNumber); 
+    
     
     
     //other components that you need

@@ -8,8 +8,8 @@
         <template #subtitle></template>
         <template #content>
             <div class="col-lg-12 col-md-12 col-sm-12 col-12"> 
-            <Dropdown v-model="selected" :options="options" optionLabel="name" class="w-full md:w-14rem" />
-        </div>
+                <InputNumber  inputId="locale-user" prefix="R$ " :minFractionDigits="2" v-if="component === 'TEXT_INPUT' || component === 'NUMBER_INPUT' || component === 'NUMBER_UNIT_INPUT' " v-model="value"  size="large" class="input-text-main-features" />  
+            </div>
         </template> 
         <template #footer>
             <div class="row g-2 box-button">             
@@ -27,7 +27,8 @@
 export default {
     data(){
         return {
-            selected: ''
+            selected: '',
+            value: 0.00
         }
     },
     props: {       

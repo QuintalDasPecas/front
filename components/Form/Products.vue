@@ -10,50 +10,31 @@
                 <div class="col-lg-8 col-md-12 col-sm-12 col-12">
                     <PartialsProductsMainFeatures @handleSubmitPredict="handleSubmitPredict"/>
                 </div>
-                <div class="col-lg-8 col-md-12 col-sm-12 col-12">
-                    <PartialsProductsCategory  :formList="formList" @handleGetSelected="handleGetSelected"/>
-                </div>       
-                <div class="row justify-content-lg-center" v-for="(value, key) in componentData"  v-if="ver"> 
-                    <div class="col-lg-8 col-md-12 col-sm-12 col-12  g-4" v-for="( group , key) in value">
-                        <PartialsProductsModelos  :component="group.component" :label="group.attributes[0].name" :hint="group.ui_config.hint" :tooltip="group.ui_config.tooltip" :options="group.attributes[0].values" :value="formData" id="key" />                       
+                <div class="col-lg-8 col-md-12 col-sm-12 col-12" v-show="showcategory">
+                    <PartialsProductsCategory :formList="formList" @handleGetSelected="handleGetSelected"/>
+                </div>               
+                <!-- <div class="row justify-content-lg-center"> -->
+                    <div class="col-lg-8 col-md-12 col-sm-12 col-12 g-4">
+                        <PartialsProductsAutoComponent :id="1" :attribute_id="0" v-if="showcomponent === 1" :component="'TEXT_INPUT'" :label="'Preencha o título do anúncio'" :options="itemWarratyOption" :hint="'Inclua somente o produto, marca, modelo e características principais. Lembre-se de que, quando receber uma venda, você nao poerá editá-lo'" :tooltip="''" :name="'titleitem'" @handleConfirm="handleConfirm" :componentKey="1"/>
+                   
+                        <PartialsProductsAutoComponent :id="2" :attribute_id="0" v-if="showcomponent === 2" :component="'COMBO'" :label="'Você oferece garantia?'" :options="itemWarratyOption" :hint="''" :tooltip="'Informe se o produto terá garantia.'" :name="'itemWarraty'" @handleConfirm="handleConfirm" :componentKey="2"/>
+                   
+                        <PartialsProductsAutoComponent :id="3" :attribute_id="0" v-if="showcomponent === 3" :component="'CURRENCY_INPUT'" :label="'Preço'" :hint="'Informe o preço do produto.'" :tooltip="'Preço de comercialização do produto.'" :options="[]" :name="'price'"  @handleConfirm="handleConfirm" :componentKey="3"/>
+                 
+                        <span v-for="(group) in componentData">
+                            <PartialsProductsAutoComponent v-if="showcomponent === group.position" :id="group.position" :attribute_id="group.id" :component="group.component" :label="group.name" :hint="group.hint" :tooltip="group.tooltip" :options="group.options" :name="group.ml_attribute_id"  @handleConfirm="handleConfirm" :componentKey="group.position" />                       
+                        </span>
                     </div>
-                </div>
-               
-                 <!-- <PartialsProductsRegulatoryInformation /> -->
-                <!-- <div class="col-lg-8 col-md-12 col-sm-12 col-12">
-                    <PartialsProductsProductDataSheet />
-                </div>
-                <div class="col-lg-8 col-md-12 col-sm-12 col-12">
-                    <PartialsProductsCondition />
-                </div>
-                <div class="col-lg-8 col-md-12 col-sm-12 col-12">
-                    <PartialsProductsTitleItem />
-                </div>
-                <div class="col-lg-8 col-md-12 col-sm-12 col-12">
-                    <PartialsProductsItemWarranty />
-                </div>                                   -->
+                   
+                    <!-- <div class="col-lg-8 col-md-12 col-sm-12 col-12">
+                        <PartialsProductsUploads />
+                    </div>  -->
+                <!-- </div>                                -->
             </form>
         </div>
     </div>
     <br>
 </template>
-<style>
-.bd-callout-info {
-    --bd-callout-color: var(--bs-info-text-emphasis);
-    --bd-callout-bg: var(--bs-info-bg-subtle);
-    --bd-callout-border: var(--bs-info-border-subtle);
-}
-.bd-callout {
-    --bs-link-color-rgb: var(--bd-callout-link);
-    --bs-code-color: var(--bd-callout-code-color);
-    padding: 1.25rem;
-    margin-top: 1.25rem;
-    margin-bottom: 1.25rem;
-    color: var(--bd-callout-color, inherit);
-    background-color: #f8f9fa;
-    border-left: 0.25rem solid #0d6efd;
-}
-</style>
 <script>
 import Preditor from '@/src/services/PreditorCategoriesService';
 import Attribute from '@/src/services/AttributeService';
@@ -63,8 +44,16 @@ export default {
         return {
             formList: [],
             formData: {},
-            componentData: {type: '', name: '', hint: ''},
-            ver: false
+            componentData: {},
+            showcomponent: 0,
+            showcategory: false,
+            itemWarratyOption:[
+                { code: '00', name: 'Selecione'},
+                { code: '01', name: 'Com garantia' },
+                { code: '02', name: 'Sem garantia' }
+            ],
+            formData: [],
+            increment: 0
         };
     },
     methods: {
@@ -72,7 +61,7 @@ export default {
            
         },
         async handleGetAttributeByCategoryId( value ){
-            this.componentData = [];
+            this.componentData = [];            
             const attribute = new Attribute();
             const { data: responseData, error: responseError } = await attribute.getAttributeByCategoryId(value);
             let status = responseData.value ? responseData._rawValue.status : null;
@@ -88,6 +77,7 @@ export default {
             status = status ?? (responseError.value ? responseError.value.statusCode : null);
 
             if( status == 200 ){
+                this.showcategory = true;
                 let form = [];
                 this.formList = [];
                 responseData._rawValue.data.forEach(function( value, key ){
@@ -102,23 +92,34 @@ export default {
             }            
         },
         async handleForm( value ){
-            let comp = [];
-            let options = [];
-            value.groups.forEach(function( value, key ){
-                // value.value_type = value.value_type == 'string' && value.values ? 'list' : value.value_type;
-                // let opt = value.values ?? [];
-                // options = [];
-                // opt.forEach(function( valueOpt, keyOpt ){
-                //     options[keyOpt] = {code: valueOpt.id, name: valueOpt.name}
-                // });                
-                // comp[key] = {type: value.value_type, name: value.name, hint: value.hint, options: options }
+            this.showcomponent = 1;
+            this.increment = 0;
+            const comp = [];
 
-                comp[key] = value.components;
+            value.forEach(function(value, key){
+                comp[key] = value;
+
             });
 
+            value.forEach(function( value, key ){               
+                let opt = value.values ?  JSON.parse(value.values) : [];
+                let options = [];
+                opt.forEach(function( valueOpt, keyOpt ){
+                    options[keyOpt] = {code: valueOpt.id, name: valueOpt.name};
+                });
+                comp[key] = value;
+                comp[key].position = (key+4);
+                comp[key].options = options;
+            });
             this.componentData = comp;
-            this.ver = true;
-            console.log(this.componentData);
+        },
+        async handleConfirm( value ){           
+           this.formData[value.name] = value;
+           this.showcomponent = (value.position+1);
+           console.log(this.showcomponent);
+        },
+        mounted(){
+            this.increment = 1;
         }
     }
 }

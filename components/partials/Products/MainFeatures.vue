@@ -7,7 +7,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                     <span class="p-input-icon-left" style="width: 100%;">
                         <i class="pi pi-search" />
-                        <InputText v-model="formData.name" placeholder="Ex.: Lanterna traseira lado direito" size="large" class="input-text-main-features" />
+                        <InputText v-model="formData.name" placeholder="Ex.: Lanterna traseira lado direito" :name="'predict'" size="large" class="input-text-main-features" />
                     </span>
                 </div>
             </div>

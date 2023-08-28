@@ -5,7 +5,7 @@
         <template #content>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-                    <Listbox v-model="selectedCategory" :options="formList" filter optionLabel="name" class="w-full md:w-14rem" />   
+                    <Listbox  v-model="selectedCategory" :options="formList" filter optionLabel="name" class="w-full md:w-14rem" />   
                 </div>               
             </div>
         </template>

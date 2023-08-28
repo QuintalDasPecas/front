@@ -132,7 +132,7 @@ const _inlineRuntimeConfig = {
         "host": "https://quintaldaspecas.com.br"
       }
     },
-    "apiUrl": "/backend/public/api/",
+    "apiUrl": ":8000/api/",
     "csrf": "/backend/public/sanctum/csrf-cookie"
   }
 };

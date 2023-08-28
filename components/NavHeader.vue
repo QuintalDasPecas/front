@@ -5,7 +5,7 @@
         <template #center>
             <span class="p-input-icon-right">
                 <i class="pi pi-search" />
-                <InputText  placeholder="Buscar produtos, marcas e muito mais" class="p-inputtext-search"/>           
+                <InputText  placeholder="Buscar produtos, marcas e muito mais" :name="'searchItem'" class="p-inputtext-search"/>           
             </span>
         </template>
         <template #end>
@@ -61,7 +61,6 @@ export default {
         },
         toAdverts(){
             navigateTo('/adverts');
-            console.log('a')
         },
         toLogout(){
             localStorage.removeItem('logged');

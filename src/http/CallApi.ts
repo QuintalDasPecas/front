@@ -148,7 +148,7 @@ export default class CallApi{
                 options.body = option.body;
             },
             onRequestError({ request, options, error }) {
-                console.log(error);
+                // console.log(error);
             },
             onResponse({ request, response, options }) {
                 return response._data;
@@ -223,7 +223,7 @@ export default class CallApi{
                 options.body = option.body;
             },
             onRequestError({ request, options, error }) {
-                console.log(error);
+                // console.log(error);
             },
             onResponse({ request, response, options }) {
                 //return response._data;
