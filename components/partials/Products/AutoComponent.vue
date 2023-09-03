@@ -17,11 +17,14 @@
             {{ hint }}
         </template>
         <template #content>
-            <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-                <InputText v-if="component === 'TEXT_INPUT' || component === 'NUMBER_INPUT' || component === 'NUMBER_UNIT_INPUT' " v-model="value"  size="large" class="input-text-main-features" :class="{ 'p-invalid': invalid }" :maxlength="value_max_length" :readonly="compReadOlny[componentKey]" :id="name + componentKey"/>  
-                <Dropdown v-if="component === 'COMBO' || component === 'COLOR_INPUT' || component === 'TEXT_OUTPUT'" v-model="value" :options="options" optionLabel="name" placeholder="" class="w-full md:w-14rem" :class="{ 'p-invalid': invalid }" :disabled="compReadOlny[componentKey]" :id="name + componentKey" />            
-                <InputNumber  inputId="locale-user" prefix="R$ " :minFractionDigits="2" v-if="component === 'CURRENCY_INPUT'" v-model="currency"  size="large" class="input-text-main-features" :class="{ 'p-invalid': invalid }" :maxlength="value_max_length" :readonly="compReadOlny[componentKey]" :id="name + componentKey"/>  
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                    <InputText v-if="component === 'TEXT_INPUT' || component === 'NUMBER_INPUT' || component === 'NUMBER_UNIT_INPUT' " v-model="value"  size="large" class="input-text-main-features" :class="{ 'p-invalid': invalid }" :maxlength="value_max_length" :readonly="compReadOlny[componentKey]" :id="name + componentKey"/>  
+                    <Dropdown v-if="component === 'COMBO' || component === 'COLOR_INPUT' || component === 'TEXT_OUTPUT'" v-model="value" :options="options" optionLabel="name" placeholder="" class="w-full md:w-14rem" :class="{ 'p-invalid': invalid }" :disabled="compReadOlny[componentKey]" :id="name + componentKey" />            
+                    <InputNumber  inputId="locale-user" prefix="R$ " :minFractionDigits="2" v-if="component === 'CURRENCY_INPUT'" v-model="currency"  size="large" class="input-text-main-features" :class="{ 'p-invalid': invalid }" :maxlength="value_max_length" :readonly="compReadOlny[componentKey]" :id="name + componentKey"/>  
+                </div>
             </div>
+           
             <div class="row" v-if="component === 'BOOLEAN_INPUT'">
                 <div class="col-lg-3 col-md-3 col-sm-3 col-3" ></div>
                 <div class="col-lg-3 col-md-3 col-sm-3 col-3" >
@@ -84,7 +87,7 @@ export default {
             required: true
         },
         attribute_id: {
-            type:Number,
+            type: String,
             required: true
         },
         hidden: {
@@ -103,6 +106,10 @@ export default {
         readonly : {
             type: Boolean,
             required: true,
+        },
+        formGroup: {
+            type: String,
+            required: false,
         }
     },
     data() {
@@ -138,7 +145,7 @@ export default {
                 this.btnDisabled = true;
                 this.value = 'N/A';
             } 
-            this.$emit('handleNaoAplica', position);
+            //this.$emit('handleNaoAplica', position);
         }
     },   
     emits: ['handleConfirm']
