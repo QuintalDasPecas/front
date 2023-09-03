@@ -106,26 +106,14 @@ export default {
             this.invalid = false;
             if(!this.formData){                
                 return false;
-            }
-            
-            const formDatas = [];
-            this.formData.forEach(function( v, k ){
-                switch(k){
-                    case 2:
-                        formDatas[k] = { name: 'INMETRO', value: v, position: k};
-                    break;
-                    case 3:
-                        formDatas[k] = { name: 'OEM', value: v, position: k};
-                    break;
-                    case 4:
-                        formDatas[k] = { name: 'SKU', value: v, position: k};
-                    break;
-                    case 5:
-                        formDatas[k] = { name: 'GTIN', value: v, position: k};
-                    break;
-                }
-            });
-            this.$emit('handleConfirm', formDatas);
+            }            
+            const form = [
+                { name: 'INMETRO', value: this.formData[2], position: 2},
+                { name: 'OEM', value: this.formData[3], position: 3},
+                { name: 'SKU', value: this.formData[4], position: 4},
+                { name: 'GTIN', value: this.formData[5], position: 5},
+            ];
+            this.$emit('handleConfirm', form);
         },       
         async handleNaoAplica( position ){
             if(this.compReadOlny[position]){

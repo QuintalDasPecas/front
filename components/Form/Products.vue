@@ -80,7 +80,6 @@
 <script>
 import Preditor from '@/src/services/PreditorCategoriesService';
 import Attribute from '@/src/services/AttributeService';
-import { validateHeaderValue } from 'http';
 
 export default {
     data(){
@@ -100,7 +99,6 @@ export default {
                 { code: '02', name: 'Usado' },
                 { code: '03', name: 'Recondicionado' }
             ],
-            formData: [],
             increment: 7,
             showpredict: true,
             message: ''
@@ -171,19 +169,20 @@ export default {
         async handleConfirm( value ){
             const formdata = [];
             let i = 0;
+
+            // if( value.length > 1){
+            //     value.forEach(function(v, k){
+            //         formdata[i] =  {name: v.name, value: v.value, position: v.position}; 
+            //         i = v.position;
+            //         this.formData = formdata;
+            //     });
+            // }else{
+            //     i = value.position;
+            //     formdata[i] = {name: value.name, value: value.value, position: value.position};  
+            //     this.formData = formdata;              
+            // }
             
-            if( value.length > 1){
-                value.forEach(function(v, k){
-                    //this.formData[i] =  {name: v.name, value: v.value, position: v.position}; 
-                    i = v.position;
-                });
-            }else{
-                i = value.position;
-                //this.formData[i] = {name: value.name, value: value.value, position: value.position};                
-            }
-            
-            this.showcomponent[i + 1] = true;
-            
+            this.showcomponent[i + 1] = true;            
             console.log(this.formData);
         },
         // async handleNaoAplica( key ){            
