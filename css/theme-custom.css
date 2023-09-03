@@ -213,3 +213,32 @@ section>.container-recoverpassword {
 .p-listbox-item{
   font-size: 18px;
 }
+
+.icon-tooltip{
+  vertical-align: top;
+  font-size: 14px;
+}
+
+.icon-required{
+  vertical-align: top;
+  color: #ef4444;
+  font-size: 12px;
+}
+
+.p-dropdown-label, p-inputtext{
+  font-size: 18px;
+}
+
+.p-dropdown-item, p-highlight{
+  font-size: 18px;
+}
+
+.p-radiobutton .p-radiobutton-box {
+  border: 2px solid #ced4da;
+  background: #ffffff;
+  width: 25px;
+  height: 25px;
+  color: #495057;
+  border-radius: 50%;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}

@@ -252,7 +252,6 @@ export default class CallApi{
     }
 
     static async getWhere(value: string){
-        
         const apiUrl = utils.getEnviromentHost(this.getEndPoint());
         return await useFetch( apiUrl, {
             onRequest({ request, options }) {
@@ -263,9 +262,8 @@ export default class CallApi{
                 return response._data;
             },
             onResponseError({ request, response, options }) {
-                return response._data;
+               return response._data;
             }
         });
-
     }
 }

@@ -3,13 +3,13 @@
         <template #title>
             <div class="row">
                 <div class="col-lg-10 col-md-10 col-sm-10 col-10">
-                    {{ label }}<span v-if="!hidden" class="text-danger"> *</span>
-                    <span  v-Tooltip.top="tooltip" v-if="tooltip">
-                        <i class="pi pi-question-circle"></i>
-                    </span>
+                    {{ label }}
+                    <i v-Tooltip.top="'Preenchimento obrigatório.'" v-if="required" class="bi bi-asterisk icon-required"></i>&nbsp;
+                    <i v-Tooltip.top="tooltip" v-if="tooltip" class="pi pi-question-circle icon-tooltip text-primary"></i>
                 </div>
-                <div class="col-lg-2 col-md-2 col-sm-2 col-2  d-md-flex justify-content-end" v-if="hidden">
-                    <Button icon="pi pi-eye" severity="help" rounded outlined  aria-label="Favorite" @click="handleNaoAplica(componentKey)" />
+                <div class="col-lg-2 col-md-2 col-sm-2 col-2  d-md-flex justify-content-end" v-if="hidden == true || (hidden == false && required == false)">
+                    <Button v-if="!compReadOlny[componentKey]" v-Tooltip.top="toopTipNaoAplica" icon="pi pi-eye" severity="primary" rounded outlined  aria-label="Favorite" @click="handleNaoAplica(componentKey)" />
+                    <Button v-if="compReadOlny[componentKey]"  v-Tooltip.top="toopTipNaoAplica" icon="pi pi-eye-slash" severity="primary" rounded outlined aria-label="Favorite" @click="handleNaoAplica(componentKey)" />
                 </div>
             </div>
         </template>
@@ -18,9 +18,9 @@
         </template>
         <template #content>
             <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-                <InputText v-if="component === 'TEXT_INPUT' || component === 'NUMBER_INPUT' || component === 'NUMBER_UNIT_INPUT' " v-model="value"  size="large" class="input-text-main-features" :class="{ 'p-invalid': invalid }" :id="name + componentKey"/>  
-                <Dropdown v-if="component === 'COMBO' || component === 'COLOR_INPUT' || component === 'TEXT_OUTPUT'" v-model="value" :options="options" optionLabel="name" placeholder="" class="w-full md:w-14rem" :class="{ 'p-invalid': invalid }" :id="name + componentKey" />            
-                <InputNumber  inputId="locale-user" prefix="R$ " :minFractionDigits="2" v-if="component === 'CURRENCY_INPUT'" v-model="currency"  size="large" class="input-text-main-features" :class="{ 'p-invalid': invalid }" :id="name + componentKey"/>  
+                <InputText v-if="component === 'TEXT_INPUT' || component === 'NUMBER_INPUT' || component === 'NUMBER_UNIT_INPUT' " v-model="value"  size="large" class="input-text-main-features" :class="{ 'p-invalid': invalid }" :maxlength="value_max_length" :readonly="compReadOlny[componentKey]" :id="name + componentKey"/>  
+                <Dropdown v-if="component === 'COMBO' || component === 'COLOR_INPUT' || component === 'TEXT_OUTPUT'" v-model="value" :options="options" optionLabel="name" placeholder="" class="w-full md:w-14rem" :class="{ 'p-invalid': invalid }" :disabled="compReadOlny[componentKey]" :id="name + componentKey" />            
+                <InputNumber  inputId="locale-user" prefix="R$ " :minFractionDigits="2" v-if="component === 'CURRENCY_INPUT'" v-model="currency"  size="large" class="input-text-main-features" :class="{ 'p-invalid': invalid }" :maxlength="value_max_length" :readonly="compReadOlny[componentKey]" :id="name + componentKey"/>  
             </div>
             <div class="row" v-if="component === 'BOOLEAN_INPUT'">
                 <div class="col-lg-3 col-md-3 col-sm-3 col-3" ></div>
@@ -40,12 +40,12 @@
             </div>  
         </template> 
         <template #footer>
-            <div class="row g-2 box-button">             
-                <div class="col-lg-3 col-md-3 col-sm-3 col-3 d-grid gap-3 d-md-flex justify-content-end"></div>
-                <div class="col-lg-3 col-md-3 col-sm-3 col-3 d-grid gap-3 d-md-flex justify-content-end"></div> 
-                <div class="col-lg-3 col-md-3 col-sm-3 col-3 d-grid gap-3 d-md-flex justify-content-end"></div>
-                <div class="col-lg-3 col-md-3 col-sm-3 col-3 d-grid gap-3 d-md-flex justify-content-end">
-                    <Button label="Confirmar" outlined :disabled="btnDisabled" @click="handleConfirm(name, !this.value ? this.currency : this.value, attribute_id, componentKey, !this.hidden)" size="large" class="float-end" />
+            <div class="row g-2">             
+                <div class="col-lg-3 col-md-12 col-sm-12 col-12 justify-content-end"></div>
+                <div class="col-lg-3 col-md-12 col-sm-12 col-12 justify-content-end"></div> 
+                <div class="col-lg-3 col-md-12 col-sm-12 col-12 justify-content-end"></div>
+                <div class="col-lg-3 col-md-12 col-sm-12 col-12 justify-content-end">
+                    <Button label="Confirmar" outlined :disabled="compReadOlny[componentKey]" @click="handleConfirm(name, !this.value ? this.currency : this.value, attribute_id, componentKey, true)" size="large" class="float-end" />
                 </div>
             </div>
         </template>
@@ -90,6 +90,19 @@ export default {
         hidden: {
             type: Boolean,
             required: true
+        },
+        required: {
+            type: Boolean,
+            required: true
+        },
+        value_max_length: {
+            type: Number,
+            required: true,
+            default: 0
+        },
+        readonly : {
+            type: Boolean,
+            required: true,
         }
     },
     data() {
@@ -98,7 +111,9 @@ export default {
             selected: '',
             currency: 0.00,
             btnDisabled: false,
-            invalid: false            
+            invalid: false,
+            compReadOlny: [],
+            toopTipNaoAplica: 'Não aplica.'
         };
     },
     methods: {
@@ -110,14 +125,22 @@ export default {
             }
             this.$emit('handleConfirm', {id: attibuteId, name: nameProp.toLowerCase() , value: valueProp, position: position, required: required});
         },
-        async handleGetSelected( nameProp, valueProp ){
-            this.$emit('handleGetSelected', { name: nameProp, value: valueProp });
-        },
+        // async handleGetSelected( nameProp, valueProp ){
+        //     this.$emit('handleGetSelected', { name: nameProp, value: valueProp });
+        // },
         async handleNaoAplica( position ){
+            if(this.compReadOlny[position]){
+                this.compReadOlny[position] = false;
+                this.btnDisabled = false;
+                this.value = '';
+            }else{
+                this.compReadOlny[position] = true;
+                this.btnDisabled = true;
+                this.value = 'N/A';
+            } 
             this.$emit('handleNaoAplica', position);
-            console.log(position)
         }
     },   
-    emits: ['handleConfirm','handleGetSelected']
+    emits: ['handleConfirm']
 };
 </script>

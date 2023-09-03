@@ -1,4 +1,5 @@
 <template>
+    <Message severity="error" v-if="isValid"  :closable="false">{{ message }}</Message>
     <Card>
         <template #title>Indique o produto, marca, modelo e pricipais características  </template>
         <template #subtitle>Você também pode inserir o códico universal que o identifica. <span>Como posso encontrá-lo?</span> </template>
@@ -7,7 +8,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                     <span class="p-input-icon-left" style="width: 100%;">
                         <i class="pi pi-search" />
-                        <InputText v-model="formData.name" placeholder="Ex.: Lanterna traseira lado direito" :name="'predict'" size="large" class="input-text-main-features" />
+                        <InputText @keydown.enter="handleSubmitPredict(true)" v-model="formData.name" placeholder="Ex.: Lanterna traseira lado direito" :name="'predict'" size="large" class="input-text-main-features" />
                     </span>
                 </div>
             </div>
@@ -30,11 +31,21 @@ export default {
         return {
             formData: {
                 name: ''
-            }
+            },
+            message: '',
+            isValid: false
         };
     },
     methods: {
         async handleSubmitPredict( value ){
+            if( !this.formData.name ){
+                this.message = 'Informe um termo para realizar a pesquisa.';
+                this.isValid = true;
+                setTimeout(() => {
+                    this.isValid = false;
+                }, 5000);
+                return false;
+            }
             this.$emit('handleSubmitPredict', this.formData.name);
         }
     },

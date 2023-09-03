@@ -11,11 +11,11 @@
         </template>
         <template #footer>
             <div class="row">             
-                <div class="col-lg-3 col-md-3 col-sm-3 col-3 d-grid gap-3 d-md-flex justify-content-end"></div>
-                <div class="col-lg-3 col-md-3 col-sm-3 col-3 d-grid gap-3 d-md-flex justify-content-end"></div> 
-                <div class="col-lg-3 col-md-3 col-sm-3 col-3 d-grid gap-3 d-md-flex justify-content-end"></div>
-                <div class="col-lg-3 col-md-3 col-sm-3 col-3 d-grid gap-3 d-md-flex justify-content-end">
-                    <Button  @click="handleGetSelected()" label="Confirmar" size="large" class="float-end"/>
+                <div class="col-lg-6 col-md-3 col-sm-3 col-3 d-grid gap-3 d-md-flex justify-content-start">
+                    <Button label="Pesquisar outra categoria" outlined size="large" @click="handleSearchOtherCategory()" />
+                </div>
+                <div class="col-lg-6 col-md-3 col-sm-3 col-3 d-grid gap-3 d-md-flex justify-content-end">
+                    <Button outlined @click="handleGetSelected()" label="Confirmar" size="large" class="float-end"/>
                 </div>
             </div>
         </template>
@@ -37,8 +37,11 @@ export default {
     methods:{
         async handleGetSelected(){
             this.$emit('handleGetSelected', this.selectedCategory  );
+        },
+        async handleSearchOtherCategory(){
+            this.$emit('handleSearchOtherCategory', true );
         }
     },
-    emits: ['handleGetSelected']
+    emits: ['handleGetSelected','handleSearchOtherCategory']
 };
 </script>
