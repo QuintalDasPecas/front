@@ -3,8 +3,7 @@
         <template #title>
             <div class="row">
                 <div class="col-lg-10 col-md-10 col-sm-10 col-10">
-                    {{ label }}
-                    <i v-Tooltip.top="'Preenchimento obrigatório.'" v-if="required" class="bi bi-asterisk icon-required"></i>
+                    {{ label }}  <i v-Tooltip.top="'Preenchimento obrigatório.'" v-if="required" class="bi bi-asterisk icon-required"></i>
                     <i v-Tooltip.top="tooltip" v-if="tooltip" class="pi pi-question-circle icon-tooltip text-primary"></i>
                 </div>
             </div>
@@ -13,11 +12,8 @@
         <template #content>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-                    <label for="inputInmetro" class="form-label label-lg">Número de registro/certificação INMETRO</label>
-                    <Button v-if="!compReadOlny[1]" v-Tooltip.top="toopTipNaoAplica" icon="pi pi-eye" severity="primary" text   aria-label="Favorite" @click="handleNaoAplica(1)" class="float-end btn-sm" />
-                    <Button v-if="compReadOlny[1]"  v-Tooltip.top="toopTipNaoAplica" icon="pi pi-eye-slash" severity="primary" text  aria-label="Favorite" @click="handleNaoAplica(1)"  class="float-end" />
-                    <InputText v-model="formData[1]"  size="large" class="input-text-main-features" :class="{ 'p-invalid': invalid }" :maxlength="'255'" :readonly="compReadOlny[1]" :id="'inmetro'"/>
-                </div>               
+                    <Listbox optionLabel="name" filter  v-model="formData[2]" class="w-full md:w-14rem" :options="options" :class="{ 'p-invalid': invalid }" :disabled="compReadOlny[2]" id="ITEM_CONDITION" ></Listbox>
+                </div>
             </div>
         </template> 
         <template #footer>
@@ -38,7 +34,7 @@ export default {
     props: {       
         options: {
             type: Object,
-            required: false
+            required: false,
         },
         tooltip: {
             type: String,
@@ -72,7 +68,7 @@ export default {
         hint: {
             type: String,
             required: true
-        },
+        }
     },
     data() {
         return {
@@ -80,7 +76,8 @@ export default {
             btnDisabled: false,
             invalid: false,
             compReadOlny: [],
-            toopTipNaoAplica: 'Não aplica.'
+            toopTipNaoAplica: 'Não aplica.',
+            selected:''
         };
     },
     methods: {
@@ -88,10 +85,19 @@ export default {
             this.invalid = false;
             if(!this.formData){                
                 return false;
-            }            
-            this.$emit('handleConfirm', { name: 'INMETRO', value: this.formData[1], position: 4});
+            }       
+            if(!this.formData[2]){
+                this.invalid = true;
+                return false;
+            }
+            if(!this.formData[3]){
+                this.invalid = true;
+                return false;
+            }   
+            this.$emit('handleConfirm', { name: 'ITEM_CONDITION', value: this.formData[2], position: 2});
+            this.$emit('handleConfirm', { name: 'SALES_TERM', value: this.formData[3], position: 2});
         },       
-        async handleNaoAplica( position ){
+        async handleNaoAplica( position ){           
             if(this.compReadOlny[position]){
                 this.compReadOlny[position] = false;
                 this.btnDisabled = false;

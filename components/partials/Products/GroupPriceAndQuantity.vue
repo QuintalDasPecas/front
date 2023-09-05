@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-lg-10 col-md-10 col-sm-10 col-10">
                     {{ label }}
-                    <i v-Tooltip.top="'Preenchimento obrigatório.'" v-if="required" class="bi bi-asterisk icon-required"></i>
+                    
                     <i v-Tooltip.top="tooltip" v-if="tooltip" class="pi pi-question-circle icon-tooltip text-primary"></i>
                 </div>
             </div>
@@ -12,12 +12,22 @@
         <template #subtitle>{{ hint }}</template>
         <template #content>
             <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-                    <label for="inputInmetro" class="form-label label-lg">Número de registro/certificação INMETRO</label>
-                    <Button v-if="!compReadOlny[1]" v-Tooltip.top="toopTipNaoAplica" icon="pi pi-eye" severity="primary" text   aria-label="Favorite" @click="handleNaoAplica(1)" class="float-end btn-sm" />
-                    <Button v-if="compReadOlny[1]"  v-Tooltip.top="toopTipNaoAplica" icon="pi pi-eye-slash" severity="primary" text  aria-label="Favorite" @click="handleNaoAplica(1)"  class="float-end" />
-                    <InputText v-model="formData[1]"  size="large" class="input-text-main-features" :class="{ 'p-invalid': invalid }" :maxlength="'255'" :readonly="compReadOlny[1]" :id="'inmetro'"/>
-                </div>               
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                    <label for="inputInmetro" class="form-label label-lg">
+                        Preço <i v-Tooltip.top="'Preenchimento obrigatório.'" v-if="required" class="bi bi-asterisk icon-required"></i>
+                    </label>
+                    <!-- <Button v-if="!compReadOlny[6]" v-Tooltip.top="toopTipNaoAplica" icon="pi pi-eye" severity="primary" text   aria-label="Favorite" @click="handleNaoAplica(6)" class="float-end btn-sm" />
+                    <Button v-if="compReadOlny[6]"  v-Tooltip.top="toopTipNaoAplica" icon="pi pi-eye-slash" severity="primary" text  aria-label="Favorite" @click="handleNaoAplica(6)"  class="float-end" /> -->
+                    <InputText v-model="formData[1]"  size="large" class="input-text-main-features" :class="{ 'p-invalid': invalid }" :maxlength="'255'" :readonly="compReadOlny[1]" :id="'PRICE'"/>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                    <label for="inputQuantity" class="form-label label-lg">
+                        Quantidade <i v-Tooltip.top="'Preenchimento obrigatório.'" v-if="required" class="bi bi-asterisk icon-required"></i>
+                    </label>                   
+                    <!-- <Button v-if="!compReadOlny[7]" v-Tooltip.top="toopTipNaoAplica" icon="pi pi-eye" severity="primary" text   aria-label="Favorite" @click="handleNaoAplica(7)"  class="float-end" />
+                    <Button v-if="compReadOlny[7]"  v-Tooltip.top="toopTipNaoAplica" icon="pi pi-eye-slash" severity="primary" text  aria-label="Favorite" @click="handleNaoAplica(7)" class="float-end"  /> -->
+                    <InputText v-model="formData[2]"  size="large" class="input-text-main-features" :class="{ 'p-invalid': invalid }" :maxlength="'255'" :readonly="compReadOlny[2]" :id="'AVAILABLE_QUANTITY'"/>
+                </div>                
             </div>
         </template> 
         <template #footer>
@@ -72,7 +82,7 @@ export default {
         hint: {
             type: String,
             required: true
-        },
+        }
     },
     data() {
         return {
@@ -88,10 +98,19 @@ export default {
             this.invalid = false;
             if(!this.formData){                
                 return false;
-            }            
-            this.$emit('handleConfirm', { name: 'INMETRO', value: this.formData[1], position: 4});
+            }       
+            if(!this.formData[1]){
+                this.invalid = true;
+                return false;
+            }
+            if(!this.formData[2]){
+                this.invalid = true;
+                return false;
+            }   
+            this.$emit('handleConfirm', { name: 'PRICE', value: this.formData[1], position: 3});
+            this.$emit('handleConfirm', { name: 'QUANTITY', value: this.formData[2], position: 3});
         },       
-        async handleNaoAplica( position ){
+        async handleNaoAplica( position ){           
             if(this.compReadOlny[position]){
                 this.compReadOlny[position] = false;
                 this.btnDisabled = false;

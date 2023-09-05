@@ -11,6 +11,7 @@
                         <InputText @keydown.enter="handleSubmitPredict(true)" v-model="formData.name" placeholder="Ex.: Lanterna traseira lado direito" :name="'predict'" size="large" class="input-text-main-features" />
                     </span>
                 </div>
+                
             </div>
         </template> 
         <template #footer>
@@ -19,7 +20,7 @@
                 <div class="col-lg-3 col-md-3 col-sm-3 col-3 d-grid gap-3 d-md-flex justify-content-end"></div> 
                 <div class="col-lg-3 col-md-3 col-sm-3 col-3 d-grid gap-3 d-md-flex justify-content-end"></div>
                 <div class="col-lg-3 col-md-3 col-sm-3 col-3 d-grid gap-3 d-md-flex justify-content-end">
-                    <Button label="Confirmar" size="large" class="float-end" @click="handleSubmitPredict(true)" />
+                    <Button label="Confirmar" size="large" outlined class="float-end" @click="handleSubmitPredict(true)" />
                 </div>
             </div>
         </template>

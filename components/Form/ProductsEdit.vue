@@ -9,8 +9,7 @@
                         </h2>
                     </div>               
                     <div class="col-lg-8 col-md-12 col-sm-12 col-12" v-if="showpredict">
-                       <!-- <PartialsProductsMainFeatures @handleSubmitPredict="handleSubmitPredict"/> -->
-                       <PartialsProductsSearchProducts />
+                        <PartialsProductsMainFeatures @handleSubmitPredict="handleSubmitPredict"/>
                     </div>
                     <div class="col-lg-8 col-md-12 col-sm-12 col-12" v-if="showcategory">
                         <PartialsProductsCategory :formList="formList" @handleGetSelected="handleGetSelected" @handleSearchOtherCategory="handleSearchOtherCategory"/>
@@ -130,7 +129,6 @@
                         </span>
                     </div>
                 </div>
-                <FormSearchProducts />
             </form>
         </div>
     </div>

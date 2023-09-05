@@ -28,6 +28,7 @@ import RadioButton from "primevue/radiobutton";
 import Tooltip from 'primevue/tooltip';
 import InputNumber from 'primevue/inputnumber';
 import Tag from 'primevue/tag';
+import AutoComplete  from 'primevue/autocomplete';
 
 export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.use(PrimeVue, { ripple: true });
@@ -59,7 +60,9 @@ export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.directive("Tooltip", Tooltip);
     nuxtApp.vueApp.component("Tooltip",Tooltip); 
     nuxtApp.vueApp.component("InputNumber",InputNumber); 
-    nuxtApp.vueApp.component("Tag",Tag);  
+    nuxtApp.vueApp.component("Tag",Tag);
+    nuxtApp.vueApp.component("AutoComplete",AutoComplete);
+    
     
     //other components that you need
 });

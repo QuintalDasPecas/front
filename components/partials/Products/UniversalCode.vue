@@ -11,30 +11,24 @@
         </template>
         <template #subtitle>{{ hint }}</template>
         <template #content>
-            <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                    <label for="inputQuantidade" class="form-label label-lg">Número de registro/certificação INMETRO</label>
-                    <Button v-if="!compReadOlny[2]" v-Tooltip.top="toopTipNaoAplica" icon="pi pi-eye" severity="primary" text   aria-label="Favorite" @click="handleNaoAplica(2)" class="float-end btn-sm" />
-                    <Button v-if="compReadOlny[2]"  v-Tooltip.top="toopTipNaoAplica" icon="pi pi-eye-slash" severity="primary" text  aria-label="Favorite" @click="handleNaoAplica(2)"  class="float-end" />
-                    <InputText v-model="formData[2]"  size="large" class="input-text-main-features" :class="{ 'p-invalid': invalid }" :maxlength="'255'" :readonly="compReadOlny[2]" :id="'inmetro'"/>
-                </div>
+            <div class="row">              
                 <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                     <label for="inputOEM" class="form-label label-lg">OEM (opcional)</label>                   
-                    <Button v-if="!compReadOlny[3]" v-Tooltip.top="toopTipNaoAplica" icon="pi pi-eye" severity="primary" text   aria-label="Favorite" @click="handleNaoAplica(3)"  class="float-end" />
-                    <Button v-if="compReadOlny[3]"  v-Tooltip.top="toopTipNaoAplica" icon="pi pi-eye-slash" severity="primary" text  aria-label="Favorite" @click="handleNaoAplica(3)" class="float-end"  />
-                    <InputText v-model="formData[3]"  size="large" class="input-text-main-features" :class="{ 'p-invalid': invalid }" :maxlength="'255'" :readonly="compReadOlny[3]" :id="'oem'"/>
+                    <Button v-if="!compReadOlny[2]" v-Tooltip.top="toopTipNaoAplica" icon="pi pi-eye" severity="primary" text   aria-label="Favorite" @click="handleNaoAplica(2)"  class="float-end" />
+                    <Button v-if="compReadOlny[2]"  v-Tooltip.top="toopTipNaoAplica" icon="pi pi-eye-slash" severity="primary" text  aria-label="Favorite" @click="handleNaoAplica(2)" class="float-end"  />
+                    <InputText v-model="formData[2]"  size="large" class="input-text-main-features" :class="{ 'p-invalid': invalid }" :maxlength="'255'" :readonly="compReadOlny[2]" :id="'oem'"/>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                     <label for="inputSKU" class="form-label label-lg">SKU (opcional)</label>
-                    <Button v-if="!compReadOlny[4]" v-Tooltip.top="toopTipNaoAplica" icon="pi pi-eye" severity="primary" text   aria-label="Favorite" @click="handleNaoAplica(4)"  class="float-end" />
-                    <Button v-if="compReadOlny[4]"  v-Tooltip.top="toopTipNaoAplica" icon="pi pi-eye-slash" severity="primary" text  aria-label="Favorite" @click="handleNaoAplica(4)" class="float-end"  />
-                    <InputText v-model="formData[4]"  size="large" class="input-text-main-features" :class="{ 'p-invalid': invalid }" :maxlength="'255'" :readonly="compReadOlny[4]" :id="'sku'"/>
+                    <Button v-if="!compReadOlny[3]" v-Tooltip.top="toopTipNaoAplica" icon="pi pi-eye" severity="primary" text   aria-label="Favorite" @click="handleNaoAplica(3)"  class="float-end" />
+                    <Button v-if="compReadOlny[3]"  v-Tooltip.top="toopTipNaoAplica" icon="pi pi-eye-slash" severity="primary" text  aria-label="Favorite" @click="handleNaoAplica(3)" class="float-end"  />
+                    <InputText v-model="formData[3]"  size="large" class="input-text-main-features" :class="{ 'p-invalid': invalid }" :maxlength="'255'" :readonly="compReadOlny[3]" :id="'sku'"/>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                     <label for="inputGTIN" class="form-label label-lg">GTIN (opcional)</label>
-                    <Button v-if="!compReadOlny[5]" v-Tooltip.top="toopTipNaoAplica" icon="pi pi-eye" severity="primary" text   aria-label="Favorite" @click="handleNaoAplica(5)"  class="float-end" />
-                    <Button v-if="compReadOlny[5]"  v-Tooltip.top="toopTipNaoAplica" icon="pi pi-eye-slash" severity="primary" text  aria-label="Favorite" @click="handleNaoAplica(5)" class="float-end"  />
-                    <InputText v-model="formData[5]"  size="large" class="input-text-main-features" :class="{ 'p-invalid': invalid }" :maxlength="'255'" :readonly="compReadOlny[5]" :id="'gtin'"/>
+                    <Button v-if="!compReadOlny[4]" v-Tooltip.top="toopTipNaoAplica" icon="pi pi-eye" severity="primary" text   aria-label="Favorite" @click="handleNaoAplica(4)"  class="float-end" />
+                    <Button v-if="compReadOlny[4]"  v-Tooltip.top="toopTipNaoAplica" icon="pi pi-eye-slash" severity="primary" text  aria-label="Favorite" @click="handleNaoAplica(4)" class="float-end"  />
+                    <InputText v-model="formData[4]"  size="large" class="input-text-main-features" :class="{ 'p-invalid': invalid }" :maxlength="'255'" :readonly="compReadOlny[4]" :id="'gtin'"/>
                 </div>
             </div>
         </template> 
@@ -90,7 +84,7 @@ export default {
         hint: {
             type: String,
             required: true
-        }
+        },
     },
     data() {
         return {
@@ -107,13 +101,10 @@ export default {
             if(!this.formData){                
                 return false;
             }            
-            const form = [
-                { name: 'INMETRO', value: this.formData[2], position: 2},
-                { name: 'OEM', value: this.formData[3], position: 3},
-                { name: 'SKU', value: this.formData[4], position: 4},
-                { name: 'GTIN', value: this.formData[5], position: 5},
-            ];
-            this.$emit('handleConfirm', form);
+            this.$emit('handleConfirm', { name: 'INMETRO', value: this.formData[1], position: 4});
+            this.$emit('handleConfirm', { name: 'OEM', value: this.formData[2], position: 4});
+            this.$emit('handleConfirm', { name: 'SKU', value: this.formData[3], position: 4});
+            this.$emit('handleConfirm', { name: 'GTIN', value: this.formData[4], position: 4});
         },       
         async handleNaoAplica( position ){
             if(this.compReadOlny[position]){

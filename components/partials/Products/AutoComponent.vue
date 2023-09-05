@@ -130,7 +130,7 @@ export default {
                 this.invalid = true;
                 return false; 
             }
-            this.$emit('handleConfirm', {id: attibuteId, name: nameProp.toLowerCase() , value: valueProp, position: position, required: required});
+            this.$emit('handleConfirm', { name: nameProp.toUpperCase() , value: valueProp, position: position });
         },
         // async handleGetSelected( nameProp, valueProp ){
         //     this.$emit('handleGetSelected', { name: nameProp, value: valueProp });
