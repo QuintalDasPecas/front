@@ -2,15 +2,20 @@
     <div class="container">       
         <div class="row">
             <form  @submit.prevent="handleOnSubmit" class="row justify-content-lg-center g-4">               
-                <div class="row justify-content-lg-center">
-                    <div class="col-lg-8 col-md-12 col-sm-12 col-12">
+                <div class="row justify-content-lg-center" v-if="!attributes">
+                    <div class="col-lg-8 col-md-12 col-sm-12 col-8">
                         <h2>
                             <p>Vamos começar identificando seu produto.</p>
                         </h2>
-                    </div>               
-                    <div class="col-lg-8 col-md-12 col-sm-12 col-12" v-if="showpredict">
+                    </div>
+                </div> 
+                <div class="row justify-content-lg-center">
+                    <div class="col-lg-8 col-md-8 col-sm-12 col-8" v-if="showpredict">
                        <!-- <PartialsProductsMainFeatures @handleSubmitPredict="handleSubmitPredict"/> -->
-                       <PartialsProductsSearchProducts />
+                       <PartialsProductsSearchProducts v-if="!attributes" :isSkeleton="products ? false : (isSkeleton ? true : false)" :products="products" @handleClean="handleClean" @handleSelectProducts="handleSelectProducts" @handleSearchProducts="handleSearchProducts"/>
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-sm-12 col-8" v-if="showpredict">
+                        <PartialsProductsReviewAndEdit @handleSearch="handleSearch" :items="attributes" v-if="attributes" />
                     </div>
                     <div class="col-lg-8 col-md-12 col-sm-12 col-12" v-if="showcategory">
                         <PartialsProductsCategory :formList="formList" @handleGetSelected="handleGetSelected" @handleSearchOtherCategory="handleSearchOtherCategory"/>
@@ -119,7 +124,7 @@
                 </div>               
                 <div class="row justify-content-lg-center">
                     <div class="col-lg-8 col-md-12 col-sm-12 col-12 g-4">
-                        <PartialsProductsUploads  v-if="showcomponent[4]"/><br>
+                        <!-- <PartialsProductsUploads  v-if="showcomponent[4]"/><br> -->
                     </div>
                 </div>
                 <div class="row justify-content-lg-center">
@@ -129,8 +134,7 @@
                             <br>    
                         </span>
                     </div>
-                </div>
-                <FormSearchProducts />
+                </div>               
             </form>
         </div>
     </div>
@@ -139,7 +143,7 @@
 <script>
 import Preditor from '@/src/services/PreditorCategoriesService';
 import Attribute from '@/src/services/AttributeService';
-
+import RegisterProductsService from '@/src/services/RegisterProductsService';
 export default {
     data(){
         return {
@@ -151,7 +155,10 @@ export default {
             showlistcategory: false,           
             increment: 5,
             showpredict: true,
-            message: ''
+            message: '',
+            attributes:[],
+            isSkeleton: false,
+            products: ''
         };
     },
     methods: {
@@ -219,13 +226,58 @@ export default {
         async handleConfirm( value ){                      
             this.formData[value.name] = value;
             this.showcomponent[value.position + 1] = true;
-            console.log(this.formData)
         },     
         async handleSearchOtherCategory(){
             this.showpredict = true; 
             this.showlistcategory = false; 
             this.showcategory = false; 
             this.showcomponent = 0;
+        },
+        async handleSearchProducts( name ){
+            this.products = null;
+            this.isSkeleton = true;
+            const registerproduct = new RegisterProductsService();
+            const { data: responseData, error: responseError, pending: responsePending } = await registerproduct.getSearchByName(name);
+            let status = responseData.value ? responseData._rawValue.status : null;
+            status = status ?? (responseError.value ? responseError.value.statusCode : null);
+
+            if( status == 200 ){
+                const values = responseData._rawValue.data;
+                const list=[]; 
+                values.forEach(function( v, k){
+                    list[k] = { 
+                        id: v.id, 
+                        code: v.id, 
+                        name: v.title,                        
+                        image: v.thumbnail, 
+                        brand: v.brand ? 'Marca: ' + v.brand : null,
+                        model: v.model ? 'Model: ' + v.model : null,
+                        condition: v.condition
+                    };
+                });
+                this.products = list;
+                this.isSkeleton = false;
+            }
+        },
+        async handleSelectProducts(productId){
+            this.attributes = [];
+            const registerproduct = new RegisterProductsService();
+            const { data: responseData, error: responseError } = await registerproduct.getItemsByItem(productId);
+            let status = responseData.value ? responseData._rawValue.status : null;
+            status = status ?? (responseError.value ? responseError.value.statusCode : null);
+
+            if( status == 200 ){
+                this.handleClean(true);
+                this.attributes = responseData._rawValue.data;
+            }
+        },
+        async handleClean( value ){
+            this.formData.name = '';
+            this.isSkeleton = false;
+            this.products = '';
+        },
+        handleSearch( value ){
+            this.attributes = false;
         }
     }
 }

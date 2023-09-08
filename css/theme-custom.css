@@ -208,6 +208,8 @@ section>.container-recoverpassword {
 
 .input-text-main-features{
   width: 100%;
+  border-right: 0px;
+  border-left: 0px;
 }
 
 .p-listbox-item{
@@ -241,4 +243,68 @@ section>.container-recoverpassword {
   color: #495057;
   border-radius: 50%;
   transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.row-border{
+  border-top: 1px solid #ededed;
+}
+
+.text-md{
+  font-size: 16px;
+}
+
+
+.image-ajust{
+  padding-right: 10px;
+}
+
+.box-image{
+  padding: 12px 32px;
+}
+
+.syi-header-inside-group h2 {
+  color: rgba(0,0,0,.8);
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+  padding: 0;
+}
+
+.icon-pi-angle-right{
+  font-size: 16px;
+  justify-content: center;
+}
+
+.fs-26 {
+  font-size: 26px;
+}
+
+.icon-color{
+  color: #3483fa
+}
+
+.input-text-main-features:enabled:hover{
+  border-color: #ced4da;
+}
+
+.no-border{
+  border-color: #ced4da;
+  background-color: transparent;
+}
+
+.no-border-left{
+  border-left: 0px;
+}
+
+.no-border-right{
+  border-right: 0px;
+}
+
+.btn-search-custom{
+  background-color: #4189e626!important;
+}
+
+.img-size{
+  width: 150px;
+  height: 150px;
 }

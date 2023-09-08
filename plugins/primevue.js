@@ -29,6 +29,12 @@ import Tooltip from 'primevue/tooltip';
 import InputNumber from 'primevue/inputnumber';
 import Tag from 'primevue/tag';
 import AutoComplete  from 'primevue/autocomplete';
+import DataView from 'primevue/dataview';
+import Rating from 'primevue/rating';
+import Chip from 'primevue/chip';
+import Skeleton from 'primevue/skeleton';
+import Galleria from 'primevue/galleria';
+import Image from 'primevue/image';
 
 export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.use(PrimeVue, { ripple: true });
@@ -62,7 +68,12 @@ export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.component("InputNumber",InputNumber); 
     nuxtApp.vueApp.component("Tag",Tag);
     nuxtApp.vueApp.component("AutoComplete",AutoComplete);
-    
+    nuxtApp.vueApp.component('DataView',DataView);
+    nuxtApp.vueApp.component('Rating',Rating);
+    nuxtApp.vueApp.component('Chip',Chip);
+    nuxtApp.vueApp.component('Skeleton',Skeleton);
+    nuxtApp.vueApp.component('Galleria',Galleria);
+    nuxtApp.vueApp.component('Image',Image);
     
     //other components that you need
 });

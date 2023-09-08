@@ -6,4 +6,8 @@ export default class RegisterProductsService {
         return await repositorie.getSearchByName(value)
     }
 
+    public async getItemsByItem(value: string){
+        return await repositorie.getItemsByItem(value)
+    }
+
 }
