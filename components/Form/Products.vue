@@ -11,25 +11,12 @@
                 </div> 
                 <div class="row justify-content-lg-center">
                     <div class="col-lg-8 col-md-8 col-sm-12 col-8" v-if="showpredict">
-                       <!-- <PartialsProductsMainFeatures @handleSubmitPredict="handleSubmitPredict"/> -->
-                       <PartialsProductsSearchProducts v-if="!attributes" :isSkeleton="products ? false : (isSkeleton ? true : false)" :products="products" @handleClean="handleClean" @handleSelectProducts="handleSelectProducts" @handleSearchProducts="handleSearchProducts"/>
+                       <PartialsProductsSearchProducts v-if="!attributes" :products="products" :categories="categories" @handleClean="handleClean" @handleSelectGategories="handleSelectGategories" @handleSelectProducts="handleSelectProducts" @handleSearchProducts="handleSearchProducts" @handleSearchCategory="handleSearchCategory"/>
                     </div>
                     <div class="col-lg-8 col-md-8 col-sm-12 col-8" v-if="showpredict">
                         <PartialsProductsReviewAndEdit @handleSearch="handleSearch" :items="attributes" v-if="attributes" />
-                    </div>
-                    <div class="col-lg-8 col-md-12 col-sm-12 col-12" v-if="showcategory">
-                        <PartialsProductsCategory :formList="formList" @handleGetSelected="handleGetSelected" @handleSearchOtherCategory="handleSearchOtherCategory"/>
-                    </div>
-                    <div class="col-lg-8 col-md-12 col-sm-12 col-12" v-if="showlistcategory">
-                        <h4>Categoria</h4>
-                        <Listbox :options="formList" optionLabel="name"/>                    
-                    </div>                    
-                </div>
-                <div class="row justify-content-lg-center g-4">
-                    <div class="col-lg-8 col-md-12 col-sm-12 col-12 d-grid d-md-flex justify-content-end" v-if="showlistcategory">
-                        <Button label="Pesquisar outra categoria" outlined @click="handleSearchOtherCategory" />
-                    </div>
-                </div>
+                    </div>                 
+                </div>                 
                 <div class="row justify-content-lg-center">
                     <div class="col-lg-8 col-md-12 col-sm-12 col-12 g-4">
                         <PartialsProductsAutoComponent                             
@@ -156,9 +143,10 @@ export default {
             increment: 5,
             showpredict: true,
             message: '',
-            attributes:[],
+            attributes: false,
             isSkeleton: false,
-            products: ''
+            products: [],
+            categories: [],
         };
     },
     methods: {
@@ -173,8 +161,11 @@ export default {
             status = status ?? (responseError.value ? responseError.value.statusCode : null);
             this.handleForm(responseData._rawValue.data);            
         },
-        async handleSubmitPredict( value ){
-            try{
+        async handleSearchCategory( value ){
+            try{                
+                this.showcomponent[1] = false;
+                this.products = [];
+                this.categories = [];
                 this.componentData = [];   
                 this.formList = [];   
                 this.message = false;  
@@ -185,13 +176,16 @@ export default {
 
                 if( status == 200 ){                
                     let form = [];
+                    let img = '';
                     this.formList = [];
-                    responseData._rawValue.data.forEach(function( value, key ){
-                        form[key] = { code: value.category_id, name: value.category_name + " - " + value.domain_name };
+                    responseData._rawValue.data.forEach(function( vv, key ){
+                        img = vv.picture;
+                        img = img.split(';');
+                        img = img.length > 0 ? img[(img.length)] : img;
+                        form[key] = { code: vv.category_id, name: vv.category_name, path: vv.category_root, image: img };
                     });
-                    this.formList = form;
-                    this.showcategory = true;
-                    this.showpredict = false; 
+                    this.categories = form;
+                    this.showpredict = true; 
                 }
             
             }catch( error ){
@@ -223,7 +217,7 @@ export default {
             });
             this.componentData = comp;
         },
-        async handleConfirm( value ){                      
+        async handleConfirm( value ){
             this.formData[value.name] = value;
             this.showcomponent[value.position + 1] = true;
         },     
@@ -234,8 +228,10 @@ export default {
             this.showcomponent = 0;
         },
         async handleSearchProducts( name ){
-            this.products = null;
+            this.products = [];
+            this.categories = [];
             this.isSkeleton = true;
+            this.showcomponent[1] = false;
             const registerproduct = new RegisterProductsService();
             const { data: responseData, error: responseError, pending: responsePending } = await registerproduct.getSearchByName(name);
             let status = responseData.value ? responseData._rawValue.status : null;
@@ -271,10 +267,19 @@ export default {
                 this.attributes = responseData._rawValue.data;
             }
         },
+        async handleSelectGategories( value ){
+            if( value ){
+                this.formList = [];
+                this.handleGetAttributeByCategoryId( value );
+                this.formList[0] = value;
+                this.showcategory = false;
+                this.showlistcategory = true;
+            } 
+        },
         async handleClean( value ){
             this.formData.name = '';
-            this.isSkeleton = false;
             this.products = '';
+            this.categories = '';
         },
         handleSearch( value ){
             this.attributes = false;

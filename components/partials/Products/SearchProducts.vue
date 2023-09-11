@@ -1,33 +1,42 @@
-<template>
-    <Message severity="error" v-if="isValid"  :closable="false">{{ message }}</Message>
+<template>   
     <Card>       
         <template #content>
             <div class="row box-image">
+                <Message severity="error" v-if="isMessage"  :closable="false">{{ message }}</Message>
                 <div class="col-lg-10 col-md-10 col-sm-10 col-10">
-                    <span class="p-inputgroup " style="width: 100%;">
+                    <span class="p-inputgroup" style="width: 100%;">
                         <span class="p-inputgroup-addon no-border no-border-right">
                             <i class="pi pi-search" />
                         </span>
-                        <InputText @keydown.enter="handleSearchProducts(formData.name)" v-model="formData.name" placeholder="Ex.: Lanterna traseira lado direito" :name="'predict'" size="large" class="input-text-main-features" />
+                        <InputText @keydown.enter="handleSearch(typeSearch, formData.name)" v-model="formData.name" :placeholder="placeholder" :name="'predict'" size="large" class="input-text-main-features" />
                         <span class="p-inputgroup-addon no-border no-border-left">
                             <NuxtLink @click="handleClean()"><i class="pi pi-times" /></NuxtLink>
                         </span>
                     </span>
                 </div>
                 <div class="col-lg-2 col-md-2 col-sm-2 col-2 d-grid gap-2 d-md-flex justify-content-start">
-                    <Button label="Buscar" size="large" class="btn-search-custom" text  outlined @click="handleSearchProducts(formData.name)" />                   
-                </div>           
-                <div class="col-lg-12 col-md-12 col-sm-12 col-12" v-if="products">
-                    <h5>Não encontrou o item na lista, <NuxtLink to="/">Clique aqui!</NuxtLink></h5>                
+                    <Button label="Buscar" size="large" class="btn-search-custom" text  outlined @click="handleSearch(typeSearch, formData.name)" />                   
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                    <h5>Não encontrou o item na lista, 
+                        <NuxtLink to="#" @click="handleSearch(products.length ? 1 : (categories.length ? 2 : 0), formData.name)">
+                            <span v-if="categories.length">
+                                Pesquisar produto!
+                            </span>
+                            <span v-if="products.length">
+                                Pesquisar categoria!
+                            </span>
+                        </NuxtLink>                        
+                    </h5>
                     <h5>Estes produtos coincidem com sua busca. Algum deles é o seu?</h5>
                 </div>
             </div>   
-            <div class="row box-image row-border" v-if="products ? false : (isSkeleton ? true : false)">
+            <div class="row box-image row-border" v-if="products.length <= 0 ? (categories.length <= 0 ? true : false) : false">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                     <PartialsProductsSkeletonList /> 
                 </div>
             </div>
-            <div class="row box-image row-border cursor-pointer" v-for="product in products">                
+            <div class="row box-image row-border cursor-pointer" v-for="product in products">
                 <div class="col-lg-2 col-md-2 col-sm-2 col-2" @click="handleSelectProducts(product.id)">                               
                     <img :src="product.image" :alt="product.name"  width="70" class="image-ajust"/>           
                 </div>
@@ -41,9 +50,16 @@
                     <i class="bi bi-chevron-right float-end fs-26 icon-color"></i>
                 </div>
             </div>
-            <div class="row box-image row-border"  v-if="products">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-                    <NuxtLink to="/" class="ps-6">Explorar todas as opções</NuxtLink>
+            <div class="row box-image row-border cursor-pointer" v-for="category in categories">
+                <div class="col-lg-2 col-md-2 col-sm-2 col-2"  @click="handleSelectGategories(category.code)">                               
+                    <img :src="category.image" :alt="category.name"  width="70" class="image-ajust" v-if="category.image"/>           
+                </div>
+                <div class="col-lg-9 col-md-9 col-sm-9 col-9"  @click="handleSelectGategories(category.code)"> 
+                    <span class="text-md fs-4">{{ category.name }}</span> <br> 
+                    <span class="text-md fs-6">{{ category.path }}</span> <br>
+                </div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-1 d-flex align-items-center" @click="handleSelectGategories(category.code)">
+                    <i class="bi bi-chevron-right float-end fs-26 icon-color"></i>
                 </div>
             </div>
         </template> 
@@ -52,18 +68,17 @@
     </Card>
 </template>
 <script>
-
 export default {
     props:{
-        products:{
+        products: {
             type: Object,
             required: true,
             default: []
         },
-        isSkeleton:{
-            type: Boolean,
+        categories: {
+            type: Object,
             required: true,
-            default: false
+            default: []
         }
     },
     data() {
@@ -72,7 +87,10 @@ export default {
                 name: '',
                 productId: ''
             },
-            isValid: false
+            isMessage: false,
+            placeholder: 'Ex.: Lanterna traseira lado direito',
+            typeSearch: 2,
+            isSkeleton: false
         };
     },
     methods: {
@@ -80,13 +98,39 @@ export default {
             this.$emit('handleSelectProducts', productId); 
         },
         async handleSearchProducts( name ){
-            this.$emit('handleSearchProducts', name); 
+            if( !this.formData.name ){
+                this.message = 'Informe um termo para realizar a pesquisa.';
+                this.isMessage = true;
+                setTimeout(() => {
+                    this.isValid = false;
+                }, 5000);
+                return false;
+            }
+           
+            this.$emit('handleSearchProducts', name);
         },
         handleClean(){
             this.formData.name = '';
             this.$emit('handleClean', true); 
-        }    
+        },
+        async handleSearchCategory( name ){
+            this.$emit('handleSearchCategory', name);
+        },
+        async handleSearch(typeSearch, name){
+            this.typeSearch = typeSearch;
+            this.isSkeleton = true;
+            if (this.typeSearch == 1){
+                this.handleSearchCategory(name);
+            }
+
+            if (this.typeSearch == 2){
+                this.handleSearchProducts(name);
+            }
+        },
+        async handleSelectGategories( id ){
+            this.$emit('handleSelectGategories', id);
+        }
     },
-    emits: ['handleSelectProducts','handleSearchProducts','handleClean']
+    emits: ['handleSelectProducts','handleSearchProducts','handleClean','handleSearchCategory','handleSelectGategories']
 };
 </script>

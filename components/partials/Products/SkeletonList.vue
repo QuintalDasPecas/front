@@ -18,16 +18,7 @@
                         <Skeleton width="75%"></Skeleton>
                     </div>
                 </div>
-            </li>
-            <li class="mb-3">
-                <div class="flex">
-                    <Skeleton shape="circle" size="4rem" class="mr-2"></Skeleton>
-                    <div class="align-self-center" style="flex: 1">
-                        <Skeleton width="100%" class="mb-2"></Skeleton>
-                        <Skeleton width="75%"></Skeleton>
-                    </div>
-                </div>
-            </li>
+            </li>           
             <li>
                 <div class="flex">
                     <Skeleton shape="circle" size="4rem" class="mr-2"></Skeleton>

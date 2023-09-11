@@ -4,25 +4,24 @@
         <template #title>Indique o produto, marca, modelo e pricipais características  </template>
         <template #subtitle>Você também pode inserir o códico universal que o identifica. <span>Como posso encontrá-lo?</span> </template>
         <template #content>
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-                    <span class="p-input-icon-left" style="width: 100%;">
-                        <i class="pi pi-search" />
+            <div class="row box-image">
+                <div class="col-lg-10 col-md-10 col-sm-10 col-10">
+                    <span class="p-inputgroup " style="width: 100%;">
+                        <span class="p-inputgroup-addon no-border no-border-right">
+                            <i class="pi pi-search" />
+                        </span>
                         <InputText @keydown.enter="handleSubmitPredict(true)" v-model="formData.name" placeholder="Ex.: Lanterna traseira lado direito" :name="'predict'" size="large" class="input-text-main-features" />
+                        <span class="p-inputgroup-addon no-border no-border-left">
+                            <NuxtLink @click="handleClean()"><i class="pi pi-times" /></NuxtLink>
+                        </span>
                     </span>
                 </div>
-                
+                <div class="col-lg-2 col-md-2 col-sm-2 col-2 d-grid gap-2 d-md-flex justify-content-start">
+                    <Button label="Buscar" size="large" class="btn-search-custom" text  outlined @click="handleSearchProducts(formData.name)" />                   
+                </div>                 
             </div>
         </template> 
         <template #footer>
-            <div class="row">             
-                <div class="col-lg-3 col-md-3 col-sm-3 col-3 d-grid gap-3 d-md-flex justify-content-end"></div>
-                <div class="col-lg-3 col-md-3 col-sm-3 col-3 d-grid gap-3 d-md-flex justify-content-end"></div> 
-                <div class="col-lg-3 col-md-3 col-sm-3 col-3 d-grid gap-3 d-md-flex justify-content-end"></div>
-                <div class="col-lg-3 col-md-3 col-sm-3 col-3 d-grid gap-3 d-md-flex justify-content-end">
-                    <Button label="Confirmar" size="large" outlined class="float-end" @click="handleSubmitPredict(true)" />
-                </div>
-            </div>
         </template>
     </Card>
 </template>
