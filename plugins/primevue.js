@@ -35,6 +35,7 @@ import Chip from 'primevue/chip';
 import Skeleton from 'primevue/skeleton';
 import Galleria from 'primevue/galleria';
 import Image from 'primevue/image';
+import Carousel from 'primevue/carousel';
 
 export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.use(PrimeVue, { ripple: true });
@@ -74,6 +75,6 @@ export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.component('Skeleton',Skeleton);
     nuxtApp.vueApp.component('Galleria',Galleria);
     nuxtApp.vueApp.component('Image',Image);
-    
+    nuxtApp.vueApp.component('Carousel',Carousel);
     //other components that you need
 });

@@ -1,82 +1,474 @@
 <template>
-    
-    <section data-testid="recommendations" class="recommendations" type="recommendations">
-        <div class="section-header" style="text-align: center !important; display:unset !important;">             
-            <h2 style=" margin-top: 15px;">Tenha acesso direto, fácil e rápido com o fornecedor.</h2>            
-        </div>      
-        <div class="row container highlight-seeds" style="padding-top: 30px;">
-             <div class="section-header">
-                 <h2>Ofertas do dia</h2>
-                 <a >Ver Todas</a>
-             </div>
-             <div class="carousel-container" style="width:1200px;min-width:1200px">
-                 <div class="slick-initialized slick-slider">
-                     <div role="presentation" class="slick-list">
-                         <div class="slick-track">
-                             <div data-index="0" class="slick-slide slick-active">
-                                 <div class="ui-item__wrapper price-digits-2__wrapper trigger-item__wrapper with-discount__wrapper with-installments__wrapper">
-                                     <div class="ui-item price-digits-2 trigger-item with-discount with-installments">
-                                         <div class="ui-item__image-container">
-                                             <a class="ui-item__link" href="https://produto.mercadolivre.com.br/MLB-1352565886-retrovisor-espelho-haste-curta-360-bmw-f800-titan-cb300-par-_JM#reco_item_pos=0&amp;reco_backend=machinalis-homes-pdp-boos&amp;reco_backend_type=function&amp;reco_client=home_navigation-recommendations&amp;reco_id=b88cbc0f-1efc-4bc4-b363-54073656a3a1&amp;c_id=/home/navigation-recommendations/element&amp;c_element_order=1&amp;c_uid=0293ac16-8908-4b0c-986a-082a8bf42389">
-                                                 <img width="224" height="224" decoding="async" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="ui-item__image lazy-loadable" data-src="https://http2.mlstatic.com/D_Q_NP_766569-MLB54647958566_032023-AB.webp" alt="Retrovisor Espelho Haste Curta 360º Bmw F800 Titan Cb300 Par" />
-                                             </a>
-                                         </div>
-                                         <div class="ui-item__content">
-                                             <div class="ui-item__price-block">
-                                                 <div class="ui-item__price-and-discount-wrapper">
-                                                     <s
-                                                         class="price-tag ui-item__discount-price price-tag__disabled">
-                                                         <span class="price-tag-text-sr-only">Antes: 78 reais
-                                                             con 90 centavos 
-                                                         </span>
-                                                         <span class="price-tag-amount" aria-hidden="true">
-                                                             <span class="price-tag-symbol">R$</span>
-                                                             <span class="price-tag-fraction">78</span>
-                                                             <span class="price-tag-decimal-separator"></span>
-                                                             <span class="price-tag-cents">90</span>
-                                                         </span>
-                                                     </s>
-                                                     <span class="price-tag ui-item__price">
-                                                         <span class="price-tag-text-sr-only">69 reais con 43 centavos </span>
-                                                         <span class="price-tag-amount" aria-hidden="true">
-                                                             <span class="price-tag-symbol">R$</span>
-                                                             <span class="price-tag-fraction">69</span>
-                                                             <span class="price-tag-decimal-separator">,</span>
-                                                             <span class="price-tag-cents">43</span>
-                                                         </span>
-                                                     </span>
-                                                     <span class="ui-item__discount-text">12% OFF</span>
-                                                 </div>                                                            
-                                                 <span class="ui-item__installments">12x R$ 6</span>
-                                                 <div class="ui-item__container-free">
-                                                     <svg class="ui-item__full-icon" width="41" height="13" viewBox="0 0 41 13" xmlns="http://www.w3.org/2000/svg">
-                                                         <path fill-rule="nonzero" d="M2.628 0h5.255L5.255 4.643h4.38L2.628 13l1.751-5.571H0L2.628 0zm11.589 9.533h-1.959l1.674-7.515H19.5l-.376 1.69h-3.61l-.25 1.172h3.519l-.376 1.69h-3.53l-.66 2.963zm9.468.136c-2.334 0-3.484-1.105-3.484-2.682 0-.124.034-.383.057-.496l1.002-4.473h1.992l-.99 4.428c-.012.057-.034.18-.034.316.011.62.49 1.217 1.457 1.217 1.048 0 1.583-.654 1.776-1.533l.991-4.428h1.981l-.99 4.462c-.41 1.825-1.412 3.189-3.758 3.189zm10.118-.136h-5.01l1.673-7.515h1.959l-1.287 5.825h3.04l-.375 1.69zm6.678 0h-5.01l1.674-7.515h1.959l-1.287 5.825h3.04l-.376 1.69z">
-                                                         </path>
-                                                     </svg>
-                                                 </div>
-                                             </div>
-                                             <p class="ui-item__title" aria-hidden="true">Retrovisor Espelho Haste Curta 360º Bmw F800 Titan Cb300 Par</p>
-                                         </div>
-                                         <button class="ui-item__bookmark">
-                                             <span class="clipped">Adicionar aos favoritos</span>
-                                             <svg class="ui-item__bookmark-icon" viewBox="0 0 36 32">
-                                                 <path
-                                                     d="M30.4 16q1.5-1.3 2-2.6t.6-3q0-1.4-.7-3T30.6 5q-1.4-1.2-2.4-1.6T25.8 3q-1.5 0-3 .6t-2.6 2l-2 2-2.3-2q-1.8-1.4-3-2T10.2 3t-2.6.4T5.3 5q-1 .7-1.6 2.4t-.7 3q0 1.4.6 3T5.4 16L18 28l12.4-12zM0 10.5q0-1.7.8-4t2.6-3.8Q5 1.2 6.7.7t3.6-.7q2 0 3.8.8t4 2.7q2-2 4-2.7t4-.8 3.4.6 3.3 2Q34.3 4 35 6.3t1 4-.6 4-3 4L18 32 3.4 18.2Q1 16 .4 13.7T0 10.4z">
-                                                 </path>
-                                             </svg>
-                                         </button>
-                                     </div>
-                                 </div>
-                             </div>                                        
-                         </div>
-                     </div>
-                     <div aria-hidden="false">
-                         <button class="next-button ">
-                             <span class="clipped">Seguinte</span>
-                         </button>
-                     </div>
-                 </div>
-             </div>
-         </div>
-    </section> 
- </template>
+    <div class="row">
+        <div class="col-lg-12">
+            <Carousel :value="products" :numVisible="4" :numScroll="4" >
+                <template #item="slotProps">
+                    <div class="border-1 surface-border border-round m-1 bg-custom">
+                        <div class="mb-3">
+                            <img :src="'https://primefaces.org/cdn/primevue/images/product/' + slotProps.data.image" :alt="slotProps.data.name" class="w-12"/>
+                        </div>
+                        <div class="ui-recommendations-card__price-and-discount">                           
+                            <span class="price-size textteste">R$ {{ slotProps.data.price }} </span> 
+                            <span class="cents andes-money-amount__cents andes-money-amount__cents--superscript-24"> {{ slotProps.data.cent }}</span>                           
+                            
+                        </div>
+                        <div class="textteste">{{ slotProps.data.name }}</div>
+                        <div class="ui-recommendations-card__price-and-discount">
+                            <span
+                                class="andes-money-amount ui-recommendations-card__price andes-money-amount--cents-superscript andes-money-amount--compact"
+                                style="font-size:24px">
+                                <span class="andes-money-amount__currency-symbol" aria-hidden="true">R$</span>
+                                <span class="andes-money-amount__fraction" aria-hidden="true">59</span>
+                                <span class="andes-visually-hidden" aria-hidden="true">,</span>
+                                <span class="andes-money-amount__cents andes-money-amount__cents--superscript-24" style="font-size:12px;margin-top:3px" aria-hidden="true">
+                                    17
+                                </span>
+                            </span>
+                            <span class="ui-recommendations-card__price-discount-text andes-money-amount__discount" style="font-size:14px">25% OFF </span>
+                        </div>
+                    </div>
+                </template>
+            </Carousel>
+        </div>
+    </div>
+</template>
+
+<script>
+export default {
+    data() {
+        return {
+            products: null,
+            responsiveOptions: [
+                {
+                    breakpoint: '1199px',
+                    numVisible: 4,
+                    numScroll: 1
+                },
+                {
+                    breakpoint: '991px',
+                    numVisible: 2,
+                    numScroll: 2
+                },
+                {
+                    breakpoint: '767px',
+                    numVisible: 1,
+                    numScroll: 1
+                }
+            ]
+        };
+    },
+    mounted() {
+ 
+       this.products = [
+            {
+                id: '1000',
+                code: 'f230fh0g3',
+                name: 'Bamboo Watch',
+                description: 'Product Description',
+                image: 'bamboo-watch.jpg',
+                price: 65,
+                cent: 21,
+                category: 'Accessories',
+                quantity: 24,
+                inventoryStatus: 'INSTOCK',
+                rating: 5
+            },
+            {
+                id: '1001',
+                code: 'nvklal433',
+                name: 'Black Watch',
+                description: 'Product Description',
+                image: 'black-watch.jpg',
+                price: 72,
+                category: 'Accessories',
+                quantity: 61,
+                inventoryStatus: 'INSTOCK',
+                rating: 4
+            },
+            {
+                id: '1002',
+                code: 'zz21cz3c1',
+                name: 'Blue Band',
+                description: 'Product Description',
+                image: 'blue-band.jpg',
+                price: 79,
+                category: 'Fitness',
+                quantity: 2,
+                inventoryStatus: 'LOWSTOCK',
+                rating: 3
+            },
+            {
+                id: '1003',
+                code: '244wgerg2',
+                name: 'Blue T-Shirt',
+                description: 'Product Description',
+                image: 'blue-t-shirt.jpg',
+                price: 29,
+                category: 'Clothing',
+                quantity: 25,
+                inventoryStatus: 'INSTOCK',
+                rating: 5
+            },
+            {
+                id: '1004',
+                code: 'h356wer53',
+                name: 'Bracelet',
+                description: 'Product Description',
+                image: 'bracelet.jpg',
+                price: 15,
+                category: 'Accessories',
+                quantity: 73,
+                inventoryStatus: 'INSTOCK',
+                rating: 4
+            },
+            {
+                id: '1005',
+                code: 'av2231fwg',
+                name: 'Brown Purse',
+                description: 'Product Description',
+                image: 'brown-purse.jpg',
+                price: 120,
+                category: 'Accessories',
+                quantity: 0,
+                inventoryStatus: 'OUTOFSTOCK',
+                rating: 4
+            },
+            {
+                id: '1006',
+                code: 'bib36pfvm',
+                name: 'Chakra Bracelet',
+                description: 'Product Description',
+                image: 'chakra-bracelet.jpg',
+                price: 32,
+                category: 'Accessories',
+                quantity: 5,
+                inventoryStatus: 'LOWSTOCK',
+                rating: 3
+            },
+            {
+                id: '1007',
+                code: 'mbvjkgip5',
+                name: 'Galaxy Earrings',
+                description: 'Product Description',
+                image: 'galaxy-earrings.jpg',
+                price: 34,
+                category: 'Accessories',
+                quantity: 23,
+                inventoryStatus: 'INSTOCK',
+                rating: 5
+            },
+            {
+                id: '1008',
+                code: 'vbb124btr',
+                name: 'Game Controller',
+                description: 'Product Description',
+                image: 'game-controller.jpg',
+                price: 99,
+                category: 'Electronics',
+                quantity: 2,
+                inventoryStatus: 'LOWSTOCK',
+                rating: 4
+            },
+            {
+                id: '1009',
+                code: 'cm230f032',
+                name: 'Gaming Set',
+                description: 'Product Description',
+                image: 'gaming-set.jpg',
+                price: 299,
+                category: 'Electronics',
+                quantity: 63,
+                inventoryStatus: 'INSTOCK',
+                rating: 3
+            },
+            {
+                id: '1010',
+                code: 'plb34234v',
+                name: 'Gold Phone Case',
+                description: 'Product Description',
+                image: 'gold-phone-case.jpg',
+                price: 24,
+                category: 'Accessories',
+                quantity: 0,
+                inventoryStatus: 'OUTOFSTOCK',
+                rating: 4
+            },
+            {
+                id: '1011',
+                code: '4920nnc2d',
+                name: 'Green Earbuds',
+                description: 'Product Description',
+                image: 'green-earbuds.jpg',
+                price: 89,
+                category: 'Electronics',
+                quantity: 23,
+                inventoryStatus: 'INSTOCK',
+                rating: 4
+            },
+            {
+                id: '1012',
+                code: '250vm23cc',
+                name: 'Green T-Shirt',
+                description: 'Product Description',
+                image: 'green-t-shirt.jpg',
+                price: 49,
+                category: 'Clothing',
+                quantity: 74,
+                inventoryStatus: 'INSTOCK',
+                rating: 5
+            },
+            {
+                id: '1013',
+                code: 'fldsmn31b',
+                name: 'Grey T-Shirt',
+                description: 'Product Description',
+                image: 'grey-t-shirt.jpg',
+                price: 48,
+                category: 'Clothing',
+                quantity: 0,
+                inventoryStatus: 'OUTOFSTOCK',
+                rating: 3
+            },
+            {
+                id: '1014',
+                code: 'waas1x2as',
+                name: 'Headphones',
+                description: 'Product Description',
+                image: 'headphones.jpg',
+                price: 175,
+                category: 'Electronics',
+                quantity: 8,
+                inventoryStatus: 'LOWSTOCK',
+                rating: 5
+            },
+            {
+                id: '1015',
+                code: 'vb34btbg5',
+                name: 'Light Green T-Shirt',
+                description: 'Product Description',
+                image: 'light-green-t-shirt.jpg',
+                price: 49,
+                category: 'Clothing',
+                quantity: 34,
+                inventoryStatus: 'INSTOCK',
+                rating: 4
+            },
+            {
+                id: '1016',
+                code: 'k8l6j58jl',
+                name: 'Lime Band',
+                description: 'Product Description',
+                image: 'lime-band.jpg',
+                price: 79,
+                category: 'Fitness',
+                quantity: 12,
+                inventoryStatus: 'INSTOCK',
+                rating: 3
+            },
+            {
+                id: '1017',
+                code: 'v435nn85n',
+                name: 'Mini Speakers',
+                description: 'Product Description',
+                image: 'mini-speakers.jpg',
+                price: 85,
+                category: 'Clothing',
+                quantity: 42,
+                inventoryStatus: 'INSTOCK',
+                rating: 4
+            },
+            {
+                id: '1018',
+                code: '09zx9c0zc',
+                name: 'Painted Phone Case',
+                description: 'Product Description',
+                image: 'painted-phone-case.jpg',
+                price: 56,
+                category: 'Accessories',
+                quantity: 41,
+                inventoryStatus: 'INSTOCK',
+                rating: 5
+            },
+            {
+                id: '1019',
+                code: 'mnb5mb2m5',
+                name: 'Pink Band',
+                description: 'Product Description',
+                image: 'pink-band.jpg',
+                price: 79,
+                category: 'Fitness',
+                quantity: 63,
+                inventoryStatus: 'INSTOCK',
+                rating: 4
+            },
+            {
+                id: '1020',
+                code: 'r23fwf2w3',
+                name: 'Pink Purse',
+                description: 'Product Description',
+                image: 'pink-purse.jpg',
+                price: 110,
+                category: 'Accessories',
+                quantity: 0,
+                inventoryStatus: 'OUTOFSTOCK',
+                rating: 4
+            },
+            {
+                id: '1021',
+                code: 'pxpzczo23',
+                name: 'Purple Band',
+                description: 'Product Description',
+                image: 'purple-band.jpg',
+                price: 79,
+                category: 'Fitness',
+                quantity: 6,
+                inventoryStatus: 'LOWSTOCK',
+                rating: 3
+            },
+            {
+                id: '1022',
+                code: '2c42cb5cb',
+                name: 'Purple Gemstone Necklace',
+                description: 'Product Description',
+                image: 'purple-gemstone-necklace.jpg',
+                price: 45,
+                category: 'Accessories',
+                quantity: 62,
+                inventoryStatus: 'INSTOCK',
+                rating: 4
+            },
+            {
+                id: '1023',
+                code: '5k43kkk23',
+                name: 'Purple T-Shirt',
+                description: 'Product Description',
+                image: 'purple-t-shirt.jpg',
+                price: 49,
+                category: 'Clothing',
+                quantity: 2,
+                inventoryStatus: 'LOWSTOCK',
+                rating: 5
+            },
+            {
+                id: '1024',
+                code: 'lm2tny2k4',
+                name: 'Shoes',
+                description: 'Product Description',
+                image: 'shoes.jpg',
+                price: 64,
+                category: 'Clothing',
+                quantity: 0,
+                inventoryStatus: 'INSTOCK',
+                rating: 4
+            },
+            {
+                id: '1025',
+                code: 'nbm5mv45n',
+                name: 'Sneakers',
+                description: 'Product Description',
+                image: 'sneakers.jpg',
+                price: 78,
+                category: 'Clothing',
+                quantity: 52,
+                inventoryStatus: 'INSTOCK',
+                rating: 4
+            },
+            {
+                id: '1026',
+                code: 'zx23zc42c',
+                name: 'Teal T-Shirt',
+                description: 'Product Description',
+                image: 'teal-t-shirt.jpg',
+                price: 49,
+                category: 'Clothing',
+                quantity: 3,
+                inventoryStatus: 'LOWSTOCK',
+                rating: 3
+            },
+            {
+                id: '1027',
+                code: 'acvx872gc',
+                name: 'Yellow Earbuds',
+                description: 'Product Description',
+                image: 'yellow-earbuds.jpg',
+                price: 89,
+                category: 'Electronics',
+                quantity: 35,
+                inventoryStatus: 'INSTOCK',
+                rating: 3
+            },
+            {
+                id: '1028',
+                code: 'tx125ck42',
+                name: 'Yoga Mat',
+                description: 'Product Description',
+                image: 'yoga-mat.jpg',
+                price: 20,
+                category: 'Fitness',
+                quantity: 15,
+                inventoryStatus: 'INSTOCK',
+                rating: 5
+            },
+            {
+                id: '1029',
+                code: 'gwuby345v',
+                name: 'Yoga Set',
+                description: 'Product Description',
+                image: 'yoga-set.jpg',
+                price: 20,
+                category: 'Fitness',
+                quantity: 25,
+                inventoryStatus: 'INSTOCK',
+                rating: 8
+            }
+        ];
+    },
+    methods: {
+        getSeverity(status) {
+            switch (status) {
+                case 'INSTOCK':
+                    return 'success';
+
+                case 'LOWSTOCK':
+                    return 'warning';
+
+                case 'OUTOFSTOCK':
+                    return 'danger';
+
+                default:
+                    return null;
+            }
+        }
+    }
+};
+</script>
+ <!-- <script>
+ 
+    import ViewProductService  from '@/src/services/ViewProductService';
+
+        
+    export default { 
+        data(){
+            return {
+                viewproducts: ''
+            };
+        },
+        
+        methods:{
+            async handleViewProducts(){
+                const viewProductService = new ViewProductService();
+
+                const { data: responseData, error: responseError } = await viewProductService.getActiveProducts('');
+                let status = responseData.value ? responseData._rawValue.status : null;
+                status = status ?? (responseError.value ? responseError.value.statusCode : null);                 
+                console.log(responseData)
+                this.viewproducts = responseData._rawValue.data;
+            }
+
+        },
+        mounted(){
+            this.handleViewProducts();
+        }
+    }
+
+</script> -->
