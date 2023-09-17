@@ -3,6 +3,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     'BreadCrumbs': typeof import("../components/BreadCrumbs.vue")['default']
     'CarouselCustom': typeof import("../components/CarouselCustom.vue")['default']
+    'CarrouselPageMain': typeof import("../components/CarrouselPageMain.vue")['default']
     'Category': typeof import("../components/Category.vue")['default']
     'Componente1': typeof import("../components/Componente1.vue")['default']
     'Componente1Box1': typeof import("../components/Componente1Box1.vue")['default']
@@ -84,6 +85,7 @@ declare module 'vue' {
     'Body': typeof import("../node_modules/nuxt/dist/head/runtime/components")['Body']
     'LazyBreadCrumbs': typeof import("../components/BreadCrumbs.vue")['default']
     'LazyCarouselCustom': typeof import("../components/CarouselCustom.vue")['default']
+    'LazyCarrouselPageMain': typeof import("../components/CarrouselPageMain.vue")['default']
     'LazyCategory': typeof import("../components/Category.vue")['default']
     'LazyComponente1': typeof import("../components/Componente1.vue")['default']
     'LazyComponente1Box1': typeof import("../components/Componente1Box1.vue")['default']
@@ -168,6 +170,7 @@ declare module 'vue' {
 
 export const BreadCrumbs: typeof import("../components/BreadCrumbs.vue")['default']
 export const CarouselCustom: typeof import("../components/CarouselCustom.vue")['default']
+export const CarrouselPageMain: typeof import("../components/CarrouselPageMain.vue")['default']
 export const Category: typeof import("../components/Category.vue")['default']
 export const Componente1: typeof import("../components/Componente1.vue")['default']
 export const Componente1Box1: typeof import("../components/Componente1Box1.vue")['default']
@@ -249,6 +252,7 @@ export const Html: typeof import("../node_modules/nuxt/dist/head/runtime/compone
 export const Body: typeof import("../node_modules/nuxt/dist/head/runtime/components")['Body']
 export const LazyBreadCrumbs: typeof import("../components/BreadCrumbs.vue")['default']
 export const LazyCarouselCustom: typeof import("../components/CarouselCustom.vue")['default']
+export const LazyCarrouselPageMain: typeof import("../components/CarrouselPageMain.vue")['default']
 export const LazyCategory: typeof import("../components/Category.vue")['default']
 export const LazyComponente1: typeof import("../components/Componente1.vue")['default']
 export const LazyComponente1Box1: typeof import("../components/Componente1Box1.vue")['default']

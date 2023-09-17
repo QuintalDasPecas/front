@@ -21,30 +21,36 @@
       </swiper-slide>
     </swiper>
   </template>
-  <script>
-    // Import Swiper Vue.js components
-    import { Swiper, SwiperSlide } from 'swiper/vue';
-  
-    // Import Swiper styles
-    import 'swiper/css';
-  
-    import 'swiper/css/pagination';
-    import 'swiper/css/navigation';
-  
-  
-    // import required modules
-    import { Autoplay, Pagination, Navigation } from 'swiper';
-  
-    export default {
-      components: {
-        Swiper,
-        SwiperSlide,
-      },
-      setup() {
-        return {
-          modules: [Autoplay, Pagination, Navigation],
-        };
-      },
+<script>
+import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper/modules';
+
+// Import Swiper Vue.js components
+import { Swiper, SwiperSlide } from 'swiper/vue';
+
+// Import Swiper styles
+import 'swiper/css';  
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+
+export default {
+  components: {
+  Swiper,
+  SwiperSlide,
+  },
+  setup() {
+    const onSwiper = (swiper) => {
+      console.log(swiper);
     };
-  </script>
+    const onSlideChange = () => {
+      console.log('slide change');
+    };
+    return {
+      onSwiper,
+      onSlideChange,
+      modules: [Navigation, Pagination, Scrollbar, A11y, Autoplay],
+
+    };
+  },
+};
+</script>
   

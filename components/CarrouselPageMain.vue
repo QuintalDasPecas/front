@@ -1,53 +1,13 @@
 <template>
-    <CarouselCustom />
-    <div>
-        <div class="titulo">Baseada na sua última visita <NuxtLink class="min-titulo">Ver Histórico</NuxtLink> </div>        
-    </div>
-    <div class="row">
-        <div class="col-lg-12">
-            <Carousel :value="products" :numVisible="4" :numScroll="4" >
-                <template #item="slotProps">
-                    <div class="border-1 surface-border border-round m-1 bg-custom">
-                        <div class="mb-3">
-                            <img :src="'https://primefaces.org/cdn/primevue/images/product/' + slotProps.data.image" :alt="slotProps.data.name" class="w-12"/>
-                        </div>
-                        <div class="ui-recommendations-card__price-and-discount">                           
-                            <span class="price-size textteste">R$ {{ slotProps.data.price }} </span> 
-                            <span class="cents andes-money-amount__cents andes-money-amount__cents--superscript-24"> {{ slotProps.data.cent }}</span>                           
-                            <span class="installments">{{ slotProps.data.discount }} </span>
-                        </div>
-                        <div class="installments">{{ slotProps.data.parcela }}</div>
-                        <div class="installments">{{ slotProps.data.frete }}</div>  
-                        <span class="pix">5% OFF com Mercado Crédito</span>                                
-                        <div class="textteste">{{ slotProps.data.name }}</div>                        
-                    </div>
-                </template>
-            </Carousel>
-        </div>
-    </div>
-    <h2 class="">Ofertas do dia <a class="min-titulo">Ver Histórico</a> </h2>
-    <div class="row">
-        <div class="col-lg-12">
-            <Carousel :value="products" :numVisible="4" :numScroll="4" >
-                <template #item="slotProps">
-                    <div class="border-1 surface-border border-round m-1 bg-custom">
-                        <div class="mb-3">
-                            <img :src="'https://primefaces.org/cdn/primevue/images/product/' + slotProps.data.image" :alt="slotProps.data.name" class="w-12"/>
-                        </div>
-                        <div class="ui-recommendations-card__price-and-discount">                           
-                            <span class="price-size textteste">R$ {{ slotProps.data.price }} </span> 
-                            <span class="cents andes-money-amount__cents andes-money-amount__cents--superscript-24"> {{ slotProps.data.cent }}</span>                           
-                            <span class="installments">{{ slotProps.data.discount }} </span>
-                        </div>
-                        <div class="installments">{{ slotProps.data.parcela }}</div>
-                        <div class="installments">{{ slotProps.data.frete }}</div>  
-                        <span class="pix">5% OFF com Mercado Crédito</span>                                
-                        <div class="textteste">{{ slotProps.data.name }}</div>                        
-                    </div>
-                </template>
-            </Carousel>
-        </div>
-    </div>
+        <Carousel :value="products" :numVisible="1" :numScroll="1" :responsiveOptions="responsiveOptions" circular :autoplayInterval="3000">
+            <template #item="slotProps">
+                <div class="border-1 surface-border border-round m-2 text-center py-5 px-3">
+                    <div class="mb-3">
+                        <img :src="'https://primefaces.org/cdn/primevue/images/product/' + slotProps.data.image" :alt="slotProps.data.name" class="w-12 shadow-2" />
+                    </div>                    
+                </div>
+            </template>
+        </Carousel>
 </template>
 
 <script>
@@ -467,33 +427,3 @@ export default {
     }
 };
 </script>
- <!-- <script>
- 
-    import ViewProductService  from '@/src/services/ViewProductService';
-
-        
-    export default { 
-        data(){
-            return {
-                viewproducts: ''
-            };
-        },
-        
-        methods:{
-            async handleViewProducts(){
-                const viewProductService = new ViewProductService();
-
-                const { data: responseData, error: responseError } = await viewProductService.getActiveProducts('');
-                let status = responseData.value ? responseData._rawValue.status : null;
-                status = status ?? (responseError.value ? responseError.value.statusCode : null);                 
-                console.log(responseData)
-                this.viewproducts = responseData._rawValue.data;
-            }
-
-        },
-        mounted(){
-            this.handleViewProducts();
-        }
-    }
-
-</script> -->
