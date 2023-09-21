@@ -7,4 +7,8 @@ export default class ViewProductRepositorie {
     return await CallApi.getWhere('');
   }
 
+  static async getActiveProductsByToken(token: string) {
+    CallApi.setEndPoint('viewproductbytoken');
+    return await CallApi.getWhere(token);
+  }
 }

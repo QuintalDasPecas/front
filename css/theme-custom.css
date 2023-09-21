@@ -405,3 +405,15 @@ section>.container-recoverpassword {
   text-decoration: none;
   margin-left: 10px;
 }
+
+.p-breadcrumb {
+  background: none;
+  border: 0px;
+  border-radius: 6px;
+  padding: 1rem;
+}
+
+.p-breadcrumb .p-breadcrumb-list li .p-menuitem-link .p-menuitem-text {
+  color: #3483fa;
+  font-size: 14px;
+}

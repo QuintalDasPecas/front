@@ -6,5 +6,9 @@ export default class ViewProductService {
         return repositorie.getActiveProducts();
     }
 
+    public async getActiveProductsByToken(token: string){
+        return repositorie.getActiveProductsByToken(token);
+    }
+
 }
 
