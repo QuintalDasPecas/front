@@ -15,12 +15,13 @@
                             <div class="mb-3">
                                 <img :src="slotProps.data.thumbnail" :alt="slotProps.data.name" class="w-12"/>
                             </div>
-                            <div>
-                                <span class="price-size textteste">R$ {{ slotProps.data.original_price }} </span>
+                            <div v-if=" slotProps.data.original_price_integer" class="ui-recommendations-card__price-and-discount originalCustom" >
+                                <span class="price-size textteste originalPrice">R$ {{ slotProps.data.original_price_integer }} </span>
+                                <span class="cents andes-money-amount__cents andes-money-amount__cents--superscript-24 originalPriceCents"> {{ slotProps.data.original_price_cents }}</span>                           
                             </div>
                             <div class="ui-recommendations-card__price-and-discount">
-                                <span class="price-size textteste">R$ {{ slotProps.data.price }} </span> 
-                                <span class="cents andes-money-amount__cents andes-money-amount__cents--superscript-24"> {{ slotProps.data.cent }}</span>                           
+                                <span class="price-size textteste">R$ {{ slotProps.data.price_integer }} </span> 
+                                <span class="cents andes-money-amount__cents andes-money-amount__cents--superscript-24"> {{ slotProps.data.price_cents }}</span>                           
                                 <span class="installments">{{ slotProps.data.discount }} </span>
                             </div>
                             <div class="installments">{{ slotProps.data.parcela }}</div>
@@ -37,8 +38,8 @@
             <div class="titulo">Ofertas do dias <NuxtLink class="min-titulo">Ver Histórico</NuxtLink> </div>        
         </div>
     </div>
-    <div class="row g-8 justify-content-lg-center">
-        <div class="col-lg-10">
+    <div class="row g-8 justify-content-center">
+        <div class="col-lg-10 col-md-10 col-sm-10 col-10">
             <Carousel :value="viewproducts" :numVisible="4" :numScroll="4">
                 <template #item="slotProps">
                     <NuxtLink :to="`products?token=${slotProps.data.token}`">
@@ -46,12 +47,13 @@
                             <div class="mb-3">
                                 <img :src="slotProps.data.thumbnail" :alt="slotProps.data.name" class="w-12"/>
                             </div>
-                            <div>
-                                <span class="price-size textteste">R$ {{ slotProps.data.original_price }} </span>
+                            <div v-if=" slotProps.data.original_price_integer" class="ui-recommendations-card__price-and-discount originalCustom" >
+                                <span class="price-size textteste originalPrice">R$ {{ slotProps.data.original_price_integer }} </span>
+                                <span class="cents andes-money-amount__cents andes-money-amount__cents--superscript-24 originalPriceCents"> {{ slotProps.data.original_price_cents }}</span>                           
                             </div>
                             <div class="ui-recommendations-card__price-and-discount">
-                                <span class="price-size textteste">R$ {{ slotProps.data.price }} </span> 
-                                <span class="cents andes-money-amount__cents andes-money-amount__cents--superscript-24"> {{ slotProps.data.cent }}</span>                           
+                                <span class="price-size textteste">R$ {{ slotProps.data.price_integer }} </span> 
+                                <span class="cents andes-money-amount__cents andes-money-amount__cents--superscript-24"> {{ slotProps.data.price_cents }}</span>                           
                                 <span class="installments">{{ slotProps.data.discount }} </span>
                             </div>
                             <div class="installments">{{ slotProps.data.parcela }}</div>

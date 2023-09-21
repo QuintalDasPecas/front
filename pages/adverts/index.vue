@@ -1,3 +1,4 @@
 <template>   
-   <FormProducts></FormProducts>
+   <!-- <FormProducts></FormProducts> -->
+   <GridProductsGridAdverts />
 </template>

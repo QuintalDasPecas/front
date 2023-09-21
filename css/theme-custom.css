@@ -320,7 +320,6 @@ section>.container-recoverpassword {
 
 .textteste2{
   overflow: hidden;
-  max-height: 2.6em;
   overflow-wrap: anywhere;
   text-overflow: ellipsis;
   padding: 5px;
@@ -333,6 +332,7 @@ section>.container-recoverpassword {
   margin: 0;
   padding-left: 5px;
   padding-bottom: 5px;
+  padding-top: 5px;
   overflow: hidden;
   overflow-wrap: anywhere;
   text-overflow: ellipsis;
@@ -423,4 +423,21 @@ section>.container-recoverpassword {
   align-items: center;
   z-index: 500;
   position: sticky;  
+}
+
+.originalPriceCents{
+  font-size: 10px;
+  margin-top: 1px;
+}
+
+.originalPrice{
+  font-size: 16px;
+}
+
+.originalCustom{
+ text-decoration: line-through;
+}
+
+.bla{
+  margin-left: 90px;
 }

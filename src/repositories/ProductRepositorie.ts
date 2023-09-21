@@ -25,4 +25,9 @@ export default class ProductRepositorie {
     CallApi.setEndPoint('products/upload');
     return await CallApi.Upload(formData);
   }
+
+  static async getProductsByEntityId(id: string){
+    CallApi.setEndPoint('productsbyentity');
+    return CallApi.getWhere(id);
+  }
 }

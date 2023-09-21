@@ -21,4 +21,8 @@ export default class EntityService {
     public async Upload(formRegister: FormData){
         return await repositorie.upload(formRegister);
     }
+
+    public async getProductsByEntityId(id: string){
+        return repositorie.getProductsByEntityId(id)
+    }
 }

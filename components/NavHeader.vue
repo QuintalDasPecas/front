@@ -34,7 +34,7 @@ export default {
                     items: [
                         {
                             label: 'Meu perfil',
-                            command : () => { toProfile() }
+                            command : () => { this.toProfile() }
                         },           
                         {
                             label: 'Anúncios',

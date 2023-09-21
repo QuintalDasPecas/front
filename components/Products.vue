@@ -8,6 +8,7 @@
                     <PartialsViewProductsGalleria :Images="formData.pictures" />
                     <PartialsViewProductsDescription :description="formData.description" /> 
                     <!-- CARACTERISTICAS DO PRODUTO  -->
+                    <PartialsViewProductsAttribute :Attributes="formData.attributes" />
                 </div>
             </div>
         </div>
@@ -16,13 +17,14 @@
     <br/>
 </template>
 <script>
+
     export default{
-        props:{
-            formData:{
-                type: Object,
-                default: '',
-                required: true
-            }
-        },       
-    }
+    props: {
+        formData: {
+            type: Object,
+            default: '',
+            required: true
+        }
+    },
+}
 </script>

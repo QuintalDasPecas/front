@@ -45,6 +45,7 @@
           this.formData.token = responseData._rawValue.data.token;
           this.formData.pictures = responseData._rawValue.data.pictures;
           this.formData.saleTerms = responseData._rawValue.data.saleTerms;
+          this.formData.attributes = responseData._rawValue.data.attributes;
           console.log(this.formData)
         }
       
