@@ -417,3 +417,10 @@ section>.container-recoverpassword {
   color: #3483fa;
   font-size: 14px;
 }
+
+.p-menubar{
+  display: flex;
+  align-items: center;
+  z-index: 500;
+  position: sticky;  
+}
