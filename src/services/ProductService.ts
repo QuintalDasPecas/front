@@ -25,4 +25,8 @@ export default class EntityService {
     public async getProductsByEntityId(id: string){
         return repositorie.getProductsByEntityId(id)
     }
+
+    public async importItems(formEntity: FormData){
+        return await repositorie.importItems(formEntity);
+    }
 }

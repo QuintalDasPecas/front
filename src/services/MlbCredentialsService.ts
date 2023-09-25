@@ -13,4 +13,8 @@ export default class MlbCredentialsService {
     public async destroy(id: number){
         return await repositorie.destroy(id);
     }
+
+    public async getCredentialsMlByEntityId(id: string){
+        return await repositorie.getCredentialsMlByEntityId(id);
+    }
 }

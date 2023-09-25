@@ -16,4 +16,9 @@ export default class MlbCredentialsRepositorie {
     CallApi.setEndPoint('credentials');
     return CallApi.destroy(id);
   }
+
+  static async getCredentialsMlByEntityId(id: string) {
+    CallApi.setEndPoint('credentials');
+    return CallApi.getWhere(id);
+  }
 }

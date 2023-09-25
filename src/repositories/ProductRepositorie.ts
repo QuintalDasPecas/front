@@ -30,4 +30,9 @@ export default class ProductRepositorie {
     CallApi.setEndPoint('productsbyentity');
     return CallApi.getWhere(id);
   }
+
+  static async importItems(formData: FormData) {   
+    CallApi.setEndPoint('importitems');
+    return await CallApi.store(formData);
+  }
 }

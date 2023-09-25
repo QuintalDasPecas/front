@@ -3,9 +3,18 @@
         <div class="row">
             <form  @submit.prevent="handleOnSubmit" class="row justify-content-lg-center g-4">               
                 <div class="row justify-content-lg-center">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-12">                        
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-4"></div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-4"></div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-4">
+                        <NuxtLink @click="handleImportItems()" class="btn btn-primary btn-lg btn-width-defult">
+                            <i class=""></i> Importar itens do Mercado Livre
+                        </NuxtLink>
+                    </div> 
+                 </div>   
+                <div class="row justify-content-lg-center">    
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-12">                
                         <PartialsProductsGrid :items="productItem" />
-                    </div>
+                    </div>                    
                 </div>
             </form>
          </div>
@@ -18,17 +27,33 @@
     export default{
         data() {
             return {
-                entityId: 1,
+                entityId: '',
                 productItem: []
             }
         },
         methods: {
             async handleGetProductsByEntityId(){
-                const produservice = new ProductsService();
-                const { data: responseData, error: responseError } = await produservice.getProductsByEntityId(this.entityId);
+                const productservice = new ProductsService();
+                this.entityId = localStorage.getItem('entityId');
+                const { data: responseData, error: responseError } = await productservice.getProductsByEntityId(this.entityId);
                 let status = responseData.value ? responseData._rawValue.status : null;
                 status = status ?? (responseError.value ? responseError.value.statusCode : null);                 
              
+                if (status === 200){
+                    const data = responseData._rawValue.data;
+                    this.productItem = data;
+                }
+            },
+            async handleImportItems(){
+                const productservice = new ProductsService();
+                const form = new FormData();
+                this.entityId =  localStorage.getItem('entityId');
+                form.append('entity_id',this.entityId);
+                
+                const { data: responseData, error: responseError } = await productservice.importItems(form);
+                let status = responseData.value ? responseData._rawValue.status : null;
+                status = status ?? (responseError.value ? responseError.value.statusCode : null); 
+
                 if (status === 200){
                     const data = responseData._rawValue.data;
                     this.productItem = data;
