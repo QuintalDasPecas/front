@@ -41,6 +41,10 @@ export default {
                             command : () => { this.toAdverts() }
                         },
                         {
+                            label: 'Credenciais',
+                            command : () => { this.toCredential() }
+                        },
+                        {
                             label: 'Sair',
                             command : () => { this.toLogout() }
                         }
@@ -74,7 +78,11 @@ export default {
             const logout = new Logout();
             logout.logout();
             navigateTo('/');
+        },
+        toCredential(){
+            navigateTo('/credentials');
         }
+
     },
     mounted(){
         this.toInit();

@@ -1,0 +1,3 @@
+<template>
+    <FormCredentials></FormCredentials>
+</template>

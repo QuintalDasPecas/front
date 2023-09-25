@@ -73,9 +73,10 @@ export default class CallApi{
     }
 
     static async store(myForm: FormData){
-
+        
         const apiUrl = utils.getEnviromentHost(this.getEndPoint());  
         option.body = utils.formDataToUrlEncoded(myForm);
+        console.log(option.body)
         return await useFetch( apiUrl, {
             onRequest({ request, options }) {
                 options.headers = {
@@ -91,10 +92,10 @@ export default class CallApi{
                 //console.log(error);
             },
             onResponse({ request, response, options }) {
-                //return response._data;
+                return response._data;
             },
             onResponseError({ request, response, options }) {
-                //return response._data;
+                return response._data;
             }
         });
 
