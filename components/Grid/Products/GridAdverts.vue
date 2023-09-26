@@ -3,8 +3,12 @@
         <div class="row">
             <form  @submit.prevent="handleOnSubmit" class="row justify-content-lg-center g-4">               
                 <div class="row justify-content-lg-center">
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-4"></div>
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-4"></div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-2">
+                        <NuxtLink to="/" class="btn btn-primary btn-lg btn-width-defult">
+                            Página Principal
+                        </NuxtLink>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-6"></div>
                     <div class="col-lg-4 col-md-4 col-sm-4 col-4">
                         <NuxtLink @click="handleImportItems()" class="btn btn-primary btn-lg btn-width-defult">
                             <i class=""></i> Importar itens do Mercado Livre

@@ -1,29 +1,36 @@
 <template>
     <div class="home">
         <section data-testid="recommendations" class="recommendations" type="recommendations">
-            <div class="container">
+            <div class="container">                
                 <div v-if="!isForm" class="row g-8  justify-content-lg-center justify-content-md-center justify-content-sm-center justify-content-col-center">
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-4"></div>
-                    <div class="col-lg-2 col-md-2 col-sm-2 col-2"></div>
-                    <div class="col-lg-2 col-md-2 col-sm-2 col-2">
-                        <NuxtLink @click="handleCreate(isForm)" class="btn btn-primary btn-lg btn-width-defult">
-                            <i class=""></i> Cadastrar
-                        </NuxtLink>
-                    </div> 
-                    <div class="col-lg-8 col-md-8 col-sm-8 col-8">
-                        <DataTable  v-model:selection="selected"  paginator :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]" selectionMode="single" :metaKeySelection="false" dataKey="id" :value="resultCredentials" tableStyle="min-width: 50rem">
-                            <Column sortable  field="id" header="ID"></Column>
-                            <Column sortable  field="client_id" header="ID do Aplicativo"></Column>
-                            <Column sortable  field="client_secret" header="Chave Secreta"></Column>
-                            <Column sortable  field="seller_id" header="ID do Vendedor"></Column>
-                            <Column :exportable="false" style="min-width:8rem">
-                                <template #body="slotProps">
-                                    <Button icon="pi pi-pencil" outlined rounded class="mr-2" @click="handleEdit(slotProps.data)" />
-                                    <Button icon="pi pi-trash" outlined rounded severity="danger" @click="handleDialogDestroy(slotProps.data.id)" />
-                                </template>
-                            </Column>
-                        </DataTable>
-                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-2"></div>                                           
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-2">
+                            <NuxtLink to="/" class="btn btn-primary btn-lg btn-width-defult">
+                                Página Principal
+                            </NuxtLink>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-4"></div>                       
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-2">
+                            <NuxtLink @click="handleCreate(isForm)" class="btn btn-primary btn-lg btn-width-defult">
+                                <i class=""></i> Cadastrar
+                            </NuxtLink>
+                        </div> 
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-2"></div>
+
+                        <div class="col-lg-8 col-md-8 col-sm-8 col-8">
+                            <DataTable  v-model:selection="selected"  paginator :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]" selectionMode="single" :metaKeySelection="false" dataKey="id" :value="resultCredentials" tableStyle="min-width: 50rem">
+                                <Column sortable  field="id" header="ID"></Column>
+                                <Column sortable  field="client_id" header="ID do Aplicativo"></Column>
+                                <Column sortable  field="client_secret" header="Chave Secreta"></Column>
+                                <Column sortable  field="seller_id" header="ID do Vendedor"></Column>
+                                <Column :exportable="false" style="min-width:8rem">
+                                    <template #body="slotProps">
+                                        <Button icon="pi pi-pencil" outlined rounded class="mr-2" @click="handleEdit(slotProps.data)" />
+                                        <Button icon="pi pi-trash" outlined rounded severity="danger" @click="handleDialogDestroy(slotProps.data.id)" />
+                                    </template>
+                                </Column>
+                            </DataTable>
+                        </div>
                 </div>
                 <div v-if="isForm" class="row g-8  justify-content-lg-center justify-content-md-center justify-content-sm-center justify-content-col-center">
                     <div class="col-lg-8 col-md-8 col-sm-8 col-8">
@@ -88,7 +95,7 @@
                 deleteDialog: false,
                 selected: null,
                 selectedId: null,
-                message: ''
+                message: ''               
             }
         },
         methods: {

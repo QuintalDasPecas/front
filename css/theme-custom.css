@@ -411,6 +411,7 @@ section>.container-recoverpassword {
   border: 0px;
   border-radius: 6px;
   padding: 1rem;
+  padding-left: 0px;
 }
 
 .p-breadcrumb .p-breadcrumb-list li .p-menuitem-link .p-menuitem-text {
