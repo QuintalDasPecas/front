@@ -16,6 +16,9 @@
             <DetailSaleTerm v-if="formData.saleTerms" :saleterm="formData.saleTerms"/>
         </div>
         <div class="mt-16">
+            <DetailContact :name="formData.name" :FormData="formData" />
+        </div>       
+        <div class="mt-16">
             <DetailRating />
         </div>
     </div>

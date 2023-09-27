@@ -1,5 +1,5 @@
 <template>    
-  <BreadCrumbs></BreadCrumbs>
+  <BreadCrumbs :items="formData.items"></BreadCrumbs>
   <Products :formData="formData"></Products>
 </template>
   <style>
@@ -17,6 +17,7 @@
       return{
         productToken: '',
         formData: {},
+        items:{}
       }
     },
     methods:{
@@ -46,9 +47,20 @@
           this.formData.pictures = responseData._rawValue.data.pictures;
           this.formData.saleTerms = responseData._rawValue.data.saleTerms;
           this.formData.attributes = responseData._rawValue.data.attributes;
-          console.log(this.formData)
-        }
-      
+          this.formData.items = responseData._rawValue.data.categories_root;
+          //usuario
+          this.formData.name = responseData._rawValue.data.name;
+          this.formData.fantasy_name = responseData._rawValue.data.fantasy_name;
+          this.formData.zipcode = responseData._rawValue.data.zipcode;
+          this.formData.address = responseData._rawValue.data.address;
+          this.formData.number = responseData._rawValue.data.number;
+          this.formData.comment = responseData._rawValue.data.comment;
+          this.formData.neighborhood = responseData._rawValue.data.neighborhood;
+          this.formData.country = responseData._rawValue.data.country;
+          this.formData.state = responseData._rawValue.data.state;
+          this.formData.city = responseData._rawValue.data.city;
+
+        }      
       }
     },
     mounted () {

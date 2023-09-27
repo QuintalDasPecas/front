@@ -38,6 +38,7 @@ import Image from 'primevue/image';
 import Carousel from 'primevue/carousel';
 import Breadcrumb from 'primevue/breadcrumb';
 import Dialog from 'primevue/dialog';
+import Menu from 'primevue/menu';
 
 
 export default defineNuxtPlugin((nuxtApp) => {
@@ -81,5 +82,6 @@ export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.component('Carousel',Carousel);
     nuxtApp.vueApp.component('Breadcrumb',Breadcrumb);
     nuxtApp.vueApp.component('Dialog',Dialog);
+    nuxtApp.vueApp.component('Menu',Menu);
     //other components that you need
 });

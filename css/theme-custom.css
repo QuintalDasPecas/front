@@ -448,3 +448,7 @@ section>.container-recoverpassword {
   padding-left: 10px;
   padding-right: 10px;
 }
+
+.iconSize{
+  font-size: large;
+}

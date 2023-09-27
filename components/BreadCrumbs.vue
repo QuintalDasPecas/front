@@ -12,15 +12,10 @@
 
 <script>
 export default {
-    data() {
-        return {           
-            items: [
-                {label: 'Computer'},
-                {label: 'Notebook'},
-                {label: 'Accessories'},
-                {label: 'Backpacks'},
-                {label: 'Item'}
-            ]
+    props:{
+        items:{
+            type: Object,
+            defualt: ''
         }
     }
 }
