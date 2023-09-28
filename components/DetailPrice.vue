@@ -17,14 +17,14 @@
                             <span class="andes-money-amount__currency-symbol" aria-hidden="true">R$</span>
                             <span class="andes-money-amount__fraction" aria-hidden="true">{{ originalPrice }}</span>
                             <span class="andes-visually-hidden" aria-hidden="true">,</span>
-                            <span class="andes-money-amount__cents andes-money-amount__cents--superscript-16" style="font-size:10px;margin-top:1px" aria-hidden="true">{{ originalPriceCents }}</span>
+                            <span class="andes-money-amount__cents andes-money-amount__cents--superscript-16" style="font-size:10px;margin-top:1px" aria-hidden="true">,{{ originalPriceCents }}</span>
                         </s>
                         <div class="ui-pdp-price__second-line">
                             <span class="andes-money-amount ui-pdp-price__part andes-money-amount--cents-superscript andes-money-amount--compact" style="font-size:36px" itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">                               
                                 <span class="andes-money-amount__currency-symbol" itemprop="priceCurrency" aria-hidden="true">R$</span>
                                 <span class="andes-money-amount__fraction" aria-hidden="true">{{ price }}</span>
                                 <span class="andes-visually-hidden" aria-hidden="true">,</span>
-                                <span class="andes-money-amount__cents andes-money-amount__cents--superscript-36" style="font-size:18px;margin-top:4px" aria-hidden="true">{{ cents }}</span>
+                                <span class="andes-money-amount__cents andes-money-amount__cents--superscript-36" style="font-size:18px;margin-top:4px" aria-hidden="true">,{{ cents }}</span>
                             </span>                           
                         </div>                        
                     </div>

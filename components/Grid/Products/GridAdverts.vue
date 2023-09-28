@@ -83,6 +83,10 @@
                     this.message = 'Importação concluida!';
                     this.handleGetProductsByEntityId();                    
                 }
+
+                if (status > 200){  
+                    this.isProgressBar = false;
+                }
             }
         },
         mounted() {

@@ -5,13 +5,17 @@
                 <div>
                     <h3>Informações do vendedor</h3> <hr>
                 </div>
-                <div>
-                   
+                <div v-if="name">                   
                     <h5><i class="pi pi-user iconSize" ></i> {{ name }} </h5> <hr>
                 </div>
                 <div>
-                    <i class="bi bi-geo-alt iconSize"></i> {{ FormData.address }}, {{ FormData.number }} - {{ FormData.neighborhood }},
-                    {{ FormData.city }} - {{ FormData.state }}, {{ FormData.zipcode }} <hr>
+                    <i v-if="formData.address" class="bi bi-geo-alt iconSize"></i> 
+                    <span v-if="formData.address">{{ formData.address }},</span> 
+                    <span v-if="formData.number">{{ formData.number }} -</span> 
+                    <span v-if="formData.neighborhood">{{ formData.neighborhood }},</span>
+                    <span v-if="formData.city">{{ formData.city }} - </span>
+                    <span v-if="formData.state">{{ formData.state }}, </span>
+                    <span v-if="formData.zipcode">{{ formData.zipcode }} <hr></span>                    
                 </div>
                 <div>
                     <i class="pi pi-facebook iconSize"></i> Jeferson@123Software.com <br> <br>
@@ -31,7 +35,7 @@
                 default: '',
                 required: true
             },
-            FormData:{
+            formData:{
                 type: Object,
                 default: '',
                 required: true,

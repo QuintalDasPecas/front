@@ -21,7 +21,7 @@
                             </div>
                             <div class="ui-recommendations-card__price-and-discount">
                                 <span class="price-size textteste">R$ {{ slotProps.data.price_integer }} </span> 
-                                <span class="cents andes-money-amount__cents andes-money-amount__cents--superscript-24"> {{ slotProps.data.price_cents }}</span>                           
+                                <span class="cents andes-money-amount__cents andes-money-amount__cents--superscript-24">,{{ slotProps.data.price_cents }}</span>                           
                                 <span class="installments">{{ slotProps.data.discount }} </span>
                             </div>
                             <div class="installments">{{ slotProps.data.parcela }}</div>
@@ -53,7 +53,7 @@
                             </div>
                             <div class="ui-recommendations-card__price-and-discount">
                                 <span class="price-size textteste">R$ {{ slotProps.data.price_integer }} </span> 
-                                <span class="cents andes-money-amount__cents andes-money-amount__cents--superscript-24"> {{ slotProps.data.price_cents }}</span>                           
+                                <span class="cents andes-money-amount__cents andes-money-amount__cents--superscript-24">,{{ slotProps.data.price_cents }}</span>                           
                                 <span class="installments">{{ slotProps.data.discount }} </span>
                             </div>
                             <div class="installments">{{ slotProps.data.parcela }}</div>
