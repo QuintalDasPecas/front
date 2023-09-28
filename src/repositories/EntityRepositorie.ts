@@ -24,4 +24,9 @@ export default class EntityRepositorie {
     CallApi.setEndPoint('entity/personaldata');
     return CallApi.update(id, formData);
   }
+
+  static async updateContact(id: number, formData: FormData) {
+    CallApi.setEndPoint('entity/contact');
+    return CallApi.update(id, formData);
+  }
 }

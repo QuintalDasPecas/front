@@ -452,3 +452,27 @@ section>.container-recoverpassword {
 .iconSize{
   font-size: large;
 }
+
+.termAndCondition{
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.pharagraphTerm{
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-top: 5px;
+}
+
+.titleTerm{
+  padding-top: 12px;
+  padding-bottom: 6px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.buttonTerm{
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-top: 20px;
+}

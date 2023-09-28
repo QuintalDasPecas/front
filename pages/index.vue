@@ -1,3 +1,4 @@
 <template>
     <Vitrine />
+    <TermsAndConditions />
 </template>

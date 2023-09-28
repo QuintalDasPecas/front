@@ -22,4 +22,8 @@ export default class EntityService {
         return repositorie.updatePersonalData(id, formEntity);
     }
 
+    public async updateContact(id: number, formEntity: FormData){
+        return repositorie.updateContact(id, formEntity);
+    }
+
 }

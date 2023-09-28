@@ -8,6 +8,13 @@
     </div>
     <div class="row justify-content-lg-center">
         <div class="col-lg-10">
+            <div v-if="viewproducts == ''">
+                <div class="flex flex-wrap">
+                    <div class="w-full md:w-6 p-3">
+                        <Skeleton width="15rem" height="15rem"></Skeleton>
+                    </div>
+                </div>
+            </div>            
             <Carousel :value="viewproducts" :numVisible="5" :numScroll="5">
                 <template #item="slotProps">
                     <NuxtLink :to="`products?token=${slotProps.data.token}`">
@@ -26,7 +33,7 @@
                             </div>
                             <div class="installments">{{ slotProps.data.parcela }}</div>
                             <div class="installments">{{ slotProps.data.frete }}</div>
-                            <div class="textteste">{{ slotProps.data.title }}</div>
+                            <div class="textteste">{{ slotProps.data.title }} ...</div>
                         </div>
                     </NuxtLink>
                 </template>
@@ -40,6 +47,13 @@
     </div>
     <div class="row g-8 justify-content-center">
         <div class="col-lg-10 col-md-10 col-sm-10 col-10">
+            <div v-if="viewproducts == ''">
+                <div class="flex flex-wrap">
+                    <div class="w-full md:w-6 p-3">
+                        <Skeleton width="15rem" height="15rem"></Skeleton>
+                    </div>
+                </div>
+            </div>  
             <Carousel :value="viewproducts" :numVisible="4" :numScroll="4">
                 <template #item="slotProps">
                     <NuxtLink :to="`products?token=${slotProps.data.token}`">
@@ -58,7 +72,7 @@
                             </div>
                             <div class="installments">{{ slotProps.data.parcela }}</div>
                             <div class="installments">{{ slotProps.data.frete }}</div>
-                            <div class="textteste">{{ slotProps.data.title }}</div>
+                            <div class="textteste">{{ slotProps.data.title }} ...</div>
                         </div>
                     </NuxtLink>
                 </template>
@@ -116,8 +130,7 @@ export default {
 
                 const { data: responseData, error: responseError } = await viewProductService.getActiveProducts('');
                 let status = responseData.value ? responseData._rawValue.status : null;
-                status = status ?? (responseError.value ? responseError.value.statusCode : null);                 
-                console.log(responseData)
+                status = status ?? (responseError.value ? responseError.value.statusCode : null); 
                 this.viewproducts = responseData._rawValue.data;
         },
         handleGetProductByToken(token){

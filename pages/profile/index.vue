@@ -16,6 +16,9 @@
                                 <AccordionTab header="Dados Pessoais">
                                     <FormPersonalData />
                                 </AccordionTab>
+                                <AccordionTab header="Contato">
+                                    <FormContact />
+                                </AccordionTab>
                                 <AccordionTab header="Endereço">
                                     <FormAddress />
                                 </AccordionTab>

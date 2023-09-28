@@ -18,10 +18,15 @@
                     <span v-if="formData.zipcode">{{ formData.zipcode }} <hr></span>                    
                 </div>
                 <div>
-                    <i class="pi pi-facebook iconSize"></i> Jeferson@123Software.com <br> <br>
-                    <i class="pi pi-envelope iconSize"></i> Jeferson@123Software.com <br> <br>
-                    <i class="pi pi-whatsapp iconSize"></i> +55 (66) 98765-4321<hr>
+                    <i class="pi pi-facebook iconSize"></i> {{ formData.facebook }}
                 </div>
+                <div>
+                    <i class="pi pi-envelope iconSize"></i> {{ formData.email }}
+                </div>
+                <div>    
+                    <i class="pi pi-whatsapp iconSize"></i> {{ formData.phone }}                    
+                </div>
+                <hr>
             </section>
         </div>
     </div>
