@@ -14,16 +14,42 @@
         <Filter></Filter>       
       </aside>
       <section class="ui-search-results ui-search-results--without-disclaimer shops__search-results">
-        <div style="display:contents"></div>
-        <Order></Order>
-        <div style="display:contents"></div>
-        <div style="display:contents"></div>
-        <div style="display:contents"></div>
-        <div style="display:contents"></div>
-        <div style="display:contents"></div>
-        <SearchResultItem></SearchResultItem>        
-        <Paginacao></Paginacao>            
+        <SearchResultItem :formData="viewproducts" />
       </section>
     </div>     
   </div>
+
+  
 </template>
+
+<script>
+  import ViewProductService from '@/src/services/ViewProductService'
+
+  export default{
+    data(){
+      return{
+        viewproducts: {},
+      }
+    },
+    methods:{
+      async handleViewProducts(){
+
+        
+        const route = useRoute();
+        const param = route.params.slug;
+        
+        const viewProductService = new ViewProductService();
+
+        const { data: responseData, error: responseError } = await viewProductService.getActiveProductsByTitle(param);
+        let status = responseData.value ? responseData._rawValue.status : null;
+        status = status ?? (responseError.value ? responseError.value.statusCode : null); 
+        this.viewproducts = responseData._rawValue.data;
+      },
+    },
+    mounted(){
+      this.handleViewProducts();
+
+    }
+  }
+
+</script>

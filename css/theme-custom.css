@@ -476,3 +476,16 @@ section>.container-recoverpassword {
   padding-right: 40px;
   padding-top: 20px;
 }
+
+.searchProducts{
+  padding-top: 10px;
+  padding-right: 10px;
+}
+
+.searchButton{
+  padding-top: 50px;
+}
+
+.rating{
+  padding-top: 5px;
+}

@@ -11,4 +11,9 @@ export default class ViewProductRepositorie {
     CallApi.setEndPoint('viewproductbytoken');
     return await CallApi.getWhere(token);
   }
+
+  static async getActiveProductsByTitle(formData: FormData) {
+    CallApi.setEndPoint('searchitems');
+    return await CallApi.store(formData);
+  }
 }

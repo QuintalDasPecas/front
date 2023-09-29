@@ -5,7 +5,7 @@
         <template #center>
             <span class="p-input-icon-right">
                 <i class="pi pi-search" />
-                <InputText  placeholder="Buscar produtos, marcas e muito mais" :name="'searchItem'" class="p-inputtext-search"/>           
+                <InputText  placeholder="Buscar produtos, marcas e muito mais" @keyup.enter="handleSearchItemsByTerm()" v-model="searchItem" :name="'searchItem'" class="p-inputtext-search"/>           
             </span>
         </template>
         <template #end>
@@ -50,7 +50,8 @@ export default {
                         }
                     ]
                 }   
-            ]
+            ],
+            searchItem: ''
         }
     },
     methods: {
@@ -81,8 +82,19 @@ export default {
         },
         toCredential(){
             navigateTo('/credentials');
-        }
+        },
+        handleSearchItemsByTerm(){
 
+            let term = this.searchItem; 
+            if( term ){
+                term = term.toLowerCase()
+                    .replace(/[^a-zA-Z0-9 -]/g, '')
+                    .replace(/\s+/g, '-')
+                    .replace(/-+/g, '-');
+            }
+            navigateTo('/search/' + term);
+            
+        }
     },
     mounted(){
         this.toInit();
