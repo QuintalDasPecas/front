@@ -8,3 +8,16 @@
         <Preco />              
     </section>    
 </template>
+
+<script>
+
+    export default{
+        props:{
+            Attribute:{
+                type:Object,
+                default: '',
+                required: true,
+            }
+        }
+    }
+</script>
