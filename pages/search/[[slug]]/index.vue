@@ -4,22 +4,20 @@
     <div class="ui-search-main ui-search-main--without-header ui-search-main--only-products shops__search-main">
       <aside class="ui-search-sidebar shops__sidebar">
         <div class="ui-search-breadcrumb shops__breadcrumb">
-          <h1 class="ui-search-breadcrumb__title shops-custom-primary-font">Lanterna</h1>
+          <h1 class="ui-search-breadcrumb__title shops-custom-primary-font text-capitalize">{{ this.searchTerm }}</h1>
         </div>
         <div class="ui-search-search-result shops__result">
-          <span class="ui-search-search-result__quantity-results shops-custom-secondary-font">1.804.044 resultados</span>
+          <span class="ui-search-search-result__quantity-results shops-custom-secondary-font">{{ this.qtde }} resultados</span>
         </div>
         <a class="ui-search-styled-label screen-reader-only" >Ir para resultados</a>
         <div class="ui-search-styled-label screen-reader-only" role="heading" aria-level="2">Filtros</div>
-        <Filter></Filter>       
+        <PartialsViewProductsFilter :formData="viewproducts" @handleFilter="handleFilter"/>       
       </aside>
       <section class="ui-search-results ui-search-results--without-disclaimer shops__search-results">
         <SearchResultItem :formData="viewproducts" />
       </section>
     </div>     
-  </div>
-
-  
+  </div>  
 </template>
 
 <script>
@@ -29,27 +27,51 @@
     data(){
       return{
         viewproducts: {},
+        searchTerm :'',
+        qtde: 0,
+        formData: {}
       }
     },
     methods:{
       async handleViewProducts(){
-
-        
         const route = useRoute();
-        const param = route.params.slug;
+        let param = route.params.slug;
+        param =  param.replace(/-/g,' ');
+        this.searchTerm = param;
+        if( !param ){
+          return false;
+        }
+       
+        const form = new FormData();
+        const attribute = this.formData.attribute_id;
+        
+        form.append('title', param);
+
+        if (attribute){
+          attribute.forEach(function(v,k){
+            form.append('attribute_id[]', v.attribute_id);
+          });
+        }    
         
         const viewProductService = new ViewProductService();
-
-        const { data: responseData, error: responseError } = await viewProductService.getActiveProductsByTitle(param);
+        const { data: responseData, error: responseError } = await viewProductService.getActiveProductsByTitle(form);
         let status = responseData.value ? responseData._rawValue.status : null;
         status = status ?? (responseError.value ? responseError.value.statusCode : null); 
         this.viewproducts = responseData._rawValue.data;
+        this.qtde = responseData._rawValue.data.items.length;
       },
+      async handleFilter( value ){
+        
+        this.formData.attribute_id = value; 
+        console.log('aqui',  this.formData );
+        this.handleViewProducts();
+      }
     },
     mounted(){
       this.handleViewProducts();
 
-    }
+    },
+
   }
 
 </script>

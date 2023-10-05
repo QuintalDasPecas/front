@@ -76,7 +76,6 @@ export default class CallApi{
         
         const apiUrl = utils.getEnviromentHost(this.getEndPoint());  
         option.body = utils.formDataToUrlEncoded(myForm);
-        console.log(option.body)
         return await useFetch( apiUrl, {
             onRequest({ request, options }) {
                 options.headers = {

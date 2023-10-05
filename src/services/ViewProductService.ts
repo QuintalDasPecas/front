@@ -10,9 +10,7 @@ export default class ViewProductService {
         return repositorie.getActiveProductsByToken(token);
     }
 
-    public async getActiveProductsByTitle(title: string){
-        const formData = new FormData();
-        formData.append('title', title)
+    public async getActiveProductsByTitle(formData: FormData){
         return repositorie.getActiveProductsByTitle(formData);
     }
 

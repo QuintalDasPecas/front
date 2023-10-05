@@ -1,6 +1,6 @@
 <template>
     <div class="row g-8 justify-content-start">        
-        <div class="col-lg-1 ">
+        <div class="col-lg-1">
             <BreadCrumbs />
         </div>
     </div> <br>
@@ -43,11 +43,7 @@
         <br>
     </div>        
 </template>
-
 <script>
-
-
-import utils from '@/src/utils/Utils';
 import 'primeflex/primeflex.css';
 import Rating from 'primevue/rating';
 
