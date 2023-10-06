@@ -1,7 +1,7 @@
 <template>
     <div class="row g-8 justify-content-start">        
         <div class="col-lg-1">
-            <BreadCrumbs />
+            <!-- <BreadCrumbs /> -->
         </div>
     </div> <br>
     <div v-for="(v,k) in formData.items">

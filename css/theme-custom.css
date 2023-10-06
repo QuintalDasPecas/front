@@ -493,3 +493,7 @@ section>.container-recoverpassword {
 .text-capitalize{
   text-transform: capitalize;
 }
+
+.ulBox{
+  padding-left: 0px!important;
+}

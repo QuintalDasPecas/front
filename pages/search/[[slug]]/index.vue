@@ -11,7 +11,7 @@
         </div>
         <a class="ui-search-styled-label screen-reader-only" >Ir para resultados</a>
         <div class="ui-search-styled-label screen-reader-only" role="heading" aria-level="2">Filtros</div>
-        <PartialsViewProductsFilter :formData="viewproducts" @handleFilter="handleFilter"/>       
+        <PartialsViewProductsFilter :formData="viewproducts" @handleFilter="handleFilter" @handleClearSelected="handleClearSelected"/>       
       </aside>
       <section class="ui-search-results ui-search-results--without-disclaimer shops__search-results">
         <SearchResultItem :formData="viewproducts" />
@@ -38,20 +38,29 @@
         let param = route.params.slug;
         param =  param.replace(/-/g,' ');
         this.searchTerm = param;
+
         if( !param ){
           return false;
         }
        
         const form = new FormData();
         const attribute = this.formData.attribute_id;
+        const state = this.formData.state;
         
         form.append('title', param);
 
         if (attribute){
           attribute.forEach(function(v,k){
-            form.append('attribute_id[]', v.attribute_id);
+            form.append(`attribute[${v.attribute_id}]`, v.value);
           });
-        }    
+        } 
+        
+        if (state){
+          state.forEach(function(v,k){
+            console.log(v)
+            form.append(`state[${k}]`, v.state);
+          });
+        } 
         
         const viewProductService = new ViewProductService();
         const { data: responseData, error: responseError } = await viewProductService.getActiveProductsByTitle(form);
@@ -61,9 +70,13 @@
         this.qtde = responseData._rawValue.data.items.length;
       },
       async handleFilter( value ){
-        
-        this.formData.attribute_id = value; 
-        console.log('aqui',  this.formData );
+        console.log(value)
+        this.formData.attribute_id = value[0]; 
+        this.formData.state = value[1]; 
+        this.handleViewProducts();
+      },
+      async handleClearSelected(){
+        this.formData.attribute_id = []; 
         this.handleViewProducts();
       }
     },

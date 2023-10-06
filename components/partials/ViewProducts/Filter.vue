@@ -1,27 +1,52 @@
 <template>
-    <section class="ui-search-filter-groups shops__filter-groups" v-for="(v , k) in formData.filters">
+    <section class="ui-search-filter-groups shops__filter-groups" v-for="(v , k) in formData.states">
         <div class="ui-search-filter-dl shops__filter-items">
             <div role="heading" aria-level="3" class="ui-search-filter-dt-title shops-custom-primary-font">
-                {{ v.name }}
+                {{ v.name }} 
             </div>
-            <ul>
+            <ul class="ulBox">
                 <li class="ui-search-filter-container shops__container-lists" v-for="(vv , kk) in JSON.parse(v.value)">
-                    <Checkbox v-model="selected"  :name="'filter[]'" :value="handleReturnValue(kk,vv)"/>
+                    <Checkbox v-model="selectedState" :name="'state[]'" :value="handleReturnValue(kk,vv)"/>
                     &nbsp;
-                    <label :for="vv.id">{{ vv.value }}</label>                    
+                    <label :for="vv.id">{{ vv.value }}</label>
                 </li>
             </ul>
         </div>
-    </section>
-    <NuxtLink @click="handleFilter()" v-if="selected.length">Filtrar</NuxtLink>
-    <br>
-    <NuxtLink @click="handleClearSelected()"  v-if="selected.length">Limpar filtro</NuxtLink>
+    </section>   
+    <section class="ui-search-filter-groups shops__filter-groups" v-for="(v , k) in formData.filters">
+        <div class="ui-search-filter-dl shops__filter-items">
+            <div role="heading" aria-level="3" class="ui-search-filter-dt-title shops-custom-primary-font">
+                {{ v.name }} 
+            </div>
+            <ul class="ulBox">
+                <li class="ui-search-filter-container shops__container-lists" v-for="(vv , kk) in JSON.parse(v.value)">
+                    <Checkbox v-model="selected"  :name="'filter[]'" :value="handleReturnValue(kk,vv)"/>
+                    &nbsp;
+                    <label :for="vv.id">{{ vv.value }}</label>
+                </li>
+            </ul>
+        </div>
+    </section>   
+    <div class="row g-4">
+        <div class="col-lg-6">
+            <NuxtLink class="btn btn-primary btn-lg btn-width-defult" @click="handleFilter()" v-if="selected.length || selectedState.length">
+                Filtrar
+            </NuxtLink>
+        </div>
+        <div class="col-lg-6">
+            <NuxtLink class="btn btn-primary btn-lg btn-width-defult" @click="handleClearSelected()"  v-if="selected.length || selectedState.length">
+                Limpar filtro
+            </NuxtLink>
+        </div>
+    </div>
+    
 </template>
 <script>
     export default{
         data(){
             return {
                 selected: [],
+                selectedState: [],
                 param:'',
             }
         },
@@ -35,32 +60,50 @@
         methods:{
             handleFilter(){
                 const selecteds = this.selected;
+                const selectedState = this.selectedState;
 
                 if (selecteds.length === 0){
                     return false;
                 }
 
-                const form = [];
+                const attribute = [];
                 selecteds.forEach(function( v, k ){
                     let data = JSON.parse(v);
-                    form[k] = {'attribute_id' : data.id};
+                    attribute[k] = {'attribute_id' : data.id, 'value' : data.value};
                 });
-                this.$emit('handleFilter', form)
+
+                const state = [];
+                selectedState.forEach(function( v, k ){
+                    let data = JSON.parse(v);
+                    state[k] = {'state' : data.value};
+                });
+
+                const form = [attribute, state];
+
+                this.$emit('handleFilter',form);
             },
             handleReturnValue( k, v){
-                const obj = { k: k, id: v.id}
+                const obj = { k: k, id: v.id, value: v.value}
+                if ( v ){
+                    return JSON.stringify(obj);
+                }
+            },
+            handleReturnStateValue( k, v){
+                const obj = { value: v.value }
                 if ( v ){
                     return JSON.stringify(obj);
                 }
             },
             handleClearSelected(){
                 this.selected = [];
+                this.selectedState = [];
+                this.$emit('handleClearSelected', true)
             }
         },
         mounted(){
             const route = useRoute();
             this.param = route.params.slug;
         },
-        emits: ['handleFilter'],
+        emits: ['handleFilter','handleClearSelected'],
     }
 </script>
