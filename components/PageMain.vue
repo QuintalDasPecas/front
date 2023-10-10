@@ -1,5 +1,5 @@
 <template> 
-    <CarouselCustom></CarouselCustom>
+    <CarouselCustom :banners="banner"></CarouselCustom>
     <br><br>
     <div class="row g-8 justify-content-lg-center">
         <div class="col-lg-10">
@@ -83,10 +83,13 @@
 
 <script>
  import ViewProductService  from '@/src/services/ViewProductService';
+ import Carousel  from '@/src/services/BannerService';
+
 
 export default {
     data() {
         return {
+            banner: null,
             products: null,
             responsiveOptions: [
                 {
@@ -135,10 +138,20 @@ export default {
         },
         handleGetProductByToken(token){
             navigateTo(`products?token=${token}`);
+        },
+        async handleCarousel(){
+            const carousel = new Carousel();
+
+            const { data: responseData, error: responseError } = await carousel.getBanner('');
+            let status = responseData.value ? responseData._rawValue.status : null;
+            status = status ?? (responseError.value ? responseError.value.statusCode : null); 
+            this.banner = responseData._rawValue.data;
+            console.log('aaaaaaaaa',this.banner)
         }
     },
     mounted() {       
         this.handleViewProducts();
+        this.handleCarousel();
 
     },
 };

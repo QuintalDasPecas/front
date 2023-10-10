@@ -23,6 +23,7 @@
     "primeflex": "^3.3.1",
     "primeicons": "^6.0.1",
     "primevue": "^3.30.0",
+    "quill": "^2.0.0-dev.4",
     "swiper": "^10.2.0",
     "vee-validate": "^4.10.8",
     "vuex": "^4.0.2"

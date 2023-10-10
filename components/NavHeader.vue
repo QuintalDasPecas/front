@@ -45,6 +45,10 @@ export default {
                             command : () => { this.toCredential() }
                         },
                         {
+                            label: 'Configurações',
+                            command : () => { this.toConfig() }
+                        },
+                        {
                             label: 'Sair',
                             command : () => { this.toLogout() }
                         }
@@ -82,6 +86,9 @@ export default {
         },
         toCredential(){
             navigateTo('/credentials');
+        },
+        toConfig(){
+            navigateTo('/config')
         },
         handleSearchItemsByTerm(){
 

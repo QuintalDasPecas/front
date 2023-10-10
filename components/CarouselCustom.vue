@@ -13,11 +13,8 @@
       :modules="modules"
       class="mySwiper"
     >
-      <swiper-slide>
-        <img src="https://http2.mlstatic.com/D_NQ_739831-MLA70113726243_062023-OO.webp">
-      </swiper-slide>
-      <swiper-slide>
-        <img src="https://http2.mlstatic.com/D_NQ_818614-MLA70172625662_062023-OO.webp">
+      <swiper-slide v-for="(v,k) in banners">
+        <img :src="v.file_path">
       </swiper-slide>
     </swiper>
   </template>
@@ -33,6 +30,14 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
 export default {
+
+  props:{
+    banners:{
+      type: Object,
+      default: '',
+      required:true
+    }
+  },
   components: {
   Swiper,
   SwiperSlide,

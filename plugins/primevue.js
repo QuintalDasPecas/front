@@ -40,6 +40,8 @@ import Breadcrumb from 'primevue/breadcrumb';
 import Dialog from 'primevue/dialog';
 import Menu from 'primevue/menu';
 import Paginator from 'primevue/paginator';
+import Editor from 'primevue/editor';
+
 
 
 export default defineNuxtPlugin((nuxtApp) => {
@@ -85,6 +87,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.component('Dialog',Dialog);
     nuxtApp.vueApp.component('Menu',Menu);
     nuxtApp.vueApp.component('Paginator',Paginator);
+    nuxtApp.vueApp.component('Editor',Editor);
 
     //other components that you need
 });

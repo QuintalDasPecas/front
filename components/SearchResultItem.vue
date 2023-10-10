@@ -1,7 +1,9 @@
 <template>
     <div class="row g-8 justify-content-start">        
-        <div class="col-lg-1">
-            <!-- <BreadCrumbs /> -->
+        <div class="col-lg-1 text-md">
+            <NuxtLink to="/">
+                Voltar
+            </NuxtLink>   
         </div>
     </div> <br>
     <div v-for="(v,k) in formData.items">
