@@ -22,7 +22,7 @@
     width: 43rem;
   }
   
-  .p-toolbar {
+  .pp-toolbar {
       display: flex;
       align-items: center;
       justify-content: space-evenly!important;
@@ -52,15 +52,15 @@
     width: 100%;
   }
 
-  .p-menubar {
+  /* .pp-menubar {
     padding: 0.5rem 1rem;
     background: #fff159;
     color: #000;
     border: 0 none;
     border-radius: 4px;
-}
+} */
 
-.p-menubar .p-menuitem:not(.p-highlight):not(.p-disabled).p-focus > .p-menuitem-content {
+/* .p-menubar .p-menuitem:not(.p-highlight):not(.p-disabled).p-focus > .p-menuitem-content {
   color: #212529;
   background: #fff159;
 }
@@ -68,16 +68,16 @@
 .p-menubar .p-menuitem.p-highlight > .p-menuitem-content {
   color: #212529;
   background: #fff159;
-}
+} */
 
-.p-menubar .p-menuitem.p-highlight.p-focus > .p-menuitem-content {
+/* .p-menubar .p-menuitem.p-highlight.p-focus > .p-menuitem-content {
   background: #fff159;
 }
 
 .p-menubar .p-menuitem:not(.p-highlight):not(.p-disabled).p-focus > .p-menuitem-content {
   color: #212529;
   background: #fff159;
-}
+} */
 
 .link-entre{
   color : #00000080;
@@ -191,10 +191,10 @@ section>.container-recoverpassword {
   padding-bottom: 15px;
 }
 
-.p-menubar .p-menubar-root-list > .p-menuitem:not(.p-highlight):not(.p-disabled) > .p-menuitem-content:hover {
+/* .p-menubar .p-menubar-root-list > .p-menuitem:not(.p-highlight):not(.p-disabled) > .p-menuitem-content:hover {
   color: #495057;
  background: #fff159;
-}
+} */
 
 .p-input-icon-left-custom, .p-input-icon-right-custom {
   position: relative;
@@ -499,6 +499,6 @@ section>.container-recoverpassword {
 }
 
 .colorBox{
-  width: 100px;
-  height: 100px;
+  width: 50px;
+  height: 50px;
 }

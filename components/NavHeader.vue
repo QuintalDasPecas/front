@@ -1,5 +1,5 @@
 <template>
-    <Toolbar>
+    <Toolbar  :pt="cssToolBar">
         <template #start>
         </template>
         <template #center>
@@ -13,7 +13,7 @@
                 <NuxtLink to="/login" class="p-component link-entre">Entre</NuxtLink>
             </span>
             <span class="p-input-icon-left"  v-if="logged">
-                <Menubar :model="items" />
+                <Menubar :model="items" :style="colorMenu" />
             </span>
         </template>
     </Toolbar>
@@ -24,6 +24,9 @@ import Logout from "@/src/services/LogoutService";
 export default {
     data(){
         return {
+            cssToolBar: '',
+            colorMenu: '',
+            color : '',
             users: '',
             logged: '',
             items: [],
@@ -105,6 +108,27 @@ export default {
     },
     mounted(){
         this.toInit();
+        this.color = localStorage.getItem('color');
+        this.cssToolBar = {
+            root: { 
+                style: { 
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-evenly!important',
+                    flexWrap: 'wrap',
+                    backgroundColor: this.color,
+                    borderRadius: '0px',
+                    borderColor: this.color
+                } 
+            }
+        };
+
+        this.colorMenu ={
+            padding: '0.5rem 1rem',
+            color: '#000',
+            border: '0 none',
+            borderRadius: '4px'
+        }
     }
 }   
 </script>
