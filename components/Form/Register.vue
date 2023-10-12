@@ -111,7 +111,6 @@ export default {
           if( status == 400 ){
             this.errorMessage.message = responseError.value.data.data.errors;
           }
-          console.log('error')
         } 
 
       }catch( error ){

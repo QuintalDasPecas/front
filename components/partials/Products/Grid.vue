@@ -22,20 +22,9 @@
                 </template>
             </Column>
             <Column header="Ações">
-                <template #body="slotProps">                    
-                    <Button type="button" text rounded @click="toggle" aria-haspopup="true" aria-controls="overlay_menu" :key="slotProps.data.id">
-                        <i class="pi pi-cog"></i>
-                    </Button>
-                    <Menu ref="menu" id="overlay_menu" :model="mitems" :popup="true" :key="slotProps.data.id" > 
-                        <template #start>                      
-                        </template>
-                        <template #item="{ item, label, props }">
-                            <a class="flex">
-                                <span v-bind="item.icon" />
-                                <span v-bind="item.label">{{ item.label }}</span>
-                            </a>
-                        </template>  
-                    </Menu>
+                <template #body="slotProps">                   
+                    <Button v-if="slotProps.data.actived==='Não'" icon="pi pi-check" severity="success" rounded outlined  />                  
+                    <Button  v-if="slotProps.data.actived==='Sim'" icon="pi pi-times" severity="danger" rounded outlined/>
                 </template>
             </Column>
             <template #footer> In total there are {{ items ? items.length : 0 }} products. </template>
@@ -68,10 +57,7 @@
                 required: true
             }
         },
-        methods:{
-            toggle(event) {
-                this.$refs.menu.toggle(event);
-            },
+        methods:{           
             getSeverity(product) {
                 switch (product.actived) {
                     case 'Sim':
@@ -89,32 +75,7 @@
            handleUpdate(id, status){
             console.log(id, status)
            },
-           handleMenuItems( value ){
-                const status = value.data.actived === 'Sim' ? 1 : 0;
-                const id = value.data.id;
-
-                let label = '';
-                let icon = '';    
-                
-                if (status === 1){
-                    label = 'Desativar';
-                    icon = 'pi pi-times';
-                }
-
-                if (status === 0){
-                    label = 'Ativar';
-                    icon = 'pi pi-check';
-                }
-
-                return [{
-                            id : id,
-                            label: label,
-                            icon: icon,
-                            command: () => {
-                                this.handleUpdate(id, status)
-                            }
-                        }];
-           }
+          
         }
     };
 </script>

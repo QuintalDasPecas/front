@@ -18,18 +18,12 @@
                 </div>
             </form>
         </div>
-    </div>
-        <ckeditorNuxt v-model="contentHolder" :config="editorConfig"  />
+    </div>     
 </template>
-
-<script>
-   
+<script>   
     import Color from '@/src/services/ConfigColorService';
 
-    export default {   
-        components: {
-            'ckeditorNuxt': () => { if (process.client) { return import('@blowstack/ckeditor-nuxt') } },
-        },     
+    export default {  
         data(){
             return {
                 formData: {

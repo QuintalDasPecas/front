@@ -8,15 +8,15 @@
     </div>   
     <div class="row g-2 justify-content-center">
         <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-            <label for="inputPassword" class="form-label label-lg">Nova senha</label>
-            <Password @blur="setFormDataPassword(formData)" v-model="formData.password" size="large" id="newpassword" name="password" :feedback="false" toggle-mask autocomplete="new-password" :maxlength="16" />
+            <label for="new-password" class="form-label label-lg">Nova senha</label>
+            <Password @blur="setFormDataPassword(formData)" v-model="formData.password" size="large" id="new-password" name="new-password" :feedback="false" toggle-mask autocomplete="new-password" :maxlength="16" />
             <small class="p-error" id="text-error" v-if="errorMessage.password">{{ errorMessage.password || '&nbsp;' }}</small>
         </div>
     </div>
     <div class="row g-2 justify-content-center">
         <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-            <label for="inputPassword" class="form-label label-lg">Repetir nova senha</label>
-            <Password @blur="setFormDataPassword(formData)" v-model="formData.recoverpassword" size="large" id="recoverpassword" name="recoverpassword" :feedback="false" toggle-mask autocomplete="new-password" :maxlength="16" />
+            <label for="recoverpassword" class="form-label label-lg">Repetir nova senha</label>
+            <Password @blur="setFormDataPassword(formData)" v-model="formData.recoverpassword" size="large" id="recoverpassword" name="recoverpassword" :feedback="false" toggle-mask :maxlength="16" />
             <small class="p-error" id="text-error" v-if="errorMessage.recoverpassword">{{ errorMessage.recoverpassword || '&nbsp;' }}</small>
         </div>
     </div>

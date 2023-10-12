@@ -1,5 +1,5 @@
 <template>
-    <Toolbar  :pt="cssToolBar">
+    <Toolbar :pt="cssToolBar">
         <template #start>
         </template>
         <template #center>
@@ -24,7 +24,7 @@ import Logout from "@/src/services/LogoutService";
 export default {
     data(){
         return {
-            cssToolBar: '',
+            cssToolBar: {},
             colorMenu: '',
             color : '',
             users: '',
@@ -48,6 +48,10 @@ export default {
                             command : () => { this.toCredential() }
                         },
                         {
+                            label: 'Banners',
+                            command : () => { this.toBanner() }
+                        },
+                        {
                             label: 'Configurações',
                             command : () => { this.toConfig() }
                         },
@@ -62,7 +66,7 @@ export default {
         }
     },
     methods: {
-        toProfile(){
+        async toProfile(){
             navigateTo('/profile');
         },
         toInit(){
@@ -71,10 +75,10 @@ export default {
             this.logged = localStorage.getItem('logged') ? true : false;
             this.items = this.menu;
         },
-        toAdverts(){
+        async toAdverts(){
             navigateTo('/adverts');
         },
-        toLogout(){
+        async toLogout(){
             localStorage.removeItem('logged');
             localStorage.removeItem('users');
             localStorage.removeItem('userId');
@@ -87,13 +91,16 @@ export default {
             logout.logout();
             navigateTo('/');
         },
-        toCredential(){
+        async toCredential(){
             navigateTo('/credentials');
         },
-        toConfig(){
+        async toBanner(){
+            navigateTo('/banners')
+        },
+        async toConfig(){
             navigateTo('/config')
         },
-        handleSearchItemsByTerm(){
+        async handleSearchItemsByTerm(){
 
             let term = this.searchItem; 
             if( term ){

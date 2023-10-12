@@ -126,7 +126,6 @@
                 if (status === 200){
                     const result = responseData._rawValue.data;
                     this.resultCredentials = result;
-                    console.log(responseData._rawValue.data)
                 }
             },
             handleCreate(value){
@@ -189,6 +188,7 @@
 
                 if (status === 201){
                     this.message = 'Registro salvo com sucesso.';
+                    this.formData = '';
                 }
             }
         },

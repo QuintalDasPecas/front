@@ -17,4 +17,14 @@ export default class BannerRepositorie {
     return CallApi.destroy(id);
   }
 
+  static async enable(id: number, formData: FormData) {
+    CallApi.setEndPoint('banner');
+    return CallApi.update(id, formData);
+  }
+
+  static async getAllActive() {
+    CallApi.setEndPoint('activebanner');
+    return CallApi.all();
+  }
+
 }

@@ -112,22 +112,7 @@ export default {
             viewproducts: ''
         };
     },    
-    methods: {
-        getSeverity(status) {
-            switch (status) {
-                case 'INSTOCK':
-                    return 'success';
-
-                case 'LOWSTOCK':
-                    return 'warning';
-
-                case 'OUTOFSTOCK':
-                    return 'danger';
-
-                default:
-                    return null;
-            }
-        },
+    methods: {      
         async handleViewProducts(){
                 const viewProductService = new ViewProductService();
 
@@ -142,11 +127,10 @@ export default {
         async handleCarousel(){
             const carousel = new Carousel();
 
-            const { data: responseData, error: responseError } = await carousel.getBanner('');
+            const { data: responseData, error: responseError } = await carousel.getAllActive();
             let status = responseData.value ? responseData._rawValue.status : null;
             status = status ?? (responseError.value ? responseError.value.statusCode : null); 
             this.banner = responseData._rawValue.data;
-            console.log('aaaaaaaaa',this.banner)
         }
     },
     mounted() {       

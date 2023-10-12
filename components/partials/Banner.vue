@@ -1,17 +1,37 @@
 <template>
     <Message severity="success" v-if="successMessage">{{ successMessage }}</Message>
     <Message severity="error" v-if="errorMessage">{{ errorMessage }}</Message>
+    <div class="justify-content-start">
+        <NuxtLink to="/" class="btn btn-primary col-lg-2 col-md-2 col-sm-2 col-2">
+            Página principal
+        </NuxtLink>
+    </div>
+    
     <div class="card">
         <DataTable v-model:selection="selected" :value="bannerServiceData" dataKey="id" tableStyle="min-width: 50rem">
             <Column selectionMode="multiple" headerStyle="width: 3rem"></Column>
-            <Column field="file_name" header="Nome"></Column>
+            <Column field="file_path" header="Banner">
+                <template #body="slotProps">
+                    <img :src="slotProps.data.file_path" class="w-6rem shadow-2 border-round" />
+                </template>
+            </Column>
             <Column field="format" header="Formato"></Column>
             <Column field="size" header="Tamanho"></Column>
-            <Column field="name" header="Entidade"></Column>
+            <Column sortable header="Ativo">
+                <template #body="slotProps">
+                    <Tag class="adverts" :value="slotProps.data.status" :severity="getSeverity(slotProps.data)" />
+                </template>
+            </Column>
+            <Column field="name" header="Ação">
+                <template #body="slotProps">
+                    <Button v-if="slotProps.data.status==='Não'" icon="pi pi-check" outlined rounded severity="success" class="mr-2" @click="handleEnable(slotProps.data.id)" />
+                    <Button v-if="slotProps.data.status==='Sim'" icon="pi pi-times" outlined rounded severity="danger" @click="handleDisable(slotProps.data.id)" />
+                </template>
+            </Column>
         </DataTable>       
     </div>
     <div class="d-grip  d-md-flex gap-3 justify-content-end TestDeleteButton"> 
-        <Button label="Excluir" severity="danger" icon="pi pi-trash" @click="handleOnDelete()" />
+        <Button label="Desativar" severity="danger" icon="pi pi-trash" @click="handleOnDelete()" />
     </div>
     <br>  
     <FileUpload name="files[]" :url="url" @upload="onTemplatedUpload($event)" :multiple="true" accept="image/*" :maxFileSize="1000000" @select="onSelectedFiles">
@@ -176,7 +196,30 @@ export default {
 
             await Promise.all(deletePromises);  
             this.getBanner();                
-        }
+        },
+        async handleEnable(id){           
+            const bannerService = new BannerService();
+            const form = new FormData();
+            form.append('deleted_at', null)
+           const banner = await bannerService.enable(id, form)
+            this.getBanner();  
+        },
+        async handleDisable(id){ 
+            const bannerService = new BannerService();                                 
+            const benner = await bannerService.destroy(id); 
+            this.getBanner();   
+        },
+        getSeverity(banner) {
+                switch (banner.status) {
+                    case 'Sim':
+                        return 'success';
+                    case 'Não':
+                        return 'danger';
+
+                    default:
+                        return null;
+                }
+            },
     },
     created() {
         this.columns = [
@@ -186,6 +229,7 @@ export default {
             { field: 'name', header: 'Entidade' }
         ];
     },
+   
     mounted() {
         this.getBanner();
     }

@@ -11,13 +11,11 @@
         <br>
     </div>
     <div class="row justify-content-center">
-        <div class="col-lg-4 col-md-4 col-sm-4 col-4 d-grid gap-2 d-flex justify-content-start">            
-            <ToggleButton @click="typeRegister(1)" :disabled="isDisabledEntity" v-model="type[1]"  onLabel="Conta empresa" offLabel="Conta empresa" onIcon="pi pi-building" offIcon="pi pi-building" class="w-9rem" />
-        </div>
-        <div class="col-lg-4 col-md-4 col-sm-4 col-4">
-        </div>
-        <div class="col-lg-4 col-md-4 col-sm-4 col-4 d-grid gap-2 d-flex justify-content-end">
-            <ToggleButton @click="typeRegister(2)" :disabled="isDisabledPerson" v-model="type[2]" onLabel="Conta pessoal" offLabel="Conta pessoal" onIcon="pi pi-user" offIcon="pi pi-user" class="w-9rem" />
+        <div class="col-lg-6 col-md-6 col-sm-6 col-6 d-grid gap-2 d-flex justify-content-start">            
+            <ToggleButton @click="typeRegister(1)" :disabled="isDisabledEntity" v-model="type[1]"  onLabel="Conta empresa" offLabel="Conta empresa" onIcon="pi pi-building" offIcon="pi pi-building" />
+        </div>       
+        <div class="col-lg-6 col-md-6 col-sm-6 col-6 d-grid gap-2 d-flex justify-content-end">
+            <ToggleButton @click="typeRegister(2)" :disabled="isDisabledPerson" v-model="type[2]" onLabel="Conta pessoal" offLabel="Conta pessoal" onIcon="pi pi-user" offIcon="pi pi-user" />
         </div>
     </div>
 </template>
