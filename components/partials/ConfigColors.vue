@@ -2,7 +2,7 @@
     <div class="row g-4">
         <div class="col-lg-12 col-md-12 col-sm-12 col-12">
             <form class="panel">
-                <h3>Definir cor do Layout</h3>
+                <h3>Selecione uma cor</h3>
                 <div class="col-lg-8 col-md-8 col-sm-8 col-8">
                     <div class="col-lg-4 col-md-4 col-sm-4 col-4">
                          <InputText v-model="formData.color" class="colorBox" type="color" />      
