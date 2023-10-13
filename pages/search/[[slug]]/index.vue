@@ -4,17 +4,25 @@
     <div class="ui-search-main ui-search-main--without-header ui-search-main--only-products shops__search-main">
       <aside class="ui-search-sidebar shops__sidebar">
         <div class="ui-search-breadcrumb shops__breadcrumb">
-          <h1 class="ui-search-breadcrumb__title shops-custom-primary-font text-capitalize">{{ this.searchTerm }}</h1>
+          <h1 class="ui-search-breadcrumb__title shops-custom-primary-font text-capitalize">{{ searchTerm }}</h1>
         </div>
         <div class="ui-search-search-result shops__result">
-          <span class="ui-search-search-result__quantity-results shops-custom-secondary-font">{{ this.qtde }} resultados</span>
+          <span class="ui-search-search-result__quantity-results shops-custom-secondary-font">{{ qtde }} resultados</span>
         </div>
         <a class="ui-search-styled-label screen-reader-only" >Ir para resultados</a>
         <div class="ui-search-styled-label screen-reader-only" role="heading" aria-level="2">Filtros</div>
         <PartialsViewProductsFilter :formData="viewproducts" @handleFilter="handleFilter" @handleClearSelected="handleClearSelected"/>       
       </aside>
-      <section class="ui-search-results ui-search-results--without-disclaimer shops__search-results">
+      <section class="ui-search-results ui-search-results--without-disclaimer shops__search-results" >
         <SearchResultItem :formData="viewproducts" />
+        <div>
+          <h1 >Produto não encontrado</h1> <br>
+          <Skeleton width="100%" height="15rem"></Skeleton> <br>
+          <Skeleton width="100%" height="15rem"></Skeleton> <br>
+          <Skeleton width="100%" height="15rem"></Skeleton> <br>
+          <Skeleton width="100%" height="15rem"></Skeleton> <br>
+        </div>
+       
       </section>
     </div>     
   </div>  

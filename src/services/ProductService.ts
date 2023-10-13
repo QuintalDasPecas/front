@@ -29,4 +29,12 @@ export default class EntityService {
     public async importItems(formEntity: FormData){
         return await repositorie.importItems(formEntity);
     }
+
+    public async destroy(id: number){
+        return await repositorie.destroy(id);
+    }
+
+    public async updateProduct(id: number, formEntity: FormData){
+        return repositorie.updateProduct(id, formEntity);
+    }
 }

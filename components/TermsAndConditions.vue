@@ -26,11 +26,38 @@
                         </ul>
                     </nav>
                 </div>
-                <p class="nav-footer-secondaryinfo">
-                    CNPJ n.º 03.007.331/0001-41 / Av. das Nações Unidas, nº 3.003, Bonfim, Osasco/SP - CEP 06233-903 - empresa do grupo Mercado Livre.
+                <p class="nav-footer-secondaryinfo" v-if="formData">
+                    CNPJ n.º {{ formData.cnpj }} / {{ formData.address }}, nº {{ formData.number }}, {{ formData.neighborhood }}, {{ formData.city}}/{{ formData.state }} - CEP {{ formData.zipcode }}.
                 </p>
             </div>
         </div>
         <a class="nav-footer-hp">Mercado Livre</a>
     </footer>
 </template>
+<script>
+    import Portal from '@/src/services/PortalService';
+    import Utils from '@/src/utils/Utils';
+    export default {
+        data(){
+            return{
+                formData: {}
+            }
+        },
+        methods:{
+            async handleFooter(){
+                const portal = new Portal();
+              
+                const { data: responseData, error: responseError } = await portal.all();
+                let status = responseData.value ? responseData._rawValue.status : null;
+                status = status ?? (responseError.value ? responseError.value.statusCode : null);
+                this.formData = '';// responseData._rawValue.data[0];
+
+               this.formData.zipcode = Utils.formatZipCode(this.formData.zipcode);
+               this.formData.cnpj = Utils.formatCNPJ(this.formData.cnpj); 
+            }
+        },
+        mounted(){
+            this.handleFooter();
+        }
+    }
+</script>

@@ -35,4 +35,14 @@ export default class ProductRepositorie {
     CallApi.setEndPoint('importitems');
     return await CallApi.store(formData);
   }
+
+  static async destroy(id: number) {
+    CallApi.setEndPoint('product');
+    return CallApi.destroy(id);
+  }
+
+  static async updateProduct(id: number, formData: FormData) {
+    CallApi.setEndPoint('productenable');
+    return CallApi.update(id, formData);
+  }
 }

@@ -21,10 +21,10 @@
                     <Tag class="adverts" :value="slotProps.data.actived" :severity="getSeverity(slotProps.data)" />
                 </template>
             </Column>
-            <Column header="Ações">
+            <Column field="name" header="Ação">
                 <template #body="slotProps">                   
-                    <Button v-if="slotProps.data.actived==='Não'" icon="pi pi-check" severity="success" rounded outlined  />                  
-                    <Button  v-if="slotProps.data.actived==='Sim'" icon="pi pi-times" severity="danger" rounded outlined/>
+                    <Button v-if="slotProps.data.actived==='Não'" icon="pi pi-check" outlined rounded severity="success" class="mr-2" @click="handleEnableItem(slotProps.data.id)" />
+                    <Button v-if="slotProps.data.actived==='Sim'" icon="pi pi-times" outlined rounded severity="danger" @click="handleDisableItem(slotProps.data.id)" />
                 </template>
             </Column>
             <template #footer> In total there are {{ items ? items.length : 0 }} products. </template>
@@ -69,13 +69,14 @@
                         return null;
                 }
             },
-           handleDestory(){
-
-           },
-           handleUpdate(id, status){
-            console.log(id, status)
-           },
+            async handleEnableItem(id){           
+                this.$emit('handleEnableItem', id);   
+            },
+            async handleDisableItem(id){ 
+                this.$emit('handleDisableItem', id);    
+            },
           
-        }
+        },
+    emits: ['handleEnableItem','handleDisableItem']
     };
 </script>

@@ -43,6 +43,27 @@ export default class Utils {
         if (!results[2]) return "";
       
         return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
+    static formatCNPJ(cnpj: string) {
+        // Remove todos os caracteres não numéricos do CNPJ
+        cnpj = cnpj.replace(/\D/g, '');
+      
+        // Adicione a formatação padrão
+        cnpj = cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/, '$1.$2.$3/$4-$5');
+      
+        return cnpj;
+    }
+
+    static formatZipCode(zipcode: string) {
+        // Remove todos os caracteres não numéricos do CNPJ
+        zipcode = zipcode.replace(/\D/g, '');
+      
+        // Adicione a formatação padrão
+        zipcode = zipcode.replace(/^(\d{2})(\d{3})(\d{3})$/, '$1.$2-$3');
+      
+        return zipcode;
       }
+      
       
 }

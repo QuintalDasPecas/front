@@ -13,6 +13,9 @@
       :modules="modules"
       class="mySwiper"
     >
+      <swiper-slide v-if="banners == 0">
+        <Skeleton width="100%" height="100%"></Skeleton>
+      </swiper-slide>
       <swiper-slide v-for="(v,k) in banners">
         <img :src="v.file_path">
       </swiper-slide>

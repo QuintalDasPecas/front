@@ -3,60 +3,74 @@
         <div class="col-lg-12 col-md-12 col-sm-12 col-12">
             <form class="panel">
                 <h3>Definir rodapé</h3>
-                <div class="row g-2 justify-content-center">
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                        <label for="inputCNPJ" class="form-label label-lg">CNPJ</label>
-                        <InputMask   id="inputCNPJ" mask="99.999.999/9999-99" class="form-control p-inputmask p-inputmask-lg" autocomplete="off" name="cpf_cnpj" />
-                        <small class="p-error" id="text-error" ></small>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                        <label for="cep" class="form-label label-lg">CEP</label>
-                        <InputMask  id="cep" mask="99.999-999" @blur="handleFetchCepData(formData.zipcode)" @keyup.enter="handleFetchCepData(formData.zipcode)" class="form-control  p-inputmask p-inputmask-lg" />
-                    </div>
-                </div>
-                <div class="row g-2 justify-content-center">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-                        <label for="inputBusinessName" class="form-label label-lg">Razão Social</label>
-                        <InputText v-model="formData.fantasy_name" type="text" class="form-control" size="large" id="inputBusinessName" name="name" />
-                        <small class="p-error" id="text-error" ></small>
-                    </div>         
-                </div>
+                <Message severity="success" v-if="successMessage">{{ successMessage }}</Message>
+                <Message severity="error" v-if="errorMessage.message" v-for="(value, key) in errorMessage.message" :key="key">{{ value[0] }}</Message>
                 <div class="row g-2 justify-content-center">
                     <div class="col-lg-8 col-md-8 col-sm-8 col-8">
-                        <label for="InputText Address" class="form-label label-lg">Endereço</label>
-                        <InputText   autocomplete="off" size="large"  type="text" class="form-control" id="InputText Address" name="address" />
-                    </div>
+                        <label for="inputBusinessName" class="form-label label-lg">Nome</label>
+                        <InputText v-model="formData.name" type="text" class="form-control" size="large" id="inputBusinessName" name="name" maxlength="150" />
+                        <small class="p-error" id="text-error" ></small>
+                    </div> 
                     <div class="col-lg-4 col-md-4 col-sm-4 col-4">
-                        <label for="InputText Number" class="form-label label-lg">Número</label>
-                        <InputText  autocomplete="off" size="large"  type="text" class="form-control" id="InputText Number" name="number" />
+                        <label for="inputCNPJ" class="form-label label-lg">CNPJ</label>
+                        <InputMask v-model="formData.cnpj" id="inputCNPJ" mask="99.999.999/9999-99" class="form-control p-inputmask p-inputmask-lg" autocomplete="off" name="cpf_cnpj" />
+                        <small class="p-error" id="text-error" ></small>
+                    </div>                    
+                </div>
+                <div class="row g-2 justify-content-center">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                        <label for="InputText Name" class="form-label label-lg">Nome Fantasia</label>
+                        <InputText v-model="formData.fantasy_name" autocomplete="off" size="large"  type="text" class="form-control" id="InputText Name" maxlength="150" />
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                        <label for="InputText Email" class="form-label label-lg">E-mail</label>
+                        <InputText v-model="formData.email" autocomplete="off" size="large"  type="text" class="form-control" id="InputText Name" maxlength="150" />
                     </div>
                 </div>
-                <div class="row g-2 justify-content-center">                                   
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="row g-2 justify-content-center">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-4">
+                        <label for="cep" class="form-label label-lg">CEP</label>
+                        <InputMask v-model="formData.zipcode" id="cep" mask="99.999-999" class="form-control  p-inputmask p-inputmask-lg" />
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-sm-8 col-8">
+                        <label for="InputText Address" class="form-label label-lg">Endereço</label>
+                        <InputText v-model="formData.address"  autocomplete="off" size="large"  type="text" class="form-control" id="InputText Address" name="address" maxlength="100" />
+                    </div>                    
+                </div>                
+                <div class="row g-2 justify-content-center">
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-10">
                         <label for="InputText Complement" class="form-label label-lg">Complemento</label>
-                        <InputText  autocomplete="off" size="large"  type="text" class="form-control" id="InputText Complement" />
-                    </div>                                   
+                        <InputText v-model="formData.comment" autocomplete="off" size="large"  type="text" class="form-control" id="InputText Complement" maxlength="50" />
+                    </div> 
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-2">
+                        <label for="InputText Number" class="form-label label-lg">Número</label>
+                        <InputText v-model="formData.number" autocomplete="off" size="large"  type="text" class="form-control" id="InputText Number" name="number" maxlength="5" />
+                    </div>                                                      
                 </div>
                 <div class="row g-2 justify-content-center">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                         <label for="InputText Neighborhood" class="form-label label-lg">Bairro</label>
-                        <InputText   autocomplete="off" size="large"  type="text" class="form-control" id="InputText Neighborhood" name="neighborhood" />
+                        <InputText v-model="formData.neighborhood" autocomplete="off" size="large"  type="text" class="form-control" id="InputText Neighborhood" name="neighborhood" maxlength="50" />
                     </div>
                 </div>    
-                <div class="row g-2 justify-content-center">    
-                    <div class="col-lg-8 col-md-8 col-sm-8 col-8">
+                <div class="row g-2 justify-content-center">                    
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-6">
                         <label for="InputText City" class="form-label label-lg">Cidade</label>
-                        <InputText   autocomplete="off" size="large"  type="text" class="form-control" id="InputText City" name="city" />
+                        <InputText v-model="formData.city"  autocomplete="off" size="large"  type="text" class="form-control" id="InputText City" name="city" maxlength="50" />
                     </div>
-                    <div class="col-lg-4 col-4 col-sm-4 col-4">
-                        <label for="InputText Uf" class="form-label label-lg">Estado</label>
-                        <InputText   autocomplete="off" size="large" type="text" class="form-control" />
+                    <div class="col-lg-2 col-2 col-sm-2 col-2">
+                        <label for="InputText State" class="form-label label-lg">Estado</label>
+                        <InputText v-model="formData.state"  autocomplete="off" size="large" type="text" class="form-control" maxlength="2" />
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-4">
+                        <label for="InputText Country" class="form-label label-lg">País</label>
+                        <InputText v-model="formData.country"  autocomplete="off" size="large"  type="text" class="form-control" id="InputText Country" name="Country" maxlength="50" />
                     </div>
                 </div> 
-                <div class="row g-2 box-button justify-content-center">
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                <div class="row g-2 justify-content-end">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-4">
                         <NuxtLink @click="handleOnSubmit(formData.id)" class="btn btn-primary btn-lg btn-width-defult">
-                            <i class="pi pi-check"></i> Confirmar
+                            <i class="pi pi-check"></i> Salvar
                         </NuxtLink>
                     </div>
                 </div>
@@ -69,27 +83,75 @@
     export default{
         data(){
             return{
-                formData:{}
+                successMessage: '',
+                errorMessage: { name: '', cpf_cnpj: '', message: []},
+                formData:{
+                    id:0
+                }
             }
         },
         methods:{
             async handleOnSubmit(id){
-                if (id){
-                    console.log('update')
+       
+                const portal = new Portal();
+                const form = new FormData();
+                form.append('name', this.formData.name);
+                form.append('fantasy_name', this.formData.fantasy_name);
+                form.append('email', this.formData.email);
+                form.append('zipcode', this.formData.zipcode.replace('.', '').replace('.', '').replace('-', ''));
+                form.append('cnpj', this.formData.cnpj.replace('.', '').replace('.', '').replace('/', '').replace('-', ''));
+                form.append('address', this.formData.address);
+                form.append('number', this.formData.number);
+                form.append('comment', this.formData.comment);
+                form.append('neighborhood', this.formData.neighborhood);
+                form.append('country', this.formData.country);
+                form.append('state', this.formData.state);
+                form.append('city', this.formData.city);
+
+                // if(this.formData.cnpj){
+                //     this.formData.cnpj = this.formData.cnpj.replace('.', '').replace('.', '').replace('/', '').replace('-', '');
+                // }
+
+                this.successMessage = '';
+                this.errorMessage.message = '';
+                var status = '';
+                               
+                if (id){                   
+                    const { data: responseData, error: responseError } = await portal.update(id, form);
+                    status = responseData.value ? responseData._rawValue.status : null;
+                    status = status ?? (responseError.value ? responseError.value.statusCode : null); 
+                    
+                    if ( status === 201){
+                    this.successMessage = "Dados pessoais atualizado com sucesso!";
+                    }
+                    
+                    if( status == 400 ){
+                        this.errorMessage.message = responseError.value.data.data.errors;
+                    }
                 }
 
                 if (!id){
-                    console.log('store')
-                }
+                    const { data: responseData, error: responseError } = await portal.store(form);     
+                    status = responseData.value ? responseData._rawValue.status : null;
+                    status = status ?? (responseError.value ? responseError.value.statusCode : null);
+
+                    if ( status === 201){
+                    this.successMessage = "Dados pessoais atualizado com sucesso!";
+                    }
+                    
+                    if( status == 400 ){
+                        this.errorMessage.message = responseError.value.data.data.errors;
+                    }
+                }               
                 
             },
             async handleGetPortal(){
                 const portal = new Portal();
-
                 const { data: responseData, error: responseError } = await portal.all();
                 let status = responseData.value ? responseData._rawValue.status : null;
                 status = status ?? (responseError.value ? responseError.value.statusCode : null); 
                 this.formData = responseData._rawValue.data[0];
+                console.log(this.formData)
             }
         },
         mounted(){

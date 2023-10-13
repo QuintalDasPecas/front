@@ -28,7 +28,7 @@
                 </div> 
                 <div class="row justify-content-lg-center">    
                     <div class="col-lg-12 col-md-12 col-sm-12 col-12">                
-                        <PartialsProductsGrid :items="productItem" />
+                        <PartialsProductsGrid :items="productItem" @handleEnableItem="handleEnableItem" @handleDisableItem="handleDisableItem" />
                     </div>                    
                 </div>
             </form>
@@ -37,7 +37,7 @@
 </template>
 
 <script>
-    import ProductsService from "@/src/services/ProductService";
+    import ProductService from "@/src/services/ProductService";
 
     export default{
         data() {
@@ -50,7 +50,7 @@
         },
         methods: {
             async handleGetProductsByEntityId(){
-                const productservice = new ProductsService();
+                const productservice = new ProductService();
                 this.entityId = localStorage.getItem('entityId');
                 const { data: responseData, error: responseError } = await productservice.getProductsByEntityId(this.entityId);
                 let status = responseData.value ? responseData._rawValue.status : null;
@@ -64,7 +64,7 @@
             async handleImportItems(){
                 this.message = '';
                 this.isProgressBar = true;
-                const productservice = new ProductsService();
+                const productservice = new ProductService();
                 const form = new FormData();
                 this.entityId =  localStorage.getItem('entityId');
 
@@ -87,7 +87,19 @@
                 if (status > 200){  
                     this.isProgressBar = false;
                 }
-            }
+            },
+            async handleEnableItem(id){           
+                const productService = new ProductService();
+                const form = new FormData();
+                form.append('deleted_at', null)
+            const product = await productService.updateProduct(id, form)
+                this.handleGetProductsByEntityId();  
+            },
+            async handleDisableItem(id){ 
+                const productService = new ProductService();                                 
+                const product = await productService.destroy(id); 
+                this.handleGetProductsByEntityId();   
+            },
         },
         mounted() {
             this.handleGetProductsByEntityId()            

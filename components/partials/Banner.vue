@@ -31,7 +31,7 @@
         </DataTable>       
     </div>
     <div class="d-grip  d-md-flex gap-3 justify-content-end TestDeleteButton"> 
-        <Button label="Desativar" severity="danger" icon="pi pi-trash" @click="handleOnDelete()" />
+        <Button label="Excluir" severity="danger" icon="pi pi-trash" @click="handleOnDelete()" />
     </div>
     <br>  
     <FileUpload name="files[]" :url="url" @upload="onTemplatedUpload($event)" :multiple="true" accept="image/*" :maxFileSize="1000000" @select="onSelectedFiles">
@@ -206,7 +206,7 @@ export default {
         },
         async handleDisable(id){ 
             const bannerService = new BannerService();                                 
-            const benner = await bannerService.destroy(id); 
+            const banner = await bannerService.destroy(id); 
             this.getBanner();   
         },
         getSeverity(banner) {

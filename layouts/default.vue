@@ -1,5 +1,5 @@
 <template>
       <NavHeader />
         <slot />  
-        <TermsAndConditions />
+        <Footer />
 </template>
