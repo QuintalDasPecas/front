@@ -43,7 +43,16 @@
             </div>
         </div>
         <br>
-    </div>        
+    </div>     
+    
+    <div v-if="qtde == 0">
+          <h1 >Produto não encontrado</h1> <br>
+          <Skeleton width="100%" height="15rem"></Skeleton> <br>
+          <Skeleton width="100%" height="15rem"></Skeleton> <br>
+          <Skeleton width="100%" height="15rem"></Skeleton> <br>
+          <Skeleton width="100%" height="15rem"></Skeleton> <br>
+    </div>
+
 </template>
 <script>
 import 'primeflex/primeflex.css';
@@ -60,8 +69,13 @@ import Rating from 'primevue/rating';
             formData: {
                 type: Object,
                 default: '',
-                required: true,
+                required: true
             },
+            qtde: {
+                type: Number,
+                default: '',
+                required: true,
+            }
         },
         components: { Rating },
         mounted(){

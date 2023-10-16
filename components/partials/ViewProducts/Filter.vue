@@ -39,7 +39,15 @@
             </NuxtLink>
         </div>
     </div>
-    
+    <div v-if="qtde == 0">
+          <Skeleton width="100%" height="8rem"></Skeleton> <br>
+          <Skeleton width="100%" height="8rem"></Skeleton> <br>
+          <Skeleton width="100%" height="8rem"></Skeleton> <br>
+          <Skeleton width="100%" height="8rem"></Skeleton> <br>
+          <Skeleton width="100%" height="8rem"></Skeleton> <br>
+          <Skeleton width="100%" height="8rem"></Skeleton> <br>
+          <Skeleton width="100%" height="8rem"></Skeleton> <br>
+    </div>
 </template>
 <script>
     export default{
@@ -53,6 +61,11 @@
         props:{
             formData:{
                 type: Object,
+                default: '',
+                required: true,
+            },
+            qtde: {
+                type: Number,
                 default: '',
                 required: true,
             }

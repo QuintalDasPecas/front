@@ -40,9 +40,13 @@ import Breadcrumb from 'primevue/breadcrumb';
 import Dialog from 'primevue/dialog';
 import Menu from 'primevue/menu';
 import Paginator from 'primevue/paginator';
+import ConfirmDialog from 'primevue/confirmdialog';
+import ConfirmationService from 'primevue/confirmationservice';
 
 export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.use(PrimeVue, { ripple: true });
+    nuxtApp.vueApp.use(ToastService);
+    nuxtApp.vueApp.use(ConfirmationService);
     nuxtApp.vueApp.component("Button", Button);
     nuxtApp.vueApp.component("DataTable", DataTable);
     nuxtApp.vueApp.component("Column", Column);
@@ -68,7 +72,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.component("Badge",Badge);  
     nuxtApp.vueApp.component("Listbox",Listbox); 
     nuxtApp.vueApp.component("RadioButton",RadioButton); 
-    nuxtApp.vueApp.directive("Tooltip", Tooltip);
+    nuxtApp.vueApp.directive("Tooltip",Tooltip);
     nuxtApp.vueApp.component("Tooltip",Tooltip); 
     nuxtApp.vueApp.component("InputNumber",InputNumber); 
     nuxtApp.vueApp.component("Tag",Tag);
@@ -84,6 +88,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.component('Dialog',Dialog);
     nuxtApp.vueApp.component('Menu',Menu);
     nuxtApp.vueApp.component('Paginator',Paginator);
-
+    nuxtApp.vueApp.component('ConfirmDialog',ConfirmDialog);
+    nuxtApp.vueApp.component('ConfirmationService',ConfirmationService);
     //other components that you need
 });

@@ -56,6 +56,10 @@ export default {
                             command : () => { this.toConfig() }
                         },
                         {
+                            label: 'Usuários',
+                            command : () => { this.toUsers() }
+                        },
+                        {
                             label: 'Sair',
                             command : () => { this.toLogout() }
                         }
@@ -111,6 +115,9 @@ export default {
             }
             navigateTo('/search/' + term);
             
+        },
+        async toUsers(){
+            navigateTo('/users');
         }
     },
     mounted(){

@@ -2,7 +2,6 @@
    <div class="row g-4">
         <div class="col-lg-12 col-md-12 col-sm-12 col-12">
             <form class="panel">
-                <h3>Definir rodapé</h3>
                 <Message severity="success" v-if="successMessage">{{ successMessage }}</Message>
                 <Message severity="error" v-if="errorMessage.message" v-for="(value, key) in errorMessage.message" :key="key">{{ value[0] }}</Message>
                 <div class="row g-2 justify-content-center">
@@ -30,7 +29,7 @@
                 <div class="row g-2 justify-content-center">
                     <div class="col-lg-4 col-md-4 col-sm-4 col-4">
                         <label for="cep" class="form-label label-lg">CEP</label>
-                        <InputMask v-model="formData.zipcode" id="cep" mask="99.999-999" class="form-control  p-inputmask p-inputmask-lg" />
+                        <InputMask @blur="handleFetchCepData(formData.zipcode)" v-model="formData.zipcode" id="cep" mask="99.999-999" class="form-control  p-inputmask p-inputmask-lg" />
                     </div>
                     <div class="col-lg-8 col-md-8 col-sm-8 col-8">
                         <label for="InputText Address" class="form-label label-lg">Endereço</label>
@@ -48,13 +47,11 @@
                     </div>                                                      
                 </div>
                 <div class="row g-2 justify-content-center">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="col-lg-5 col-md-5 col-sm-5 col-5">
                         <label for="InputText Neighborhood" class="form-label label-lg">Bairro</label>
                         <InputText v-model="formData.neighborhood" autocomplete="off" size="large"  type="text" class="form-control" id="InputText Neighborhood" name="neighborhood" maxlength="50" />
                     </div>
-                </div>    
-                <div class="row g-2 justify-content-center">                    
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                    <div class="col-lg-5 col-md-5 col-sm-5 col-5">
                         <label for="InputText City" class="form-label label-lg">Cidade</label>
                         <InputText v-model="formData.city"  autocomplete="off" size="large"  type="text" class="form-control" id="InputText City" name="city" maxlength="50" />
                     </div>
@@ -62,11 +59,7 @@
                         <label for="InputText State" class="form-label label-lg">Estado</label>
                         <InputText v-model="formData.state"  autocomplete="off" size="large" type="text" class="form-control" maxlength="2" />
                     </div>
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-4">
-                        <label for="InputText Country" class="form-label label-lg">País</label>
-                        <InputText v-model="formData.country"  autocomplete="off" size="large"  type="text" class="form-control" id="InputText Country" name="Country" maxlength="50" />
-                    </div>
-                </div> 
+                </div>   
                 <div class="row g-2 justify-content-end">
                     <div class="col-lg-4 col-md-4 col-sm-4 col-4">
                         <NuxtLink @click="handleOnSubmit(formData.id)" class="btn btn-primary btn-lg btn-width-defult">
@@ -80,6 +73,7 @@
 </template>
 <script>
     import Portal from '@/src/services/PortalService';
+    import Cep from '@/src/services/CepService';
     export default{
         data(){
             return{
@@ -152,7 +146,27 @@
                 status = status ?? (responseError.value ? responseError.value.statusCode : null); 
                 this.formData = responseData._rawValue.data[0];
                 console.log(this.formData)
-            }
+            },
+            async handleFetchCepData( zipcode ){
+
+                if( zipcode ){
+                    this.isDisabled = false;
+                    
+                    const cep = new Cep();
+                    const {data: responseData, error: responseError } =  await cep.fetchCepData(zipcode);
+
+                    this.formData.address = '';
+                    this.formData.comment = '';
+                    this.formData.number = '';
+                    this.formData.neighborhood = '';
+
+                    this.formData.address = responseData._rawValue.logradouro;
+                    this.formData.neighborhood = responseData._rawValue.bairro;
+                    this.formData.city = responseData._rawValue.localidade;
+                    this.formData.state = responseData._rawValue.uf;
+                    this.isDisabled = false;                
+                }                
+                }
         },
         mounted(){
             this.handleGetPortal();

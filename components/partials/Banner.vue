@@ -9,7 +9,7 @@
     
     <div class="card">
         <DataTable v-model:selection="selected" :value="bannerServiceData" dataKey="id" tableStyle="min-width: 50rem">
-            <Column selectionMode="multiple" headerStyle="width: 3rem"></Column>
+            <Column field="id" header="ID"></Column>
             <Column field="file_path" header="Banner">
                 <template #body="slotProps">
                     <img :src="slotProps.data.file_path" class="w-6rem shadow-2 border-round" />

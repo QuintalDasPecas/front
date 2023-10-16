@@ -23,21 +23,9 @@
     </div>
 </template>
 <script>
-import TermConditions from '~/components/partials/TermConditions.vue';
-import LegalEntityData from '~/components/partials/LegalEntityData.vue';
-import IndividualData from '~/components/partials/IndividualData.vue';
-import Password from '~/components/partials/Password.vue';
-import ControlButton from '~/components/partials/ControlButton.vue';
 import Register from '@/src/services/RegisterService';
 
 export default {
-  components: {
-    TermConditions,
-    LegalEntityData,
-    IndividualData,
-    Password,
-    ControlButton
-  },
   data() {
     return {
       successMessage: '',
@@ -108,7 +96,7 @@ export default {
             this.activedRegister = false;
           }
 
-          if( status == 400 ){
+          if( status >= 400 ){
             this.errorMessage.message = responseError.value.data.data.errors;
           }
         } 

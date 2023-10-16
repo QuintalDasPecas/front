@@ -11,18 +11,10 @@
         </div>
         <a class="ui-search-styled-label screen-reader-only" >Ir para resultados</a>
         <div class="ui-search-styled-label screen-reader-only" role="heading" aria-level="2">Filtros</div>
-        <PartialsViewProductsFilter :formData="viewproducts" @handleFilter="handleFilter" @handleClearSelected="handleClearSelected"/>       
+        <PartialsViewProductsFilter :formData="viewproducts" :qtde="qtde" @handleFilter="handleFilter" @handleClearSelected="handleClearSelected"/>       
       </aside>
       <section class="ui-search-results ui-search-results--without-disclaimer shops__search-results" >
-        <SearchResultItem :formData="viewproducts" />
-        <div>
-          <h1 >Produto não encontrado</h1> <br>
-          <Skeleton width="100%" height="15rem"></Skeleton> <br>
-          <Skeleton width="100%" height="15rem"></Skeleton> <br>
-          <Skeleton width="100%" height="15rem"></Skeleton> <br>
-          <Skeleton width="100%" height="15rem"></Skeleton> <br>
-        </div>
-       
+        <SearchResultItem :formData="viewproducts" :qtde="qtde"/>
       </section>
     </div>     
   </div>  

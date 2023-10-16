@@ -1,4 +1,3 @@
 <template>
     <Vitrine />
-    <TermsAndConditions />
 </template>

@@ -16,8 +16,14 @@
                             <AccordionTab header="Definir cor do Layout">
                                 <PartialsConfigColors />
                             </AccordionTab>
-                            <AccordionTab header="Rodapé">
+                            <AccordionTab header="Dados cadastrais">
                                 <PartialsMenuFooter />
+                            </AccordionTab>
+                            <AccordionTab header="Imagem para logo marca">
+                                <span>Upload da logo marca</span>
+                            </AccordionTab>
+                            <AccordionTab header="Publicidades">
+                                <span>Upload de banner para publicidades</span>
                             </AccordionTab>
                         </Accordion>                        
                         </div>
