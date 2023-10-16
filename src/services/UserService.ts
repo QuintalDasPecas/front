@@ -27,4 +27,8 @@ export default class UserService {
         form.append('id', id);
         return await repositorie.sendMail(form);
     }
+
+    public async store(formData: FormData){
+        return await repositorie.store(formData);
+    }
 }

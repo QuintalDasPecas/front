@@ -1,6 +1,9 @@
 <template>
     <Toolbar :pt="cssToolBar">
         <template #start>
+            <span >
+               <img  width="90" height="90" :src="formData.file_path" >
+            </span>
         </template>
         <template #center>
             <span class="p-input-icon-right">
@@ -19,7 +22,8 @@
     </Toolbar>
 </template>
 <script>
-import Logout from "@/src/services/LogoutService";
+    import Logout from "@/src/services/LogoutService";
+    import Logo from '@/src/services/LogoService';
 
 export default {
     data(){
@@ -66,7 +70,8 @@ export default {
                     ]
                 }   
             ],
-            searchItem: ''
+            searchItem: '',
+            formData:{}
         }
     },
     methods: {
@@ -118,6 +123,12 @@ export default {
         },
         async toUsers(){
             navigateTo('/users');
+        },
+        async handleGetLogo(){
+            const logo = new Logo();
+            const responseData = await logo.getLogo();
+            this.formData = responseData.data._rawValue ? responseData.data._rawValue.data[0] : [];
+            console.log(this.formData);
         }
     },
     mounted(){
@@ -142,7 +153,8 @@ export default {
             color: '#000',
             border: '0 none',
             borderRadius: '4px'
-        }
+        };
+        this.handleGetLogo();
     }
 }   
 </script>

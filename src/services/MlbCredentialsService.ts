@@ -17,4 +17,8 @@ export default class MlbCredentialsService {
     public async getCredentialsMlByEntityId(id: string){
         return await repositorie.getCredentialsMlByEntityId(id);
     }
+
+    public async enable(id: number, formData: FormData){
+        return await repositorie.enable(id, formData);
+    }
 }

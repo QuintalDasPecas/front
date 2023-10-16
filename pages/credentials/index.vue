@@ -3,14 +3,14 @@
         <div class="row">
             <form class="row justify-content-lg-center g-4">
                 <div class="row justify-content-lg-center">
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-3">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-2">
                         <NuxtLink to="/" class="btn btn-outline-primary btn-lg btn-width-defult">
                             Página Principal
                         </NuxtLink>
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-3 col-3"></div>   
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-3"></div>                       
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-3">
+                    <div class="col-lg-5 col-md-5 col-sm-5 col-5"></div>                       
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-2">
                         <NuxtLink  @click="handleCreate(true)" class="btn btn-outline-primary btn-lg btn-width-defult">
                             Cadastrar
                         </NuxtLink>
@@ -21,7 +21,7 @@
                         <div class="row g-2 justify-content-center">
                             <PartialsCredentialsGrid 
                                 :items="resultCredentials" 
-                                @handleEnabled="handleEnabled"
+                                @handleEnable="handleEnable"
                                 @handleDestroy="handleDestroy"
                                 @handleEdit="handleEdit"
                             />
@@ -101,11 +101,12 @@
                 this.handleGetCredentialsMlByEntityId();
                 
             },
-            async handleEnaled(id){
+            async handleEnable(id){
                 const credentials = new MlbCredentials();
-                const { data: responseData, error: responseError } = await credentials.enabled(id);
-                let status = responseData.value ? responseData._rawValue.status : null;
-                status = status ?? (responseError.value ? responseError.value.statusCode : null);
+                const form = new FormData();
+                form.append('deleted_at', null)
+                const enable = await credentials.enable(id, form);
+                console.log(enable, 'aaaaaa')
 
                 this.handleGetCredentialsMlByEntityId();
                 this.deleteDialog = false;
@@ -147,10 +148,7 @@
             },
             async showToast(severity, summary, detail) {
                 this.$toast.add({ severity: severity, summary: summary, detail: detail, life: 3000 });
-            },
-            async handleEnabled(){
-                return true;
-            }
+            },            
         },
         mounted() {           
             this.handleGetCredentialsMlByEntityId();

@@ -32,4 +32,9 @@ export default class UserRepositorie {
     return CallApi.store(formData);
   }
 
+  static async store(formData: FormData) {
+    CallApi.setEndPoint('users');
+    return CallApi.store(formData);
+  }
+
 }

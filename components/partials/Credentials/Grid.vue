@@ -4,7 +4,7 @@
         <Column sortable  field="client_id" header="ID do Aplicativo"></Column>
         <Column sortable  field="client_secret" header="Chave Secreta"></Column>
         <Column sortable  field="seller_id" header="ID do Vendedor"></Column>
-        <Column sortable  field="status" header="Status">
+        <Column sortable  field="status" header="Ativo">
             <template #body="slotProps">
                 <Tag :value="slotProps.data.status" class="adverts" :severity="getSeverity(slotProps.data)" />
             </template>
@@ -42,8 +42,8 @@ export default {
         async handleCreate( isForm ){
             this.isForm = isForm;
         },
-        async handleEnabled(id){
-            this.$emit('handleEnabled', id); 
+        async handleEnable(id){
+            this.$emit('handleEnable', id); 
         },
         async handleDestroy(id){
             this.$emit('handleDestroy', id); 
@@ -54,7 +54,7 @@ export default {
         async handleYesDialog(){
             switch(this.action){
                 case 1:
-                    this.handleEnabled(this.formData.id);
+                    this.handleEnable(this.formData.id);
                     break;
                 case 2:
                     this.handleDestroy(this.formData.id);
@@ -109,6 +109,6 @@ export default {
             }
         },
     },
-    emits:['handleEnabled','handleDestroy','handleEdit']
+    emits:['handleEnable','handleDestroy','handleEdit']
 }
 </script>

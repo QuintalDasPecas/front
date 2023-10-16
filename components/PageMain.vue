@@ -54,7 +54,7 @@
                     </div>
                 </div>
             </div>  
-            <Carousel :value="viewproducts" :numVisible="4" :numScroll="4">
+            <Carousel :value="viewproducts" :numVisible="5" :numScroll="5">
                 <template #item="slotProps">
                     <NuxtLink :to="`products?token=${slotProps.data.token}`">
                         <div class="border-1 surface-border border-round m-1 bg-custom">

@@ -1,13 +1,13 @@
 <template>
     <Message severity="success" v-if="successMessage">{{ successMessage }}</Message>
     <Message severity="error" v-if="errorMessage">{{ errorMessage }}</Message>
-    <div class="justify-content-start">
-        <NuxtLink to="/" class="btn btn-primary col-lg-2 col-md-2 col-sm-2 col-2">
-            Página principal
+    <div class="row-g4  col-lg-2 col-md-2 col-sm-2 col-2">
+        <NuxtLink to="/" class="btn btn-outline-primary btn-lg btn-width-defult">
+            Página Principal
         </NuxtLink>
     </div>
-    
-    <div class="card">
+    <div class="col-lg-10 col-md-10 col-sm-10 col-10"></div>
+    <div class="row g-4 bannerTop">
         <DataTable v-model:selection="selected" :value="bannerServiceData" dataKey="id" tableStyle="min-width: 50rem">
             <Column field="id" header="ID"></Column>
             <Column field="file_path" header="Banner">
@@ -30,10 +30,7 @@
             </Column>
         </DataTable>       
     </div>
-    <div class="d-grip  d-md-flex gap-3 justify-content-end TestDeleteButton"> 
-        <Button label="Excluir" severity="danger" icon="pi pi-trash" @click="handleOnDelete()" />
-    </div>
-    <br>  
+        <br>  
     <FileUpload name="files[]" :url="url" @upload="onTemplatedUpload($event)" :multiple="true" accept="image/*" :maxFileSize="1000000" @select="onSelectedFiles">
         <template #header="{ chooseCallback, uploadCallback, clearCallback, files }">
             <div class="flex flex-wrap justify-content-between align-items-center flex-1 gap-2">

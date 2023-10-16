@@ -1,27 +1,31 @@
 <template>
-    <div class="home">
+    <div class="home" v-if="!isForm">
         <div class="container">       
             <div class="row">
                 <form class="row justify-content-lg-center g-4">
                     <div class="row justify-content-lg-center">
                         <div class="col-lg-2 col-md-2 col-sm-2 col-2">
-                            <NuxtLink to="/" class="btn btn-primary btn-lg btn-width-defult">
+                            <NuxtLink to="/" class="btn btn-outline-primary btn-lg btn-width-defult">
                                 Página Principal
                             </NuxtLink>
                         </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-6"></div>
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-4"></div> 
+                        <div class="col-lg-8 col-md-8 col-sm-8 col-8"></div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-2">
+                            <NuxtLink @click="handleCreate(true)" class="btn btn-outline-primary btn-lg btn-width-defult">
+                               Cadastrar
+                            </NuxtLink>
+                        </div> 
                     </div> 
                     <div class="row g-8  justify-content-lg-center justify-content-md-center justify-content-sm-center justify-content-col-center">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-                            <div class="row g-2 justify-content-center">
+                            <div class="row g-2 justify-content-center">                                
                                 <PartialsUsersGrid 
-                                        :items="userServiceData" 
-                                        @handleSendEmail="handleSendEmail" 
-                                        @handleDisableItem="handleDisableItem" 
-                                        @handleEnableItem="handleEnableItem"
-                                        @handleForgotPassword="handleForgotPassword"
-                                    />
+                                    :items="userServiceData" 
+                                    @handleSendEmail="handleSendEmail" 
+                                    @handleDisableItem="handleDisableItem" 
+                                    @handleEnableItem="handleEnableItem"
+                                    @handleForgotPassword="handleForgotPassword"
+                                />
                             </div>
                         </div>
                     </div>
@@ -29,6 +33,15 @@
             </div>
         </div>
     </div>
+    
+    <PartialsUsersForm 
+        v-if="isForm" 
+        @handleCreate="handleCreate"
+        @handleSubmit="handleSubmit"
+        :errorMessage="errorMessage"
+        :data="formData"
+    />
+    <Toast />
 </template>
 <script>
     import UserService from '@/src/services/UserService';
@@ -38,7 +51,10 @@
             return{
                 userServiceData:[],
                 successMessage: '',
-                visible: false
+                errorMessage: { name: '', cpf_cnpj: '', email: '', password: '', recoverpassword: '', message: []},
+                visible: false,
+                isForm: false,
+                formData:{}
             }
         },
         methods:{
@@ -101,7 +117,7 @@
                 const forgotPasswordService = new ForgotPasswordService();
                 const form = new FormData();
                 form.append('email', email);
-                const {data: responseData, error: responseError }= await forgotPasswordService.ForgotPassword(form);
+                const {data: responseData, error: responseError } = await forgotPasswordService.ForgotPassword(form);
                 let status = responseData.value ? responseData._rawValue.status : null;
                 status = status ?? (responseError.value ? responseError.value.statusCode : null);
 
@@ -113,7 +129,32 @@
                 if (status >= 400) {
                     this.showToast('error','Erro','Erro ao enviar e-mail.');
                 } 
-            }   
+            },
+            handleCreate(isForm){
+                this.isForm = isForm;
+            },
+            async handleSubmit(formData){
+                const form = new FormData();
+                form.append('name', formData.name);
+                form.append('cpf_cnpj', formData.cpf_cnpj);
+                form.append('email', formData.email);
+                form.append('password', formData.password);
+                form.append('password_confirmation', formData.password_confirmation);                
+
+                const userService = new UserService();
+                const {data: responseData, error: responseError } = await userService.store(form);
+                let status = responseData.value ? responseData._rawValue.status : null;
+                status = status ?? (responseError.value ? responseError.value.statusCode : null);
+
+                if (status === 201) {
+                    this.formData = '';
+                    this.showToast('success','Sucesso','Registro salvo com sucesso.');
+                } 
+                
+                if (status >= 400) {
+                    this.errorMessage.message = responseError.value.data.data.errors;
+                }   
+            },
         },
         mounted(){
             this.handleGetAll();           

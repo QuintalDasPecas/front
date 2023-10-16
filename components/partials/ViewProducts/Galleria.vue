@@ -21,7 +21,10 @@
                                 value="1"
                                 :checked="k == 0"
                             >
-                            <span class="ui-pdp-gallery__wrapper">
+                            <span class="ui-pdp-gallery__wrapper ">
+                                 <figure class="ui-pdp-gallery__figure viewGalleria">
+                                    <Image :src="v.url" data-index="1" width="700" height="500" class="ui-pdp-image ui-pdp-gallery__figure__image" preview></Image>                                                    
+                                </figure>
                                 <label
                                     :for="'gallery-thumbnail-'+v.ml_pictures_id"
                                     class="ui-pdp-gallery__label">
@@ -32,9 +35,7 @@
                                         </div>
                                     </div>
                                 </label>
-                                <figure class="ui-pdp-gallery__figure">
-                                    <Image :src="v.url" data-index="1" width="700" height="500" class="ui-pdp-image ui-pdp-gallery__figure__image" preview></Image>                                                    
-                                </figure>
+                                
                             </span> 
                         </span> 
                     </div>
