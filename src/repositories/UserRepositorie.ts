@@ -37,4 +37,9 @@ export default class UserRepositorie {
     return CallApi.store(formData);
   }
 
+  static async update(id: number, formData: FormData) {
+    CallApi.setEndPoint('users/update');
+    return CallApi.update(id, formData);
+  }
+
 }

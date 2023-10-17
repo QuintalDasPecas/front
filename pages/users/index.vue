@@ -25,6 +25,7 @@
                                     @handleDisableItem="handleDisableItem" 
                                     @handleEnableItem="handleEnableItem"
                                     @handleForgotPassword="handleForgotPassword"
+                                    @handleEdit="handleEdit"
                                 />
                             </div>
                         </div>
@@ -132,29 +133,49 @@
             },
             handleCreate(isForm){
                 this.isForm = isForm;
+                this.formData = '';
             },
             async handleSubmit(formData){
-                const form = new FormData();
-                form.append('name', formData.name);
-                form.append('cpf_cnpj', formData.cpf_cnpj);
-                form.append('email', formData.email);
-                form.append('password', formData.password);
-                form.append('password_confirmation', formData.password_confirmation);                
+                if(formData.id){
+                    const userService = new UserService();
+                    const form = new FormData();
+                    form.append('name', formData.name);
+                    form.append('email', formData.email);
+                    form.append('id', formData.id);
+                    const {data: responseData, error: responseError } = await userService.update(formData.id,form);
+                    let status = responseData.value ? responseData._rawValue.status : null;
+                    status = status ?? (responseError.value ? responseError.value.statusCode : null);
 
-                const userService = new UserService();
-                const {data: responseData, error: responseError } = await userService.store(form);
-                let status = responseData.value ? responseData._rawValue.status : null;
-                status = status ?? (responseError.value ? responseError.value.statusCode : null);
+                }
+                if(!formData.id){
+                    const form = new FormData();
+                    form.append('name', formData.name);
+                    form.append('email', formData.email);
+                    form.append('password', formData.password);
+                    form.append('password_confirmation', formData.password_confirmation);
+                    form.append('entity_id', formData.entityId);
+
+                    const userService = new UserService();
+                    const {data: responseData, error: responseError } = await userService.store(form);
+                    let status = responseData.value ? responseData._rawValue.status : null;
+                    status = status ?? (responseError.value ? responseError.value.statusCode : null);
+                }
+                
 
                 if (status === 201) {
                     this.formData = '';
                     this.showToast('success','Sucesso','Registro salvo com sucesso.');
+                    this.handleGetAll();
                 } 
                 
                 if (status >= 400) {
                     this.errorMessage.message = responseError.value.data.data.errors;
                 }   
             },
+            async handleEdit(data){
+                this.formData = data;
+                this.isForm = true;               
+            }
         },
         mounted(){
             this.handleGetAll();           

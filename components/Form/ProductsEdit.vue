@@ -217,7 +217,6 @@ export default {
         async handleConfirm( value ){                      
             this.formData[value.name] = value;
             this.showcomponent[value.position + 1] = true;
-            console.log(this.formData)
         },     
         async handleSearchOtherCategory(){
             this.showpredict = true; 

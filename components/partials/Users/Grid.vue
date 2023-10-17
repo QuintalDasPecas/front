@@ -23,7 +23,9 @@
                 &nbsp;
                 <Button v-tooltip.top="'Notificar'" v-if="!slotProps.data.email_verified_at && slotProps.data.status==='Sim'" icon="pi pi-send" outlined rounded severity="secondary" @click="handleConfirmDialog(slotProps.data, 3)" />
                 &nbsp;
-                <Button v-tooltip.top="'Recuperar senha'" v-if="slotProps.data.status==='Sim'" icon="pi pi-key" outlined rounded severity="info" @click="handleConfirmDialog(slotProps.data, 4)" />                                        
+                <Button v-tooltip.top="'Recuperar senha'" v-if="slotProps.data.status==='Sim'" icon="pi pi-key" outlined rounded severity="info" @click="handleConfirmDialog(slotProps.data, 4)" />
+                &nbsp;
+                <Button v-tooltip.top="'Editar'" v-if="slotProps.data.status==='Sim'" icon="pi pi-pencil" outlined rounded severity="primary" @click="handleConfirmDialog(slotProps.data, 5)"></Button>
             </template>
         </Column>          
     </DataTable>
@@ -76,7 +78,11 @@ export default {
             this.visibleRecovery = true;
             this.$emit('handleForgotPassword', data.email);
             this.visibleRecovery = false;
-        },       
+        },
+        async handleEdit( data ){
+            this.$emit('handleEdit', data); 
+            this.visibleEnable = false;
+        },
         async handleYesDialog(){
             switch(this.callback){               
                 case 1:
@@ -90,16 +96,19 @@ export default {
                 break;
                 case 4:
                     this.handleForgotPassword(this.userId);
-                break;    
+                break;
+                case 5:
+                    this.handleEdit(this.userId);
+                break;
             } 
             this.visibleDialogConfirm = false;           
         },
         async handleNoDialog(){
             this.visibleDialogConfirm = false;  
         },
-        async handleConfirmDialog( id, dialog ){
+        async handleConfirmDialog( data, dialog ){
             this.callback = dialog;
-            this.userId = id;
+            this.userId = data;
             switch(dialog){               
                 case 1:
                     this.msgDialogConfirm = 'Tem certeza que deseja desativar o usuário?';
@@ -112,7 +121,10 @@ export default {
                 break;
                 case 4:
                     this.msgDialogConfirm = 'Tem certeza que deseja enviar e-mail de recuperação de senha?';
-                break;    
+                break; 
+                case 5:
+                    this.msgDialogConfirm = 'Tem certeza que deseja editar o usuário?';
+                break;
             }
 
             this.$confirm.require({
@@ -133,6 +145,6 @@ export default {
     mounted(){   
         this.icon = 'pi pi-send';
     },
-    emits: ['handleEnableItem','handleDisableItem','handleSendEmail','handleForgotPassword']
+    emits: ['handleEnableItem','handleDisableItem','handleSendEmail','handleForgotPassword','handleEdit']
 };
 </script>

@@ -57,7 +57,6 @@
         
         if (state){
           state.forEach(function(v,k){
-            console.log(v)
             form.append(`state[${k}]`, v.state);
           });
         } 
@@ -70,7 +69,6 @@
         this.qtde = responseData._rawValue.data.items.length;
       },
       async handleFilter( value ){
-        console.log(value)
         this.formData.attribute_id = value[0]; 
         this.formData.state = value[1]; 
         this.handleViewProducts();

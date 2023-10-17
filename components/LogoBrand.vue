@@ -176,7 +176,7 @@ export default {
         async handleDisable(id){ 
             const logo = new Logo();                                 
             const result = await logo.destroy(id); 
-            this.getLogo();   
+            window.location.href = '\config'
         },
         getSeverity(logo) {
                 switch (logo.status) {

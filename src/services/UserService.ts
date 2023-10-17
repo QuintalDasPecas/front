@@ -31,4 +31,8 @@ export default class UserService {
     public async store(formData: FormData){
         return await repositorie.store(formData);
     }
+
+    public async update(id: number, formData: FormData){
+        return await repositorie.update(id, formData);
+    }
 }

@@ -12,24 +12,17 @@
                             <InputText id="name" type="hidden" v-model="formData.id"></InputText>
                             <InputText maxlength="150" v-model="formData.name"  autocomplete="off" size="large"  type="text" class="form-control" name="name" />
                         </div>
-
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-                            <label for="name" class="form-label label-lg">
-                                CPF
-                            </label>
-                             <InputMask id="basic" mask="999.999.999-99" v-model="formData.cpf_cnpj" class="form-control p-inputmask p-inputmask-lg"  />
-                        </div>
                         <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                             <label for="email" class="form-label label-lg">
                                 E-mail
                             </label>
                             <InputText maxlength="150" v-model="formData.email" autocomplete="off" size="large"  type="text" class="form-control" name="email" />
                         </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div v-if="!data" class="col-lg-12 col-md-12 col-sm-12 col-12">
                             <label for="password" class="form-label label-lg">Senha</label>
                             <Password v-model="formData.password" size="large" id="password" toggleMask :feedback="false" :maxlength="16" />
                         </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div v-if="!data" class="col-lg-12 col-md-12 col-sm-12 col-12">
                             <label for="password_confirmation" class="form-label label-lg">Repetir senha</label>
                             <Password v-model="formData.password_confirmation" size="large" id="password_confirmation" toggleMask :feedback="false" :maxlength="16" />
                         </div>                         
@@ -80,9 +73,10 @@ export default {
             this.$emit('handleCreate', isForm);
         },    
         async handleSubmit(){
+            this.formData.entityId = localStorage.getItem('entityId');
             this.errorMessage.message = '';
             this.$emit('handleSubmit', this.formData);
-            this.formData = '';
+            this.formData = {};
         }
     }
 }
