@@ -20,7 +20,6 @@
                                 <PartialsMenuFooter />
                             </AccordionTab>
                             <AccordionTab header="Imagem para logo marca">
-                                <span>Upload da logo marca</span>
                                 <LogoBrand />
                             </AccordionTab>
                             <AccordionTab header="Publicidades">

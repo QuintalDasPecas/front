@@ -14,11 +14,11 @@ export default class LogoService {
         return await repositorie.destroy(id);
     }
 
-    // public async enable(id: number, formData: FormData){
-    //     return await repositorie.enable(id, formData);
-    // }
+    public async enable(id: number, formData: FormData){
+        return await repositorie.enable(id, formData);
+    }
 
-    // public async getAllActive(){
-    //     return await repositorie.getAllActive();
-    // }
+    public async getAllActive(){
+        return await repositorie.getAllActive();
+    }
 }

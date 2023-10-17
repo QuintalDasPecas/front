@@ -23,7 +23,7 @@ export default class BannerRepositorie {
   }
 
   static async getAllActive() {
-    CallApi.setEndPoint('activebanner');
+    CallApi.setEndPoint('active/banner');
     return CallApi.all();
   }
 

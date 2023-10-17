@@ -23,7 +23,7 @@ export default class MlbCredentialsRepositorie {
   }
 
   static async enable(id: number, formData: FormData) {
-    CallApi.setEndPoint('enablecredentials');
+    CallApi.setEndPoint('enable/credentials');
     return CallApi.update(id, formData);
   }
 }

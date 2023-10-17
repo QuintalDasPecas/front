@@ -106,7 +106,6 @@
                 const form = new FormData();
                 form.append('deleted_at', null)
                 const enable = await credentials.enable(id, form);
-                console.log(enable, 'aaaaaa')
 
                 this.handleGetCredentialsMlByEntityId();
                 this.deleteDialog = false;

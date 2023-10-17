@@ -17,14 +17,14 @@ export default class logoRepositorie {
     return CallApi.destroy(id);
   }
 
-    //   static async enable(id: number, formData: FormData) {
-    //     CallApi.setEndPoint('logo');
-    //     return CallApi.update(id, formData);
-    //   }
+  static async enable(id: number, formData: FormData) {
+    CallApi.setEndPoint('enable/logo');
+    return CallApi.update(id, formData);
+  }
 
-    //   static async getAllActive() {
-    //     CallApi.setEndPoint('activelogo');
-    //     return CallApi.all();
-    //   }
+  static async getAllActive() {
+    CallApi.setEndPoint('logo/active');
+    return CallApi.all();
+  }
 
 }

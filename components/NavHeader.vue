@@ -2,7 +2,7 @@
     <Toolbar :pt="cssToolBar">
         <template #start>
             <span >
-               <img  width="90" height="90" :src="formData.file_path" >
+               <img v-if="formData.file_path"  width="70" height="70" :src="formData.file_path" >
             </span>
         </template>
         <template #center>
@@ -71,7 +71,7 @@ export default {
                 }   
             ],
             searchItem: '',
-            formData:{}
+            formData:{file_path:''}
         }
     },
     methods: {
@@ -126,9 +126,14 @@ export default {
         },
         async handleGetLogo(){
             const logo = new Logo();
-            const responseData = await logo.getLogo();
-            this.formData = responseData.data._rawValue ? responseData.data._rawValue.data[0] : [];
-            console.log(this.formData);
+            const responseData = await logo.getAllActive();
+
+            const status = responseData.data._rawValue ? responseData.data._rawValue.status : [];
+
+            if (status === 200) {
+                const logoData = responseData.data._rawValue ? responseData.data._rawValue.data[0] : [];
+                this.formData.file_path = logoData ? logoData.file_path : '';
+            }
         }
     },
     mounted(){
