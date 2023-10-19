@@ -11,10 +11,23 @@
                 </div> 
                 <div class="row justify-content-lg-center">
                     <div class="col-lg-8 col-md-8 col-sm-12 col-8" v-if="showpredict">
-                       <PartialsProductsSearchProducts v-if="!attributes" :products="products" :categories="categories" @handleClean="handleClean" @handleSelectGategories="handleSelectGategories" @handleSelectProducts="handleSelectProducts" @handleSearchProducts="handleSearchProducts" @handleSearchCategory="handleSearchCategory"/>
+                       <PartialsProductsSearchProducts
+                            v-if="!attributes" 
+                            :products="products" 
+                            :categories="categories" 
+                            @handleClean="handleClean" 
+                            @handleSelectGategories="handleSelectGategories"
+                            @handleSelectProducts="handleSelectProducts" 
+                            @handleSearchProducts="handleSearchProducts" 
+                            @handleSearchCategory="handleSearchCategory"
+                        />
                     </div>
                     <div class="col-lg-8 col-md-8 col-sm-12 col-8" v-if="showpredict">
-                        <PartialsProductsReviewAndEdit @handleSearch="handleSearch" :items="attributes" v-if="attributes" />
+                        <PartialsProductsReviewAndEdit 
+                            @handleSearch="handleSearch" 
+                            :items="attributes" 
+                            v-if="attributes"
+                         />
                     </div>                 
                 </div>                 
                 <div class="row justify-content-lg-center">
@@ -247,8 +260,8 @@ export default {
                         name: v.title,                        
                         image: v.thumbnail, 
                         brand: v.brand ? 'Marca: ' + v.brand : null,
-                        model: v.model ? 'Model: ' + v.model : null,
-                        condition: v.condition
+                        model: v.model ? 'Model: ' + v.model.slice(0,30) : null,
+                        condition: v.condition ? 'Condição: ' + v.condition : null
                     };
                 });
                 this.products = list;

@@ -13,11 +13,16 @@
             </div>
         </template>
         <template #subtitle> 
-            Estes são todos os dados que vamos preencher para você. 
+            Estes são todos os dados que vamos preencher para você.
         </template>
         <template #content>
             <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-6 justify-content-end"  v-for="item in items.attributes">
+                <div class="col-lg-12 col-md-12 col-sm-12 justify-content-end">
+                    <span class="fs-6"><b><u>{{ items.title }}</u> </b></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 justify-content-end"  v-for="item in items.attributes">
                     <span class="fs-6"><b>{{ item.name }}</b></span>: {{ item.value_name }}
                 </div>
             </div>
@@ -33,7 +38,7 @@
         <template #footer>
             <div class="row g-2">              
                 <div class="col-lg-6 col-md-6 col-sm-6 justify-content-start">
-                    <Button label="Editar" outlined  size="large" class="float-center" />
+                    <Button @click="handleEdit(items)" label="Editar" outlined  size="large" class="float-center" />
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 justify-content-end">
                     <Button label="Confirmar" outlined  size="large" class="float-end" />
@@ -98,6 +103,9 @@ export default {
     methods:{
         handleSearch(){
             this.$emit('handleSearch', true); 
+        },
+        handleEdit(data){
+            console.log(data);
         }
     },
     emits: ['handleSearch']

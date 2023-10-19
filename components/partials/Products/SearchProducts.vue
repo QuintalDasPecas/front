@@ -20,10 +20,10 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                     <h5>Não encontrou o item na lista, 
                         <NuxtLink to="#" @click="handleSearch(products.length ? 1 : (categories.length ? 2 : 0), formData.name)">
-                            <span v-if="categories.length">
+                            <span v-if="categories.length == 0">
                                 Pesquisar produto!
                             </span>
-                            <span v-if="products.length">
+                            <span v-if="products.length == 0">
                                 Pesquisar categoria!
                             </span>
                         </NuxtLink>                        
@@ -31,20 +31,26 @@
                     <h5>Estes produtos coincidem com sua busca. Algum deles é o seu?</h5>
                 </div>
             </div>   
-            <div class="row box-image row-border" v-if="products.length <= 0 ? (categories.length <= 0 ? true : false) : false">
+            <!-- <div class="row box-image row-border" v-if="products.length <= 0 ? (categories.length <= 0 ? true : false) : false">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                     <PartialsProductsSkeletonList /> 
                 </div>
-            </div>
+            </div> -->
             <div class="row box-image row-border cursor-pointer" v-for="product in products">
                 <div class="col-lg-2 col-md-2 col-sm-2 col-2" @click="handleSelectProducts(product.id)">                               
                     <img :src="product.image" :alt="product.name"  width="70" class="image-ajust"/>           
                 </div>
                 <div class="col-lg-9 col-md-9 col-sm-9 col-9" @click="handleSelectProducts(product.id)"> 
-                    <span class="text-md">{{ product.name }}</span> <br>     
-                    <Chip :label="product.brand" v-if="product.brand"/>&nbsp;               
-                    <Chip :label="product.model" v-if="product.model"/>&nbsp; 
-                    <Chip :label="product.condition" v-if="product.condition"/>
+                    <span class="text-md">{{ product.name }}</span> <br> 
+                    <div class="row"> 
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-12">    
+                            <Tag :value="product.brand" v-if="product.brand"/>                           
+                            &nbsp;
+                            <Tag :value="product.model" v-if="product.model"/>
+                            &nbsp;
+                            <Tag :value="product.condition" v-if="product.condition"/>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-lg-1 col-md-1 col-sm-1 col-1 d-flex align-items-center" @click="handleSelectProducts(product.id)">
                     <i class="bi bi-chevron-right float-end fs-26 icon-color"></i>
@@ -110,6 +116,7 @@ export default {
             this.$emit('handleSearchProducts', name);
         },
         handleClean(){
+            this.isMessage = false;
             this.formData.name = '';
             this.$emit('handleClean', true); 
         },
