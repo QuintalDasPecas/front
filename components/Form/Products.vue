@@ -22,11 +22,11 @@
                             @handleSearchCategory="handleSearchCategory"
                         />
                     </div>
-                    <div class="col-lg-8 col-md-8 col-sm-12 col-8" v-if="showpredict">
+                    <div class="col-lg-8 col-md-8 col-sm-12 col-8" v-if="attributes">
                         <PartialsProductsReviewAndEdit 
                             @handleSearch="handleSearch" 
-                            :items="attributes" 
-                            v-if="attributes"
+                            @handleImportItem="handleImportItem"
+                            :items="attributes"                            
                          />
                     </div>                 
                 </div>                 
@@ -139,6 +139,7 @@
         </div>
     </div>
     <br>
+    <Toast></Toast>
 </template>
 <script>
 import Preditor from '@/src/services/PreditorCategoriesService';
@@ -269,7 +270,7 @@ export default {
             }
         },
         async handleSelectProducts(productId){
-            this.attributes = [];
+            this.attributes = false;
             const registerproduct = new RegisterProductsService();
             const { data: responseData, error: responseError } = await registerproduct.getItemsByItem(productId);
             let status = responseData.value ? responseData._rawValue.status : null;
@@ -296,7 +297,54 @@ export default {
         },
         handleSearch( value ){
             this.attributes = false;
-        }
+        },
+        async handleImportItem( value ){
+            const importItem = new RegisterProductsService();
+            const formData = new FormData();
+            
+            for(const v in value){
+                if(v != 'attributes'){
+                    formData.append(v,value[v]);
+                }
+                if(v == 'attributes'){                   
+                    for(const vv in value[v]){
+                        for(const vvv in value[v][vv]){
+                            if( vvv != 'options'){
+                                let data = value[v][vv][vvv];
+                                let field = 'attributes[' + vv + '][' + vvv + ']';
+                                formData.append(field, data);
+                            }
+                        }
+                    }
+                }
+            }
+
+            //console.log(formData);
+            //return false;
+
+
+
+
+            // formData.append('entity_id', value.entity_id);
+            // formData.append('ml_id', value.ml_id);
+
+            const { data: responseData, error: responseError } = await importItem.importItem(formData);
+            let status = responseData.value ? responseData._rawValue.status : null;
+            status = status ?? (responseError.value ? responseError.value.statusCode : null);
+          
+            if(status === 201){
+                this.showToast('success', 'Sucesso', 'Salvo com sucesso');
+                this.attributes = false;
+                this.showpredict = true;
+            }
+
+            if(status === 400){
+                this.showToast('error', 'Erro', responseError.value.data.data[0]);           
+            }
+        },
+        async showToast(severity, summary, detail) {
+            this.$toast.add({ severity: severity, summary: summary, detail: detail, life: 3000 });
+        }, 
     }
 }
 </script>

@@ -10,4 +10,7 @@ export default class RegisterProductsService {
         return await repositorie.getItemsByItem(value)
     }
 
+    public async importItem(formData: FormData){
+        return await repositorie.importItem(formData)
+    }
 }

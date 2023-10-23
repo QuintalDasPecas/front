@@ -18,12 +18,17 @@
         <template #content>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 justify-content-end">
-                    <span class="fs-6"><b><u>{{ items.title }}</u> </b></span>
+                    <label class="form-label label-lg">{{ items.title }}</label>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 justify-content-end"  v-for="item in items.attributes">
-                    <span class="fs-6"><b>{{ item.name }}</b></span>: {{ item.value_name }}
+            <div class="row">               
+                <div class="col-lg-12 col-md-12 col-sm-12 justify-content-end"  v-for="(item, k) in items.attributes">
+                    <label class="form-label label-lg">{{ item.name }}:</label><br />
+                    <span v-if="!isEdit" class="fs-4">{{ !item.value_name ? 'Não informado' : item.value_name}}</span>
+                    <span v-if="isEdit">
+                        <Dropdown v-if="item.options" v-model="selected[item.id]" editable showClear :options="item.options" optionLabel="name"  />
+                        <InputText v-model="selected[item.id]" size="large" v-if="!item.options" class="form-control" />
+                    </span>
                 </div>
             </div>
             <div class="row">
@@ -41,7 +46,7 @@
                     <Button @click="handleEdit(items)" label="Editar" outlined  size="large" class="float-center" />
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 justify-content-end">
-                    <Button label="Confirmar" outlined  size="large" class="float-end" />
+                    <Button label="Confirmar" @click="handleSubmit(items.ml_id)" outlined  size="large" class="float-end" />
                 </div>
             </div>
         </template>
@@ -61,6 +66,9 @@ export default {
     },
     data() {
         return {
+            i: 0,
+            isEdit: false,
+            selected: [],
             images: null,
             position: 'left',
             positionOptions: [
@@ -94,20 +102,61 @@ export default {
                     breakpoint: '575px',
                     numVisible: 1
                 }
-            ]
+            ],
+            formData: this.items
         };
     },
     mounted() {
         PhotoService.getImages().then((data) => (this.images = data));
     },
     methods:{
-        handleSearch(){
+        async handleSearch(){
             this.$emit('handleSearch', true); 
         },
-        handleEdit(data){
-            console.log(data);
+        async handleEdit(data){
+            
+            const itemSelect = [];
+            for(const v in data.attributes){
+                const dd = data.attributes;
+                itemSelect[dd[v].id] = dd[v].value_name;
+            }
+            this.selected = itemSelect;
+
+            if(this.isEdit){
+                this.isEdit = false;
+                return false;
+            }
+
+            if(!this.isEdit){
+                this.isEdit = true;
+                return false;
+            }
+           
+        },       
+        async handleSubmit(mlId){
+
+            this.formData.ml_id = mlId;
+            this.formData.id = mlId;
+            this.formData.entity_id = localStorage.getItem('entityId');
+            this.formData.listing_type_id = 'free';
+            this.formData.original_price = 0;
+            this.formData.available_quantity = 0;
+            this.formData.buying_mode = 0;
+            this.formData.price = 0.99;
+
+            let i = 0;
+            for(const row in this.selected){
+                const field = this.selected[row];
+                if(field != null && typeof field === 'object'){
+                    this.formData.attributes[i].value_id = this.selected[row].code;
+                    this.formData.attributes[i].value_name = this.selected[row].name;
+                }
+                i++;
+            }
+            
+            this.$emit('handleImportItem', this.formData);
         }
     },
-    emits: ['handleSearch']
+    emits: ['handleSearch','handleImportItem']
 };
 </script>

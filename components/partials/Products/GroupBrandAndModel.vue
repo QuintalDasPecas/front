@@ -92,7 +92,8 @@ export default {
             btnDisabled: false,
             invalid: false,
             compReadOlny: [],
-            toopTipNaoAplica: 'Não aplica.'
+            toopTipNaoAplica: 'Não aplica.',
+            globalPT: null 
         };
     },
     methods: {

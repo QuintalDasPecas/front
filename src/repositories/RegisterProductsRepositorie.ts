@@ -10,8 +10,13 @@ export default class RegisterProductsRepositorie {
   }
 
   static async getItemsByItem(value: string) {
-    CallApi.setEndPoint('items');
+    CallApi.setEndPoint('items/review');
     return CallApi.getWhere(value);
+  }
+
+  static async importItem(formData: FormData) {
+    CallApi.setEndPoint('items/import');
+    return CallApi.store(formData);
   }
 
 }

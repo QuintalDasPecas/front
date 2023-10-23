@@ -17,13 +17,13 @@
                 <div class="col-lg-2 col-md-2 col-sm-2 col-2 d-grid gap-2 d-md-flex justify-content-start">
                     <Button label="Buscar" size="large" class="btn-search-custom" text  outlined @click="handleSearch(typeSearch, formData.name)" />                   
                 </div>
-                <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-12" v-if="products.length > 1 ? true : false">
                     <h5>Não encontrou o item na lista, 
                         <NuxtLink to="#" @click="handleSearch(products.length ? 1 : (categories.length ? 2 : 0), formData.name)">
-                            <span v-if="categories.length == 0">
+                            <span v-if="categories.length < 0">
                                 Pesquisar produto!
                             </span>
-                            <span v-if="products.length == 0">
+                            <span v-if="products.length > 0">
                                 Pesquisar categoria!
                             </span>
                         </NuxtLink>                        
@@ -101,7 +101,7 @@ export default {
     },
     methods: {
         async handleSelectProducts(productId){
-            this.$emit('handleSelectProducts', productId); 
+            this.$emit('handleSelectProducts', productId);
         },
         async handleSearchProducts( name ){
             if( !this.formData.name ){
