@@ -164,7 +164,7 @@ export default {
             const status = responseData.data._rawValue ? responseData.data._rawValue.status : [];
 
             if (status === 200) {
-                this.entityFilesData = responseData.data._rawValue.data; // Resolva a Promise com os dados
+                this.entityFilesData = responseData.data._rawValue.data;
             }            
         },
         async handleOnDelete(){

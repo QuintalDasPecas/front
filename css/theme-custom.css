@@ -511,3 +511,7 @@ section>.container-recoverpassword {
   margin-top: 0%!important;
   padding-top: 0%!important;
 }
+
+.p-inputnumber-input{
+  font-size: 18px;
+}

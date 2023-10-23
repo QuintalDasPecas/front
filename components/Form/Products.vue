@@ -26,7 +26,8 @@
                         <PartialsProductsReviewAndEdit 
                             @handleSearch="handleSearch" 
                             @handleImportItem="handleImportItem"
-                            :items="attributes"                            
+                            :items="attributes"
+                            
                          />
                     </div>                 
                 </div>                 
@@ -318,16 +319,6 @@ export default {
                     }
                 }
             }
-
-            //console.log(formData);
-            //return false;
-
-
-
-
-            // formData.append('entity_id', value.entity_id);
-            // formData.append('ml_id', value.ml_id);
-
             const { data: responseData, error: responseError } = await importItem.importItem(formData);
             let status = responseData.value ? responseData._rawValue.status : null;
             status = status ?? (responseError.value ? responseError.value.statusCode : null);

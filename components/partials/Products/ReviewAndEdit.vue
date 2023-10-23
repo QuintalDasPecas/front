@@ -21,7 +21,16 @@
                     <label class="form-label label-lg">{{ items.title }}</label>
                 </div>
             </div>
-            <div class="row">               
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 justify-content-end">
+                    <label class="form-label label-lg">Preço:</label><br />
+                    <span v-if="!isEdit" class="fs-4">{{ !formData.price ? 'Não informado' : formData.price}}</span>
+                    <span v-if="isEdit">
+                        <InputNumber  v-model="formData.price" class="inputNumber" inputId="minmaxfraction" :minFractionDigits="2" :maxFractionDigits="5"  />
+                    </span>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 justify-content-end"  v-for="(item, k) in items.attributes">
                     <label class="form-label label-lg">{{ item.name }}:</label><br />
                     <span v-if="!isEdit" class="fs-4">{{ !item.value_name ? 'Não informado' : item.value_name}}</span>
@@ -114,7 +123,7 @@ export default {
             this.$emit('handleSearch', true); 
         },
         async handleEdit(data){
-            
+            this.formData.price = data.price;
             const itemSelect = [];
             for(const v in data.attributes){
                 const dd = data.attributes;
@@ -135,14 +144,15 @@ export default {
         },       
         async handleSubmit(mlId){
 
+            const listingTypeFree = 'free';
+
             this.formData.ml_id = mlId;
             this.formData.id = mlId;
             this.formData.entity_id = localStorage.getItem('entityId');
-            this.formData.listing_type_id = 'free';
+            this.formData.listing_type_id = listingTypeFree;
             this.formData.original_price = 0;
             this.formData.available_quantity = 0;
             this.formData.buying_mode = 0;
-            this.formData.price = 0.99;
 
             let i = 0;
             for(const row in this.selected){

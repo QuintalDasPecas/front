@@ -102,10 +102,6 @@
                 form.append('state', this.formData.state);
                 form.append('city', this.formData.city);
 
-                // if(this.formData.cnpj){
-                //     this.formData.cnpj = this.formData.cnpj.replace('.', '').replace('.', '').replace('/', '').replace('-', '');
-                // }
-
                 this.successMessage = '';
                 this.errorMessage.message = '';
                 var status = '';
