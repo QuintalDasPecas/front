@@ -26,6 +26,9 @@
                                 <span>Upload de banner para publicidades</span>
                                 
                             </AccordionTab>
+                            <AccordionTab header="Plano de Assinatura">
+                                <SubscriptionPlan />
+                            </AccordionTab>
                         </Accordion>                        
                         </div>
                     </div>
