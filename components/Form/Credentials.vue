@@ -7,7 +7,7 @@
                         <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                             <label for="InputText Address" class="form-label label-lg">ID do Aplicativo</label>
                             <InputText type="hidden" v-model="formData.id"></InputText>
-                            <InputText maxlength="50" v-model="formData.client_id"  autocomplete="off" size="large"  type="text" class="form-control" id="InputText Address" name="address" />
+                            <InputText maxlength="50" v-model="formData.client_id" autocomplete="off" size="large"  type="text" class="form-control" id="InputText Address" name="address" />
                         </div>
                         <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                             <label for="InputText Number" class="form-label label-lg">Chave Secreta</label>

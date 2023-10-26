@@ -23,13 +23,22 @@
                                 <LogoBrand />
                             </AccordionTab>
                             <AccordionTab header="Publicidades">
-                                <span>Upload de banner para publicidades</span>
-                                
+                                <span>Upload de banner para publicidades</span>                                
                             </AccordionTab>
                             <AccordionTab header="Plano de Assinatura">
                                 <SubscriptionPlan />
                             </AccordionTab>
-                        </Accordion>                        
+                            <AccordionTab header="Planos">
+                               <Subscribe />
+                            </AccordionTab>
+                            <AccordionTab header="Formas de Pagamento">
+                                <PaymentMethod/>
+                            </AccordionTab>
+                            <AccordionTab header="Condições de Pagamento">
+                               <PaymentTerm />
+                            </AccordionTab>
+                        </Accordion> 
+                        <ConfirmDialog />                       
                         </div>
                     </div>
                 </div>
