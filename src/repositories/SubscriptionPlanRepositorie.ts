@@ -26,4 +26,14 @@ export default class SubscriptionPlanRepositorie {
     CallApi.setEndPoint('subscriptionplan');
     return CallApi.destroy(id);
   }
+  
+  static async enable(id: number, formData: FormData) {
+    CallApi.setEndPoint('subscriptionplan/enable');
+    return CallApi.update(id, formData);
+  }
+
+  static async getAllActive() {
+    CallApi.setEndPoint('subscriptionplan/getallactive');
+    return CallApi.all();
+  }
 }

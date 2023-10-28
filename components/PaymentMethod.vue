@@ -32,8 +32,7 @@
                     </div>
                 </div>
             </form>
-        </div>
-       
+        </div>       
     </div>
 
     <div v-if="isForm" class="row g-4 justify-content-center">
