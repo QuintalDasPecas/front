@@ -19,4 +19,9 @@ export default class RegisterProductsRepositorie {
     return CallApi.store(formData);
   }
 
+  static async getOptionsAttributes(formData: FormData) {
+    CallApi.setEndPoint('items/getoptionsattributes');
+    return CallApi.store(formData);
+  }
+
 }

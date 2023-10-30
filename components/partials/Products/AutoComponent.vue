@@ -19,9 +19,50 @@
         <template #content>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-                    <InputText v-if="component === 'TEXT_INPUT' || component === 'NUMBER_INPUT' || component === 'NUMBER_UNIT_INPUT' " v-model="value"  size="large" class="input-text-main-features" :class="{ 'p-invalid': invalid }" :maxlength="value_max_length" :readonly="compReadOlny[componentKey]" :id="name + componentKey"/>  
-                    <Dropdown v-if="component === 'COMBO' || component === 'COLOR_INPUT' || component === 'TEXT_OUTPUT'" v-model="value" :options="options" optionLabel="name" placeholder="" class="w-full md:w-14rem" :class="{ 'p-invalid': invalid }" :disabled="compReadOlny[componentKey]" :id="name + componentKey" />            
-                    <InputNumber  inputId="locale-user" prefix="R$ " :minFractionDigits="2" v-if="component === 'CURRENCY_INPUT'" v-model="currency"  size="large" class="input-text-main-features" :class="{ 'p-invalid': invalid }" :maxlength="value_max_length" :readonly="compReadOlny[componentKey]" :id="name + componentKey"/>  
+                    <!-- <InputText 
+                        v-if="component === 'TEXT_INPUT' 
+                            || component === 'NUMBER_INPUT' 
+                            || component === 'NUMBER_UNIT_INPUT' " 
+                        v-model="value"  
+                        size="large" 
+                        class="input-text-main-features" 
+                        :class="{ 'p-invalid': invalid }" 
+                        :maxlength="value_max_length" 
+                        :readonly="compReadOlny[componentKey]" 
+                        :id="name + componentKey"                        
+                    />   -->
+                    <Dropdown 
+                        v-if="component === 'COMBO' 
+                            || component === 'COLOR_INPUT' 
+                            || component === 'TEXT_OUTPUT'
+                            || component === 'TEXT_INPUT' 
+                            || component === 'NUMBER_INPUT' 
+                            || component === 'NUMBER_UNIT_INPUT'" 
+                        v-model="value" 
+                        :options="options.options" 
+                        optionLabel="name" 
+                        placeholder="" 
+                        class="w-full" 
+                        :class="{ 'p-invalid': invalid }" 
+                        :disabled="compReadOlny[componentKey]" 
+                        :id="name + componentKey"
+                        editable
+                        showClear
+                        @change="handleGetReference(value,options.domain,options.attributeId)"
+                    />          
+                    <InputNumber 
+                        inputId="locale-user" 
+                        prefix="R$ " 
+                        :minFractionDigits="2" 
+                        v-if="component === 'CURRENCY_INPUT'" 
+                        v-model="currency"  
+                        size="large" 
+                        class="input-text-main-features" 
+                        :class="{ 'p-invalid': invalid }" 
+                        :maxlength="value_max_length" 
+                        :readonly="compReadOlny[componentKey]" 
+                        :id="name + componentKey"
+                    />  
                 </div>
             </div>
            
@@ -146,6 +187,9 @@ export default {
                 this.value = 'N/A';
             } 
             //this.$emit('handleNaoAplica', position);
+        },
+        async handleGetReference(value, domain, id){
+            console.log(value, domain, id)
         }
     },   
     emits: ['handleConfirm']

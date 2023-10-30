@@ -42,6 +42,8 @@ import Menu from 'primevue/menu';
 import Paginator from 'primevue/paginator';
 import ConfirmDialog from 'primevue/confirmdialog';
 import ConfirmationService from 'primevue/confirmationservice';
+import ProgressSpinner from 'primevue/progressspinner';
+
 
 export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.use(PrimeVue, { ripple: true });
@@ -90,5 +92,6 @@ export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.component('Paginator',Paginator);
     nuxtApp.vueApp.component('ConfirmDialog',ConfirmDialog);
     nuxtApp.vueApp.component('ConfirmationService',ConfirmationService);
+    nuxtApp.vueApp.component('ProgressSpinner', ProgressSpinner);
     //other components that you need
 });

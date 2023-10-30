@@ -50,6 +50,12 @@
                     <h1>Descrição</h1>
                     <br>
                     <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                        <label class="form-label label-lg" > Nome: </label>
+                        <div>
+                            <InputText v-model="formData.name" class="form-control" size="large" maxlength="50" />
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                         <label class="form-label label-lg" >Plano </label>
                         <div>
                             <Dropdown v-model="formData.subscribe" :options="subscribe" optionLabel="name" placeholder="Selecionar"  />
@@ -141,6 +147,12 @@
                 const subPlan = new SubPlan();
                 const formData = new FormData();
                 formData.append('name', this.formData.name);
+                formData.append('subscribe_id',this.formData.subscribe.id);
+                formData.append('form_of_payment_id',this.formData.formOfPayment.id);
+                formData.append('payment_term_id',this.formData.paymentTerm.id);
+                formData.append('installments',this.formData.installment);
+                formData.append('description',this.formData.description);
+                formData.append('price',this.formData.price.replace(',', '.'));
                 
                 const { data: responseData, error: responseError } = await subPlan.store(formData);
                 let status = responseData.value ? responseData._rawValue.status : null;

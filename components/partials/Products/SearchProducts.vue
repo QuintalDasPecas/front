@@ -37,14 +37,14 @@
                 </div>
             </div> -->
             <div class="row box-image row-border cursor-pointer" v-for="product in products">
-                <div class="col-lg-2 col-md-2 col-sm-2 col-2" @click="handleSelectProducts(product.id)">                               
-                    <img :src="product.image" :alt="product.name"  width="70" class="image-ajust"/>           
+                <div class="col-lg-2 col-md-2 col-sm-2 col-2" @click="handleSelectProducts(product.id)">
+                    <img :src="product.image" :alt="product.name"  width="70" class="image-ajust"/>
                 </div>
-                <div class="col-lg-9 col-md-9 col-sm-9 col-9" @click="handleSelectProducts(product.id)"> 
+                <div class="col-lg-9 col-md-9 col-sm-9 col-9" @click="handleSelectProducts(product.id)">
                     <span class="text-md">{{ product.name }}</span> <br> 
                     <div class="row"> 
                         <div class="col-lg-12 col-md-12 col-sm-12 col-12">    
-                            <Tag :value="product.brand" v-if="product.brand"/>                           
+                            <Tag :value="product.brand" v-if="product.brand"/>
                             &nbsp;
                             <Tag :value="product.model" v-if="product.model"/>
                             &nbsp;
@@ -57,14 +57,14 @@
                 </div>
             </div>
             <div class="row box-image row-border cursor-pointer" v-for="category in categories">
-                <div class="col-lg-2 col-md-2 col-sm-2 col-2"  @click="handleSelectGategories(category.code)">                               
+                <div class="col-lg-2 col-md-2 col-sm-2 col-2"  @click="handleSelectCategories(category.code)">                               
                     <img :src="category.image" :alt="category.name"  width="70" class="image-ajust" v-if="category.image"/>           
                 </div>
-                <div class="col-lg-9 col-md-9 col-sm-9 col-9"  @click="handleSelectGategories(category.code)"> 
+                <div class="col-lg-9 col-md-9 col-sm-9 col-9"  @click="handleSelectCategories(category.code)"> 
                     <span class="text-md fs-4">{{ category.name }}</span> <br> 
                     <span class="text-md fs-6">{{ category.path }}</span> <br>
                 </div>
-                <div class="col-lg-1 col-md-1 col-sm-1 col-1 d-flex align-items-center" @click="handleSelectGategories(category.code)">
+                <div class="col-lg-1 col-md-1 col-sm-1 col-1 d-flex align-items-center" @click="handleSelectCategories(category.code)">
                     <i class="bi bi-chevron-right float-end fs-26 icon-color"></i>
                 </div>
             </div>
@@ -134,10 +134,10 @@ export default {
                 this.handleSearchProducts(name);
             }
         },
-        async handleSelectGategories( id ){
-            this.$emit('handleSelectGategories', id);
+        async handleSelectCategories( id ){
+            this.$emit('handleSelectCategories', id);
         }
     },
-    emits: ['handleSelectProducts','handleSearchProducts','handleClean','handleSearchCategory','handleSelectGategories']
+    emits: ['handleSelectProducts','handleSearchProducts','handleClean','handleSearchCategory','handleSelectCategories']
 };
 </script>

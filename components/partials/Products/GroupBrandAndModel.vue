@@ -18,13 +18,26 @@
                     <br>
                     <span>Informe a marca verdadeira do produto ou Genérica se não tiver marca.</span>
                     <br>                    
-                    <AutoComplete v-model="formData[1]" dropdown :suggestions="options" @complete="search" size="large" class="input-text-main-features" :class="{ 'p-invalid': invalid }" :maxlength="'255'" :readonly="compReadOlny[2]" :id="'BRAND'"/>
+                    <Dropdown 
+                        v-model="formData[1]" 
+                        :options="options.brand" 
+                        optionLabel="name"
+                        editable
+                        showClear
+                        @change="handleGetModelByBrand(formData[1],options.domain)"
+                    />
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-12 g-4">
                     <label for="inputSalesTerm" class="form-label label-lg">
                         Modelo <i v-Tooltip.top="'Preenchimento obrigatório.'" v-if="required" class="bi bi-asterisk icon-required"></i>
                     </label>                   
-                    <InputText v-model="formData[2]"  size="large" class="input-text-main-features" :class="{ 'p-invalid': invalid }" :maxlength="'255'" :readonly="compReadOlny[2]" :id="'MODEL'"/>
+                    <Dropdown 
+                        v-model="formData[2]" 
+                        :options="optionModel" 
+                        optionLabel="name"
+                        editable
+                        showClear                       
+                    />
                 </div>               
             </div>
         </template> 
@@ -41,7 +54,7 @@
     </Card>
 </template>
 <script>
-
+import items from "@/src/services/RegisterProductsService";
 export default {
     props: {       
         options: {
@@ -93,7 +106,8 @@ export default {
             invalid: false,
             compReadOlny: [],
             toopTipNaoAplica: 'Não aplica.',
-            globalPT: null 
+            globalPT: null,
+            optionModel: [] 
         };
     },
     methods: {
@@ -124,8 +138,31 @@ export default {
                 this.formData[position] = 'N/A';
             } 
             this.$emit('handleNaoAplica', position);
+        },
+        async handleGetModelByBrand(data, domain){
+            console.log(data, domain)
+            if (data){
+                this.optionModel = [];
+                this.formData[2] = [];
+                const Items = new items();
+                const form = new FormData();
+                form.append('domainId', domain);
+                form.append('attributeId', 'MODEL');
+                form.append('known_attributes[id]', 'BRAND');
+                form.append('known_attributes[value_id]', data.code);
+                const {data: responseData, error: responseError} = await Items.getOptionsAttributes(form);
+                let status = responseData.value ? responseData._rawValue.status : null;
+                status = status ?? (responseError.value ? responseError.value.statusCode : null);
+
+                if( status == 200 ){               
+                    this.optionModel = responseData._rawValue.data;
+                }
+            }
         }
     },   
-    emits: ['handleConfirm']
+    emits: [
+        'handleConfirm',
+        'handleGetModelByBrand'
+    ]
 };
 </script>

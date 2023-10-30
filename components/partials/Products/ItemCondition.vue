@@ -12,7 +12,7 @@
         <template #content>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-                    <Listbox optionLabel="name" filter  v-model="formData[2]" class="w-full md:w-14rem" :options="options" :class="{ 'p-invalid': invalid }" :disabled="compReadOlny[2]" id="ITEM_CONDITION" ></Listbox>
+                    <Dropdown optionLabel="name" editable showClear v-model="formData[2]" class="w-full" :options="options" :class="{ 'p-invalid': invalid }" :disabled="compReadOlny[2]" id="ITEM_CONDITION" />
                 </div>
             </div>
         </template> 
