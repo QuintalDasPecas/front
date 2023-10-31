@@ -20,11 +20,11 @@
                     <br>                    
                     <Dropdown 
                         v-model="formData[1]" 
-                        :options="options.brand" 
+                        :options="options.options" 
                         optionLabel="name"
                         editable
                         showClear
-                        @change="handleGetModelByBrand(formData[1],options.domain)"
+                        @change="handleGetModelByBrand(formData[1], options.domain, 'BRAND', 'MODEL')"
                     />
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-12 g-4">
@@ -139,16 +139,14 @@ export default {
             } 
             this.$emit('handleNaoAplica', position);
         },
-        async handleGetModelByBrand(data, domain){
-            console.log(data, domain)
+        async handleGetModelByBrand(data, domain, attributeOrigin, attributeId){
             if (data){
-                this.optionModel = [];
-                this.formData[2] = [];
+                this.optionModel = [];              
                 const Items = new items();
                 const form = new FormData();
                 form.append('domainId', domain);
-                form.append('attributeId', 'MODEL');
-                form.append('known_attributes[id]', 'BRAND');
+                form.append('attributeId', attributeId);
+                form.append('known_attributes[id]',attributeOrigin);
                 form.append('known_attributes[value_id]', data.code);
                 const {data: responseData, error: responseError} = await Items.getOptionsAttributes(form);
                 let status = responseData.value ? responseData._rawValue.status : null;
@@ -157,9 +155,11 @@ export default {
                 if( status == 200 ){               
                     this.optionModel = responseData._rawValue.data;
                 }
+                this.$emit('handleGetModelByBrand', data, domain, attributeOrigin, attributeId);
             }
         }
     },   
+   
     emits: [
         'handleConfirm',
         'handleGetModelByBrand'

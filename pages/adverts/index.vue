@@ -151,7 +151,7 @@
             this.isForm = isForm;
             this.items = [];
          },
-         async handleSearchCategory( value ){
+         async handleSearchCategory(value){
             try{                
                   this.showcomponent[1] = false;
                   this.items = [];
@@ -187,7 +187,7 @@
                   return false;
             }
          },
-         async handleSelectCategory( value ){
+         async handleSelectCategory(value){
             if( value ){
                   this.formList = [];
                   this.handleGetAttributeByCategoryId( value );
@@ -196,7 +196,7 @@
                   this.showlistcategory = true;
             } 
          },        
-         async handleSearchItems( name ){
+         async handleSearchItems(name){
             this.items = [];
             this.categories = [];
             this.showcomponent[1] = false;
@@ -233,7 +233,7 @@
                   this.attributes = responseData._rawValue.data;
             }
          },        
-         async handleGetSelected( value ){
+         async handleGetSelected(value){
             if( value?.code ){
                   this.formList = [];
                   this.handleGetAttributeByCategoryId( value.code );
@@ -242,7 +242,7 @@
                   this.showlistcategory = true;
             }            
          },
-         async handleImportItem( value ){
+         async handleImportItem(value){
             const importItem = new RegisterProductsService();
             const formData = new FormData();
             for(const v in value){
@@ -275,7 +275,7 @@
                 this.showToast('error', 'Erro', responseError.value.data.data[0]);           
             }
          },
-         async handleGetAttributeByCategoryId( value ){
+         async handleGetAttributeByCategoryId(value){
             this.componentData = [];            
             const attribute = new Attribute();
             const { data: responseData, error: responseError } = await attribute.getAttributeByCategoryId(value);
@@ -290,12 +290,11 @@
                this.message = 'Não foi possível encontrar registros';
             }
          },
-         async handleForm( value ){
+         async handleForm(value){
             this.showcomponent[0] = true;
             this.showcomponent[1] = true;
             const comp = [];
-            value.forEach(function( value, key ){               
-                let opt = value.values ? JSON.parse(value.values) : [];                              
+            value.forEach(function( value, key ){                                            
                  comp[key] = value;
                  comp[key].position = (key + 5);
             });
@@ -314,8 +313,8 @@
          async showToast(severity, summary, detail) {
             this.$toast.add({ severity: severity, summary: summary, detail: detail, life: 3000 });
          },
-         async handleGetModelByBrand( data, domain ){
-            console.log(data, domain)
+         async handleGetModelByBrand(data, domain){
+          
          }
       },
       mounted() {

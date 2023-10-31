@@ -50,16 +50,19 @@
                 const { data: responseData, error: responseError } = await portal.all();
                 let status = responseData.value ? responseData._rawValue.status : null;
                 status = status ?? (responseError.value ? responseError.value.statusCode : null);
-                this.formData = responseData._rawValue.data[0];
+                
 
-                if( this.formData.zipcode){
-                    this.formData.zipcode = Utils.formatZipCode(this.formData.zipcode);
-                }
-               
-                if( this.formData.cnpj ){
-                    this.formData.cnpj = Utils.formatCNPJ(this.formData.cnpj); 
-                }
-              
+                if (status == 200) {
+                    this.formData = responseData._rawValue.data[0];
+
+                    if( this.formData.zipcode){
+                        this.formData.zipcode = Utils.formatZipCode(this.formData.zipcode);
+                    }
+                
+                    if( this.formData.cnpj ){
+                        this.formData.cnpj = Utils.formatCNPJ(this.formData.cnpj); 
+                    }
+                }              
             }
         },
         mounted(){

@@ -18,19 +18,7 @@
         </template>
         <template #content>
             <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-                    <!-- <InputText 
-                        v-if="component === 'TEXT_INPUT' 
-                            || component === 'NUMBER_INPUT' 
-                            || component === 'NUMBER_UNIT_INPUT' " 
-                        v-model="value"  
-                        size="large" 
-                        class="input-text-main-features" 
-                        :class="{ 'p-invalid': invalid }" 
-                        :maxlength="value_max_length" 
-                        :readonly="compReadOlny[componentKey]" 
-                        :id="name + componentKey"                        
-                    />   -->
+                <div class="col-lg-12 col-md-12 col-sm-12 col-12">                   
                     <Dropdown 
                         v-if="component === 'COMBO' 
                             || component === 'COLOR_INPUT' 
@@ -48,7 +36,6 @@
                         :id="name + componentKey"
                         editable
                         showClear
-                        @change="handleGetReference(value,options.domain,options.attributeId)"
                     />          
                     <InputNumber 
                         inputId="locale-user" 
@@ -89,14 +76,14 @@
                 <div class="col-lg-3 col-md-12 col-sm-12 col-12 justify-content-end"></div> 
                 <div class="col-lg-3 col-md-12 col-sm-12 col-12 justify-content-end"></div>
                 <div class="col-lg-3 col-md-12 col-sm-12 col-12 justify-content-end">
-                    <Button label="Confirmar" outlined :disabled="compReadOlny[componentKey]" @click="handleConfirm(name, !this.value ? this.currency : this.value, attribute_id, componentKey, true)" size="large" class="float-end" />
+                    <Button label="Confirmar" outlined  @click="handleConfirm(name, !this.value ? this.currency : this.value, attribute_id, componentKey, true)" size="large" class="float-end" />
                 </div>
             </div>
         </template>
     </Card>
 </template>
 <script>
-
+import items from "@/src/services/RegisterProductsService";
 export default {
     props: {       
         options: {
@@ -142,12 +129,13 @@ export default {
         value_max_length: {
             type: Number,
             required: true,
-            default: 0
+            default: 255
         },
-        readonly : {
-            type: Boolean,
-            required: true,
-        },
+        // readonly : {
+        //     type: Boolean,
+        //     required: true,
+        //     default: false
+        // },
         formGroup: {
             type: String,
             required: false,
@@ -188,8 +176,25 @@ export default {
             } 
             //this.$emit('handleNaoAplica', position);
         },
-        async handleGetReference(value, domain, id){
-            console.log(value, domain, id)
+        async handleGetReference(data, domain, attributeOrigin, attributeId){
+            if (data){
+                this.optionModel = [];
+                this.formData[2] = [];
+                const Items = new items();
+                const form = new FormData();
+                form.append('domainId', domain);
+                form.append('attributeId', attributeId);
+                form.append('known_attributes[id]', attributeOrigin);
+                form.append('known_attributes[value_id]', data.code);
+                const {data: responseData, error: responseError} = await Items.getOptionsAttributes(form);
+                let status = responseData.value ? responseData._rawValue.status : null;
+                status = status ?? (responseError.value ? responseError.value.statusCode : null);
+
+                if( status == 200 ){               
+                    this.optionModel = responseData._rawValue.data;
+                }
+                this.$emit('handleGetModelByBrand', data, domain, attributeOrigin, attributeId);
+            }
         }
     },   
     emits: ['handleConfirm']

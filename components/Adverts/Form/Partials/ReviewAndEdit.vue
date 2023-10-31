@@ -166,16 +166,17 @@ export default {
             this.formData.original_price = 0;
             this.formData.available_quantity = 0;
             this.formData.buying_mode = 0;
-
+           
             let i = 0;
+            const attributes = [];
             for(const row in this.selected){
                 const field = this.selected[row];
                 if(field != null && typeof field === 'object'){
-                    this.formData.attributes[i].value_id = this.selected[row].code;
-                    this.formData.attributes[i].value_name = this.selected[row].name;
+                    attributes[row] = {value_id: this.selected[row].code, value_name: this.selected[row].name};
                     i++;
-                }                
+                }        
             }
+            this.formData.attributes = attributes;
             this.$emit('handleImportItem', this.formData);
             this.handleSearch();
         },

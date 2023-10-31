@@ -39,7 +39,7 @@
                             @handleGetModelByBrand="handleGetModelByBrand"
                             :showcomponent="showcomponent"
                             :componentData="componentData"
-                        />                       
+                        />
                     </div>
                 </div>
             </form>
@@ -97,7 +97,8 @@ export default {
                 code: 2230582,
                 name: 'Recondicionado'
             }],
-            load : false
+            load : false,
+            categoryId: ''
         };
     },
     methods: {
@@ -118,7 +119,7 @@ export default {
             this.formData.name = '';
             this.$emit('handleClean');
         },
-        handleSearch( ){
+        handleSearch(){
             this.$emit('handleSearch');
             this.showpredict = true;
         },       
@@ -133,6 +134,7 @@ export default {
             this.$emit('handleSearchCategory', name);
         },
         async handleSelectCategory(id){
+            this.categoryId = id;
             this.$emit('handleSelectCategory', id);
         },
         async handleImportItem( data ){

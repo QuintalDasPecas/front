@@ -12,7 +12,7 @@
         <template #content>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-                    <Dropdown optionLabel="name" editable showClear v-model="formData[2]" class="w-full" :options="options" :class="{ 'p-invalid': invalid }" :disabled="compReadOlny[2]" id="ITEM_CONDITION" />
+                    <Dropdown optionLabel="name" editable showClear v-model="formData" class="w-full" :options="options" id="ITEM_CONDITION" />
                 </div>
             </div>
         </template> 
@@ -81,21 +81,8 @@ export default {
         };
     },
     methods: {
-        async handleConfirm(){
-            this.invalid = false;
-            if(!this.formData){                
-                return false;
-            }       
-            if(!this.formData[2]){
-                this.invalid = true;
-                return false;
-            }
-            if(!this.formData[3]){
-                this.invalid = true;
-                return false;
-            }   
-            this.$emit('handleConfirm', { name: 'ITEM_CONDITION', value: this.formData[2], position: 2});
-            this.$emit('handleConfirm', { name: 'SALES_TERM', value: this.formData[3], position: 2});
+        async handleConfirm(){           
+            this.$emit('handleConfirm', { name: 'ITEM_CONDITION', value: this.formData, position: 2});
         },       
         async handleNaoAplica( position ){           
             if(this.compReadOlny[position]){

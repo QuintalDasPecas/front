@@ -205,7 +205,6 @@ export default {
             this.formData = '';
         },
         async handleConfirmDialog( action, data ){  
-            console.log('aqui')         
             this.confirmDiaog = true;
             this.formData = data;
             this.action = action;

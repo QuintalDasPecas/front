@@ -208,10 +208,6 @@
 
                 if ( status === 200 ){
                     this.items = responseData._rawValue.data;
-                    console.log(this.items)
-                }
-                if( status == 400 ){
-                    console.log('erro_123')
                 }
             },
             async handleGetAllActive()
@@ -221,18 +217,12 @@
                 const { data: responseData, error: responseError } = await subPlan.getAllActive();
                 let status = responseData.value ? responseData._rawValue.status : null;
                 status = status ?? (responseError.value ? responseError.value.statusCode : null);
-                const valor = responseData._rawValue.data;
-
-                this.subscribe = valor.subscribe;
-                this.formOfPayment = valor.formOfPayment;
-                this.paymentTerm = valor.paymentTerm;
-
+                
                 if ( status === 200 ){
-                    
-                    console.log(valor, 'AQUI!!!')
-                }
-                if( status == 400 ){
-                    console.log('erro_123')
+                    const valor = responseData._rawValue.data;
+                    this.subscribe = valor.subscribe;
+                    this.formOfPayment = valor.formOfPayment;
+                    this.paymentTerm = valor.paymentTerm;
                 }
             },
             async handleEnable(id){           

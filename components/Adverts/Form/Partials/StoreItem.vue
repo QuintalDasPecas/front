@@ -11,7 +11,7 @@
                 </div>    
                 <div class="row justify-content-lg-center">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-12 g-4">
-                        <PartialsProductsAutoComponent                             
+                        <PartialsProductsAutoComponent
                             :id="1" 
                             :attribute_id="'TITLE'" 
                             :component="'TEXT_INPUT'" 
@@ -26,28 +26,22 @@
                             :componentKey="1"
                             :readonly="false"
                             @handleConfirm="handleConfirm"
-                            disabled
-                            v-if="showcomponent[1]"
+                            disabled                           
                         />
                     </div>
                 </div> 
                 <div class="row justify-content-lg-center">
-                    <div class="col-lg-8 col-md-8 col-sm-12 col-12 g-4">
-                        <span v-for="(group) in componentData">
-                            <span v-if="group.ml_attribute_id =='BRAND'">                             
-                                <PartialsProductsGroupBrandAndModel
-                                    :label="'Preencha as informações do seu produto.'"
-                                    :hint="''"
-                                    :required="true"
-                                    @handleConfirm="handleConfirm"
-                                    @handleGetModelByBrand="handleGetModelByBrand"
-                                    :hidden="false"
-                                    :options="{brand: group.options, model: group.options, domain: group.ml_domain_id}"
-                                    v-if="showcomponent[2]"
-                                    :componentKey="2"
-                                />
-                            </span>
-                        </span>
+                    <div class="col-lg-8 col-md-8 col-sm-12 col-12 g-4">                                                  
+                        <PartialsProductsGroupBrandAndModel
+                            :label="'Preencha as informações do seu produto.'"
+                            :hint="''"
+                            :required="true"
+                            @handleConfirm="handleConfirm"
+                            @handleGetModelByBrand="handleGetModelByBrand"
+                            :hidden="false"
+                            :options="listBrand"                           
+                            :componentKey="2"
+                        />
                     </div>
                 </div>              
                 <div class="row justify-content-lg-center">
@@ -58,8 +52,7 @@
                             :required="true"
                             @handleConfirm="handleConfirm"
                             :hidden="false"
-                            :options="listCondition"
-                            v-if="showcomponent[2]"
+                            :options="listCondition"                        
                         />
                     </div>
                 </div>
@@ -70,8 +63,7 @@
                             :hint="''"
                             :required="true"
                             @handleConfirm="handleConfirm"
-                            :hidden="false"
-                            v-if="showcomponent[3]"
+                            :hidden="false"                          
                         />
                     </div>
                 </div>
@@ -80,8 +72,7 @@
                         <PartialsProductsRegulatoryInformation 
                             :label="'Preencha as informações regulatórias'"
                             :hint="'Conforme a legislação vigete do Brasil, estes dados são necessários para que você possa vender seu produto'"
-                            @handleConfirm="handleConfirm"
-                            v-if="showcomponent[4]"
+                            @handleConfirm="handleConfirm"                           
                         />
                     </div>
                 </div> 
@@ -90,8 +81,7 @@
                         <PartialsProductsUniversalCode
                             :label="'Qual é o código universal do seu produto?'"
                             :hint="'É o número que identifica um produto em nível global. Está localizado na embalagem ou etiqueta, próximo ao código de barras'"
-                            @handleConfirm="handleConfirm"
-                            v-if="showcomponent[4]"
+                            @handleConfirm="handleConfirm"                           
                         />
                     </div>
                 </div>               
@@ -99,12 +89,12 @@
                     <div class="col-lg-8 col-md-12 col-sm-12 col-12 g-4">
                         <!-- <PartialsProductsUploads  v-if="showcomponent[4]"/><br> -->
                     </div>
-                </div>               
+                </div>
                 <div class="row justify-content-lg-center">
                     <div class="col-lg-8 col-md-12 col-sm-12 col-12">
-                        <span v-for="(group) in componentData">
-                            <PartialsProductsAutoComponent 
-                                v-if="showcomponent[5]"
+                        <span v-for="(group) in componentData">                           
+                            <PartialsProductsAutoComponent
+                                v-if="showcomponent[group.position]" 
                                 :id="group.position" 
                                 :attribute_id="group.ml_attribute_id" 
                                 :component="group.component" 
@@ -114,20 +104,37 @@
                                 :options="{options: group.options, domain: group.ml_domain_id, attributeId: group.ml_attribute_id}" 
                                 :name="group.ml_attribute_id"
                                 :componentKey="group.position" 
-                                :hidden="group.hidden" 
+                                :hidden="group.hidden ? true : false" 
                                 :value_max_length="group.value_max_length" 
-                                :required="group.required"                                
+                                :required="group.required ? true : false"
                                 @handleConfirm="handleConfirm"
-                            />                       
+                            />
                             <br>    
                         </span>
                     </div>
                 </div>
+                <div class="row justify-content-lg-center">
+                    <Card>
+                        <template #content>
+                            <div class="row">
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-2">
+                                    <Button @click="handleReset()" label="Cancelar" outlined size="large" class="float-start" />
+                                </div>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-8">                       
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-2">
+                                    <Button @click="handleOnSubmit()" label="Cadastrar" outlined size="large" class="float-end" />
+                                </div>
+                            </div>
+                        </template>
+                    </Card>
+                </div>               
             </form>
         </div>
     </div>    
 </template>
 <script>
+import items from "@/src/services/RegisterProductsService";
 export default {
     props:{
         showcomponent: { 
@@ -152,26 +159,86 @@ export default {
             message: '',
             isSkeleton: false,
             listCondition:[{
-                code: 2230581,
-                name: 'Usado'
-            },
-            {
-                code: 2230284,
+                code: 1,
                 name: 'Novo'
             },
             {
-                code: 2230582,
+                code: 2,
+                name: 'Usado'
+            },
+            {
+                code: 3,
                 name: 'Recondicionado'
-            }]
+            }],
+            listBrand: []
         };
     },
     methods: {
         async handleOnSubmit(){
-          return false;
-        },        
+            const data = this.formData;
+            const form = new FormData();
+            let i=0;
+            const entityId = localStorage.getItem('entityId');
+            form.append('entity_id', entityId);
+            form.append('listing_type_id', 'free');
+            
+            console.log(data);
+            form.append('category_id', this.componentData[0].category_id)
+            form.append('currency_id', 'BRL');
+            form.append('buying_mode', 'buy_it_now');
+
+           for(const v in data){
+
+            if (data[v].name == 'TITLE'){
+                form.append('title', data[v].value);
+            }
+
+            if (data[v].name == 'ITEM_CONDITION'){
+                form.append('ITEM_CONDITION', data[v].code);
+            }
+
+            if (data[v].name == 'PRICE'){
+                form.append('price', data[v].price);
+            }
+
+            if (data[v].name == 'QUANTITY'){
+                form.append('avaliable_quantity', data[v].avaliable_quantity);
+            }
+
+                if(data[v].value == 'N/A'){
+                    form.append('attribute['+i+'][id]', data[v].name);
+                    form.append('attribute['+i+'][value_id]', -1);
+                    form.append('attribute['+i+'][value_name]', null);
+                } else {
+                    form.append('attribute['+i+'][id]', data[v].name);
+                    form.append('attribute['+i+'][value_id]', data[v].value.code);
+                    form.append('attribute['+i+'][value_name]', data[v].value.name);
+                }                
+            
+            
+                i++;
+            }
+
+            const item = new items();
+            const {data: responseData, error: responseError} = await item.importItem(form);
+        },
+        async handleReset(){
+            this.formData = [];
+        },
         async handleConfirm( value ){
             this.formData[value.name] = value;
             this.showcomponent[value.position + 1] = true;
+            let values = this.componentData ?? [];
+            let list = [];
+
+            if(values.length){
+                values.forEach(function(v,k){
+                    if(v.ml_attribute_id == 'BRAND'){
+                        list = { options: v.options, domain: v.ml_domain_id }
+                    }
+                });
+                this.listBrand = list;
+            }
         },     
         async handleSearchOtherCategory(){
             this.showpredict = true; 

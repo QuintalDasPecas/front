@@ -145,10 +145,6 @@ export default {
 
             if ( status === 200 ){
                 this.items = responseData._rawValue.data;
-                console.log(this.items)
-            }
-            if( status == 400 ){
-                console.log('erro_123')
             }
         },
         async handleEnable(id){           
