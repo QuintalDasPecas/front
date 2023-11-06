@@ -5,20 +5,21 @@
             <div class="row justify-content-lg-center">
                <div class="col-lg-2 col-md-2 col-sm-2 col-2">
                   <NuxtLink to="/" class="btn btn-outline-primary btn-lg btn-width-defult">
-                     Página Principal
-                  </NuxtLink>
-               </div>                    
-               <div class="col-lg-4 col-md-4 col-sm-4 col-4">
-                  <NuxtLink @click="handleImportItems()" class="btn btn-outline-primary btn-lg btn-width-defult">
-                     <i class="pi pi-download"></i> Importar itens do Mercado Livre
-                  </NuxtLink>
-               </div> 
-               <div class="col-lg-4 col-md-4 col-sm-4 col-4"></div>
-               <div class="col-lg-2 col-md-2 col-sm-2 col-2" v-if="!isForm">
-                  <NuxtLink @click="handleCreate(true)" class="btn btn-outline-primary btn-lg btn-width-defult">
-                     Cadastrar
+                     <i class="pi pi-home"></i> Página Principal
                   </NuxtLink>
                </div>
+               <div class="col-lg-2 col-md-2 col-sm-2 col-2"></div>
+               <div class="col-lg-4 col-md-4 col-sm-4 col-4" v-show="isGrid">
+                  <NuxtLink @click="handleShowImport()" class="btn btn-outline-primary btn-lg btn-width-defult">
+                     <i class="pi pi-file-import"></i> Importar anuncios do Mercado Livre
+                  </NuxtLink>
+               </div> 
+               <div class="col-lg-2 col-md-2 col-sm-2 col-2"></div>
+               <div class="col-lg-2 col-md-2 col-sm-2 col-2" v-if="!isForm">
+                  <NuxtLink @click="handleCreate(true)" class="btn btn-outline-primary btn-lg btn-width-defult">
+                     <i class="pi pi-car"></i> Anunciar
+                  </NuxtLink>
+               </div>               
                <div class="col-lg-2 col-md-2 col-sm-2 col-2" v-if="isForm">
                   <NuxtLink @click="handleCreate(false)" class="btn btn-outline-primary btn-lg btn-width-defult">
                      Voltar
@@ -36,7 +37,7 @@
                   <Message severity="error">{{ message }}</Message>
                </div>
             </div> 
-            <div class="row justify-content-lg-center" v-if="!isForm">    
+            <div class="row justify-content-lg-center" v-if="isGrid">    
                <div class="col-lg-12 col-md-12 col-sm-12 col-12">                
                   <AdvertsGrid 
                      :items="itemsGrid" 
@@ -56,12 +57,18 @@
                      @handleClean="handleClean"
                      @handleImportItem="handleImportItem"
                      @handleGetModelByBrand="handleGetModelByBrand"
+                     @handleOnSubmit="handleOnSubmit"
                      :items="items" 
                      :categories="categories"
                      :attributes="attributes"
                      :showcomponent="showcomponent"
                      :componentData="componentData"
                   />                 
+               </div>
+            </div>
+            <div class="row justify-content-lg-center" v-if="isImport">    
+               <div class="col-lg-12 col-md-12 col-sm-12 col-12">                
+                 <AdvertsFormPartialsImport />         
                </div>
             </div>
          </form>
@@ -88,11 +95,13 @@
             formData: [],
             attributes: {},
             categories: [],
-            componentData: {}
+            componentData: {},
+            isImport: false,
+            isGrid: true
          }
       },
       methods: {
-         async handleConfirm( value ){
+         async handleConfirm(value){
             this.formData[value.name] = value;
             this.showcomponent[value.position + 1] = true;
          },  
@@ -109,6 +118,7 @@
             }
          },
          async handleImportItems(){
+            this.isForm = false;
             this.message = '';
             this.isProgressBar = true;
             const productservice = new ProductService();
@@ -124,16 +134,26 @@
             const { data: responseData, error: responseError } = await productservice.importItems(form);
             let status = responseData.value ? responseData._rawValue.status : null;
             status = status ?? (responseError.value ? responseError.value.statusCode : null); 
+            let detail = '';
+            let severity = '';
+            let sumarry = ''
 
             if (status === 200){                    
                this.isProgressBar = false;
-               this.message = 'Importação concluida!';
+               detail = 'Importação concluida!';
+               severity = 'success';
+               sumarry = 'Sucesso'
                this.handleGetProductsByEntityId();                    
             }
 
             if (status > 200){  
                this.isProgressBar = false;
+               detail = 'Não foi possível importar registros, verifique se existe credenciais cadastradas.';
+               severity = 'error';
+               sumarry = 'Erro'
             }
+
+            this.showToast(severity,sumarry,detail);
          },
          async handleEnableItem(id){
             const productService = new ProductService();
@@ -147,12 +167,13 @@
             const product = await productService.destroy(id); 
             this.handleGetProductsByEntityId();   
          },
-         async handleCreate(isForm){
-            this.isForm = isForm;
+         async handleCreate( value ){
+            this.isForm = value;
+            this.isGrid = !value;
             this.items = [];
          },
          async handleSearchCategory(value){
-            try{                
+            try{
                   this.showcomponent[1] = false;
                   this.items = [];
                   this.categories = [];
@@ -242,38 +263,13 @@
                   this.showlistcategory = true;
             }            
          },
+         async handleShowImport(){
+            this.isImport = true;
+            this.isGrid = false;
+         }, 
          async handleImportItem(value){
-            const importItem = new RegisterProductsService();
-            const formData = new FormData();
-            for(const v in value){
-                if(v != 'attributes'){
-                    formData.append(v,value[v]);
-                }
-                if(v == 'attributes'){                   
-                    for(const vv in value[v]){
-                        for(const vvv in value[v][vv]){
-                            if( vvv != 'options'){
-                                let data = value[v][vv][vvv];
-                                let field = 'attributes[' + vv + '][' + vvv + ']';
-                                formData.append(field, data);
-                            }
-                        }
-                    }
-                }
-            }
-            const { data: responseData, error: responseError } = await importItem.importItem(formData);
-            let status = responseData.value ? responseData._rawValue.status : null;
-            status = status ?? (responseError.value ? responseError.value.statusCode : null);
-          
-            if(status === 201){
-                this.showToast('success', 'Sucesso', 'Salvo com sucesso');
-                this.attributes = false;
-                this.showpredict = true;
-            }
-
-            if(status === 400){
-                this.showToast('error', 'Erro', responseError.value.data.data[0]);           
-            }
+            this.handleCreate(false);
+            this.handleGetProductsByEntityId();
          },
          async handleGetAttributeByCategoryId(value){
             this.componentData = [];            
@@ -292,16 +288,15 @@
          },
          async handleForm(value){
             this.showcomponent[0] = true;
-            this.showcomponent[1] = true;
             const comp = [];
             value.forEach(function( value, key ){                                            
                  comp[key] = value;
-                 comp[key].position = (key + 5);
+                 comp[key].position = (key + 7);
             });
             this.componentData = comp;
          },
          async handleSearch(){
-            this.attributes = {};
+            this.attributes = [];
             this.categories = {};
             this.items = {};
             this.showpredict = true;
@@ -311,10 +306,13 @@
             this.categories = {};
          },
          async showToast(severity, summary, detail) {
-            this.$toast.add({ severity: severity, summary: summary, detail: detail, life: 3000 });
+            this.$toast.add({ severity: severity, summary: summary, detail: detail });
          },
          async handleGetModelByBrand(data, domain){
           
+         },
+         async handleOnSubmit(){
+            this.isForm = false;
          }
       },
       mounted() {

@@ -1,8 +1,8 @@
 <template> 
-    <div class="container">       
+    <div class="container"  v-if="showpredict">       
         <div class="row">         
-            <form  @submit.prevent="handleOnSubmit" class="row justify-content-lg-center g-4">               
-                <div class="row justify-content-lg-center" v-if="showpredict">
+            <form  @submit.prevent="handleOnSubmit" class="row justify-content-lg-center g-4">                               
+                <div class="row justify-content-lg-center">
                     <div class="col-lg-8 col-md-12 col-sm-12 col-8">
                         <h2>
                             <p>Vamos começar identificando seu produto.</p>
@@ -23,16 +23,19 @@
                             :hidden="false"
                             :required="true"
                             :value_max_length="255"
-                            :componentKey="1"
+                            :componentKey="0"
                             :readonly="false"
                             @handleConfirm="handleConfirm"
-                            disabled                           
+                            disabled
+                            :type="'string'"
+                            @handleSearch="handleSearch"
                         />
                     </div>
                 </div> 
                 <div class="row justify-content-lg-center">
-                    <div class="col-lg-8 col-md-8 col-sm-12 col-12 g-4">                                                  
+                    <div class="col-lg-8 col-md-8 col-sm-12 col-12 g-4">                      
                         <PartialsProductsGroupBrandAndModel
+                            v-if="showcomponent[1]" 
                             :label="'Preencha as informações do seu produto.'"
                             :hint="''"
                             :required="true"
@@ -40,87 +43,102 @@
                             @handleGetModelByBrand="handleGetModelByBrand"
                             :hidden="false"
                             :options="listBrand"                           
-                            :componentKey="2"
+                            :componentKey="1"
+                            :type="'string'"
                         />
                     </div>
                 </div>              
                 <div class="row justify-content-lg-center">
                     <div class="col-lg-8 col-md-8 col-sm-12 col-12 g-4">
                         <PartialsProductsItemCondition
+                            v-if="showcomponent[2]" 
                             :label="'Qual é a condição do seu produto?'"
                             :hint="'Se foi usado de alguma forma, selecione usado.'"
                             :required="true"
                             @handleConfirm="handleConfirm"
                             :hidden="false"
-                            :options="listCondition"                        
+                            :options="listCondition"
+                            :componentKey="2"                       
                         />
                     </div>
                 </div>
                 <div class="row justify-content-lg-center">
                     <div class="col-lg-8 col-md-8 col-sm-12 col-12 g-4">
-                        <PartialsProductsGroupPriceAndQuantity 
+                        <PartialsProductsGroupPriceAndQuantity
+                            v-if="showcomponent[3]" 
                             :label="'Preencha as informações do seu produto.'"
                             :hint="''"
                             :required="true"
                             @handleConfirm="handleConfirm"
-                            :hidden="false"                          
+                            :hidden="false"
+                            :componentKey="3"
                         />
                     </div>
                 </div>
                 <div class="row justify-content-lg-center">
                     <div class="col-lg-8 col-md-12 col-sm-12 col-12 g-4">
-                        <PartialsProductsRegulatoryInformation 
+                        <PartialsProductsRegulatoryInformation
+                            v-if="showcomponent[4]" 
                             :label="'Preencha as informações regulatórias'"
                             :hint="'Conforme a legislação vigete do Brasil, estes dados são necessários para que você possa vender seu produto'"
-                            @handleConfirm="handleConfirm"                           
+                            @handleConfirm="handleConfirm"
+                            :componentKey="4"                          
                         />
                     </div>
                 </div> 
                 <div class="row justify-content-lg-center">
                     <div class="col-lg-8 col-md-12 col-sm-12 col-12 g-4">
                         <PartialsProductsUniversalCode
+                            v-if="showcomponent[5]" 
                             :label="'Qual é o código universal do seu produto?'"
                             :hint="'É o número que identifica um produto em nível global. Está localizado na embalagem ou etiqueta, próximo ao código de barras'"
-                            @handleConfirm="handleConfirm"                           
+                            @handleConfirm="handleConfirm" 
+                            :componentKey="5"                         
                         />
                     </div>
                 </div>               
                 <div class="row justify-content-lg-center">
                     <div class="col-lg-8 col-md-12 col-sm-12 col-12 g-4">
-                        <!-- <PartialsProductsUploads  v-if="showcomponent[4]"/><br> -->
+                        <PartialsProductsUploads  
+                        v-if="showcomponent[6]"  
+                        :componentKey="6"
+                        @handleConfirm="handleConfirm"  />
                     </div>
                 </div>
-                <div class="row justify-content-lg-center">
-                    <div class="col-lg-8 col-md-12 col-sm-12 col-12">
-                        <span v-for="(group) in componentData">                           
-                            <PartialsProductsAutoComponent
-                                v-if="showcomponent[group.position]" 
+                <span v-for="(group) in componentData">
+                    <div class="row justify-content-lg-center"  v-if="showcomponent[group.position]">
+                        <div class="col-lg-8 col-md-12 col-sm-12 col-12">
+                            <PartialsProductsAutoComponent                               
                                 :id="group.position" 
                                 :attribute_id="group.ml_attribute_id" 
                                 :component="group.component" 
                                 :label="group.name" 
                                 :hint="group.hint" 
                                 :tooltip="group.tooltip" 
-                                :options="{options: group.options, domain: group.ml_domain_id, attributeId: group.ml_attribute_id}" 
+                                :options="{ 
+                                    options: group.options, 
+                                    domain: group.ml_domain_id, 
+                                    attributeId: group.ml_attribute_id
+                                }" 
                                 :name="group.ml_attribute_id"
                                 :componentKey="group.position" 
                                 :hidden="group.hidden ? true : false" 
                                 :value_max_length="group.value_max_length" 
                                 :required="group.required ? true : false"
-                                @handleConfirm="handleConfirm"
-                            />
-                            <br>    
-                        </span>
+                                :type="group.value_type"
+                                @handleConfirm="handleConfirm"                               
+                            /><br>
+                        </div>
                     </div>
-                </div>
-                <div class="row justify-content-lg-center">
+                </span>
+                <div class="row justify-content-lg-center"  v-if="showpredict">
                     <Card>
                         <template #content>
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 col-sm-2 col-2">
                                     <Button @click="handleReset()" label="Cancelar" outlined size="large" class="float-start" />
                                 </div>
-                                <div class="col-lg-8 col-md-8 col-sm-8 col-8">                       
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-8">
                                 </div>
                                 <div class="col-lg-2 col-md-2 col-sm-2 col-2">
                                     <Button @click="handleOnSubmit()" label="Cadastrar" outlined size="large" class="float-end" />
@@ -131,7 +149,9 @@
                 </div>               
             </form>
         </div>
-    </div>    
+    </div>  
+    <toast></toast> 
+    aaa {{ showpredict }} 
 </template>
 <script>
 import items from "@/src/services/RegisterProductsService";
@@ -151,76 +171,107 @@ export default {
     data(){
         return {
             formList: [],
-            formData: [],           
-            showcategory: false,
-            showlistcategory: false,           
-            increment: 5,
+            formData: [],
             showpredict: true,
-            message: '',
-            isSkeleton: false,
             listCondition:[{
-                code: 1,
+                code: 'new',
                 name: 'Novo'
             },
             {
-                code: 2,
+                code: 'used',
                 name: 'Usado'
             },
             {
-                code: 3,
+                code: 'reconditioned',
                 name: 'Recondicionado'
             }],
             listBrand: []
         };
     },
     methods: {
+        async showToast(severity, summary, detail) {
+            this.$toast.add({ severity: severity, summary: summary, detail: detail, life: 3000 });
+        }, 
         async handleOnSubmit(){
+            
+            const isValid = await this.isValidForm();
+
+            if(!isValid){
+                this.$emit('handleOnSubmit',false);
+                return false;
+            }
+
             const data = this.formData;
             const form = new FormData();
-            let i=0;
+            let i = 0;
+            let add = false;
             const entityId = localStorage.getItem('entityId');
             form.append('entity_id', entityId);
-            form.append('listing_type_id', 'free');
-            
-            console.log(data);
-            form.append('category_id', this.componentData[0].category_id)
+            form.append('listing_type_id', 'free');            
+            form.append('category_id', this.componentData[0].ml_category_id)
             form.append('currency_id', 'BRL');
             form.append('buying_mode', 'buy_it_now');
+            form.append('id', '');
+            form.append('original_price', 0.00);
+            form.append('domain_id', this.componentData[0].ml_domain_id);
 
            for(const v in data){
 
-            if (data[v].name == 'TITLE'){
-                form.append('title', data[v].value);
-            }
+                if (data[v].name == 'files'){
+                    form.append('file', data[v].value[0], data[v].value[0].name);
+                    add = true;
+                }
 
-            if (data[v].name == 'ITEM_CONDITION'){
-                form.append('ITEM_CONDITION', data[v].code);
-            }
+                if (data[v].name == 'TITLE'){
+                    form.append('title', data[v].value);
+                    add = true;
+                }
 
-            if (data[v].name == 'PRICE'){
-                form.append('price', data[v].price);
-            }
+                if (data[v].name == 'ITEM_CONDITION'){
+                    form.append('condition', data[v].value.code);
+                    add = true;
+                }
 
-            if (data[v].name == 'QUANTITY'){
-                form.append('avaliable_quantity', data[v].avaliable_quantity);
-            }
+                if (data[v].name == 'PRICE'){
+                    form.append('price', data[v].value);
+                    add = true;
+                }
 
-                if(data[v].value == 'N/A'){
-                    form.append('attribute['+i+'][id]', data[v].name);
-                    form.append('attribute['+i+'][value_id]', -1);
-                    form.append('attribute['+i+'][value_name]', null);
-                } else {
-                    form.append('attribute['+i+'][id]', data[v].name);
-                    form.append('attribute['+i+'][value_id]', data[v].value.code);
-                    form.append('attribute['+i+'][value_name]', data[v].value.name);
-                }                
-            
-            
+                if (data[v].name == 'QUANTITY'){
+                    form.append('avaliable_quantity', data[v].value);
+                    add = true;
+                }
+
+                if(!add){
+                    form.append('attributes['+data[v].name+'][id]', data[v].name);  
+                    form.append('attributes['+data[v].name+'][name]', data[v].label);
+                    form.append('attributes['+data[v].name+'][value_type]', data[v].type);
+
+                    if(data[v].value == 'N/A'){                        
+                        form.append('attributes['+data[v].name+'][value_id]', -1);
+                        form.append('attributes['+data[v].name+'][value_name]', -1);
+                    } else {
+                        form.append('attributes['+data[v].name+'][value_id]', data[v].value?.code ?? null);
+                        form.append('attributes['+data[v].name+'][value_name]', data[v].value?.name ?? data[v].value);
+                    }                    
+                }
                 i++;
+                add = false;
             }
 
             const item = new items();
-            const {data: responseData, error: responseError} = await item.importItem(form);
+            const {data: responseData, error: responseError} = await item.store(form);
+
+            let status = responseData.value ? responseData._rawValue.status : null;
+            status = status ?? (responseError.value ? responseError.value.statusCode : null);
+
+            if(status == 201){
+                this.showToast('success','Sucesso','Registro salvo com sucesso');
+                this.formData = [];
+                this.$emit('handleOnSubmit',true);
+            }
+
+            
         },
         async handleReset(){
             this.formData = [];
@@ -242,17 +293,13 @@ export default {
         },     
         async handleSearchOtherCategory(){
             this.showpredict = true; 
-            this.showlistcategory = false; 
-            this.showcategory = false; 
-            this.showcomponent = 0;
         },
         async handleClean( value ){
             this.formData.name = '';
             this.$emit('handleClean');
         },
-        handleSearch( ){
+        handleSearch(){            
             this.$emit('handleSearch');
-            this.showpredict = true;
         },       
         async handleSelectItems(id){
             this.$emit('handleSelectItems', id);
@@ -265,6 +312,7 @@ export default {
             this.$emit('handleSearchCategory', name);
         },
         async handleSelectCategory(id){
+            this.showpredict = true;
             this.$emit('handleSelectCategory', id);
         },
         async handleImportItem( data ){
@@ -272,6 +320,17 @@ export default {
         },
         async handleGetModelByBrand( data, domain ){
             this.$emit('handleGetModelByBrand', data, domain);
+        },
+        async isValidForm(){
+            const data = this.formData;
+            let isValid = false;
+           
+            if(data.length == 0){
+                this.showToast('warn','Atenção','Campos obrigatórios em branco.');
+                isValid = true;
+            }
+            
+            return isValid;
         }
     },
     emits: [
@@ -282,7 +341,8 @@ export default {
         'handleSelectCategory',
         'handleSearch',
         'handleImportItem',
-        'handleGetModelByBrand'
+        'handleGetModelByBrand',
+        'handleOnSubmit'
     ]
 }
 </script>

@@ -124,8 +124,8 @@ export default {
                 this.invalid = true;
                 return false;
             }   
-            this.$emit('handleConfirm', { name: 'BRAND', value: this.formData[1], position: this.componentKey});
-            this.$emit('handleConfirm', { name: 'MODEL', value: this.formData[2], position: this.componentKey});
+            this.$emit('handleConfirm', { name: 'BRAND', value: this.formData[1], label: 'Marca', type:'string', position: this.componentKey});
+            this.$emit('handleConfirm', { name: 'MODEL', value: this.formData[2], label: 'Modelo', type:'string', position: this.componentKey});
         },       
         async handleNaoAplica( position ){           
             if(this.compReadOlny[position]){

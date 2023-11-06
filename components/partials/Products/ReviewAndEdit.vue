@@ -151,7 +151,6 @@ export default {
             this.formData.entity_id = localStorage.getItem('entityId');
             this.formData.listing_type_id = listingTypeFree;
             this.formData.original_price = 0;
-            this.formData.available_quantity = 0;
             this.formData.buying_mode = 0;
 
             let i = 0;

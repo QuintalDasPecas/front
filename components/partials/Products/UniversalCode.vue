@@ -85,6 +85,10 @@ export default {
             type: String,
             required: true
         },
+        componentKey: {
+            type: Number,
+            required: true
+        },
     },
     data() {
         return {
@@ -101,10 +105,10 @@ export default {
             if(!this.formData){                
                 return false;
             }            
-            this.$emit('handleConfirm', { name: 'INMETRO', value: this.formData[1], position: 4});
-            this.$emit('handleConfirm', { name: 'OEM', value: this.formData[2], position: 4});
-            this.$emit('handleConfirm', { name: 'SKU', value: this.formData[3], position: 4});
-            this.$emit('handleConfirm', { name: 'GTIN', value: this.formData[4], position: 4});
+            this.$emit('handleConfirm', { name: 'INMETRO', value: this.formData[1], label:'Número de registro/certificação INMETRO', position: this.componentKey});
+            this.$emit('handleConfirm', { name: 'OEM', value: this.formData[2], label:'OEM', position: this.componentKey});
+            this.$emit('handleConfirm', { name: 'SKU', value: this.formData[3], label:'SKU', position: this.componentKey});
+            this.$emit('handleConfirm', { name: 'GTIN', value: this.formData[4],  label:'Código universal de produto', position: this.componentKey});
         },       
         async handleNaoAplica( position ){
             if(this.compReadOlny[position]){

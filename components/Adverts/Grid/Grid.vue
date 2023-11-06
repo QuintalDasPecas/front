@@ -1,7 +1,9 @@
 <template>
     <div class="card">
         <DataTable :value="items" stripedRows paginator :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]"  tableStyle="min-width: 50rem">
-            <Column sortable field="id" header="ID"></Column>           
+            <Column sortable field="id" header="ID">
+                <template #body="slotProps">#{{ slotProps.data.id }}</template>
+            </Column>           
             <Column sortable header="Imagem">
                 <template #body="slotProps">
                     <img :src="slotProps.data.thumbnail" :alt="slotProps.data.thumbnail" class="w-6rem shadow-2 border-round" />

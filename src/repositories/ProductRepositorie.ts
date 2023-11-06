@@ -32,7 +32,7 @@ export default class ProductRepositorie {
   }
 
   static async importItems(formData: FormData) {   
-    CallApi.setEndPoint('importitems');
+    CallApi.setEndPoint('items/importlote');
     return await CallApi.store(formData);
   }
 

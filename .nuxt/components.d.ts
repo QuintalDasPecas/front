@@ -2,6 +2,7 @@
 declare module 'vue' {
   export interface GlobalComponents {
     'AdvertsForm': typeof import("../components/Adverts/Form/Form.vue")['default']
+    'AdvertsFormPartialsImport': typeof import("../components/Adverts/Form/Partials/Import.vue")['default']
     'AdvertsFormPartialsReviewAndEdit': typeof import("../components/Adverts/Form/Partials/ReviewAndEdit.vue")['default']
     'AdvertsFormPartialsSearch': typeof import("../components/Adverts/Form/Partials/Search.vue")['default']
     'AdvertsFormPartialsSearchCategory': typeof import("../components/Adverts/Form/Partials/SearchCategory.vue")['default']
@@ -105,6 +106,7 @@ declare module 'vue' {
     'Html': typeof import("../node_modules/nuxt/dist/head/runtime/components")['Html']
     'Body': typeof import("../node_modules/nuxt/dist/head/runtime/components")['Body']
     'LazyAdvertsForm': typeof import("../components/Adverts/Form/Form.vue")['default']
+    'LazyAdvertsFormPartialsImport': typeof import("../components/Adverts/Form/Partials/Import.vue")['default']
     'LazyAdvertsFormPartialsReviewAndEdit': typeof import("../components/Adverts/Form/Partials/ReviewAndEdit.vue")['default']
     'LazyAdvertsFormPartialsSearch': typeof import("../components/Adverts/Form/Partials/Search.vue")['default']
     'LazyAdvertsFormPartialsSearchCategory': typeof import("../components/Adverts/Form/Partials/SearchCategory.vue")['default']
@@ -211,6 +213,7 @@ declare module 'vue' {
 }
 
 export const AdvertsForm: typeof import("../components/Adverts/Form/Form.vue")['default']
+export const AdvertsFormPartialsImport: typeof import("../components/Adverts/Form/Partials/Import.vue")['default']
 export const AdvertsFormPartialsReviewAndEdit: typeof import("../components/Adverts/Form/Partials/ReviewAndEdit.vue")['default']
 export const AdvertsFormPartialsSearch: typeof import("../components/Adverts/Form/Partials/Search.vue")['default']
 export const AdvertsFormPartialsSearchCategory: typeof import("../components/Adverts/Form/Partials/SearchCategory.vue")['default']
@@ -314,6 +317,7 @@ export const Head: typeof import("../node_modules/nuxt/dist/head/runtime/compone
 export const Html: typeof import("../node_modules/nuxt/dist/head/runtime/components")['Html']
 export const Body: typeof import("../node_modules/nuxt/dist/head/runtime/components")['Body']
 export const LazyAdvertsForm: typeof import("../components/Adverts/Form/Form.vue")['default']
+export const LazyAdvertsFormPartialsImport: typeof import("../components/Adverts/Form/Partials/Import.vue")['default']
 export const LazyAdvertsFormPartialsReviewAndEdit: typeof import("../components/Adverts/Form/Partials/ReviewAndEdit.vue")['default']
 export const LazyAdvertsFormPartialsSearch: typeof import("../components/Adverts/Form/Partials/Search.vue")['default']
 export const LazyAdvertsFormPartialsSearchCategory: typeof import("../components/Adverts/Form/Partials/SearchCategory.vue")['default']

@@ -8,9 +8,9 @@
         </template>
         <template #content>
             <p>Aguarde...</p>
-        <div class="flex justify-content-center">
-        <ProgressSpinner />
-        </div>
+            <div class="flex justify-content-center">
+                <ProgressSpinner />
+            </div>
         </template>
         <template #footer>
         </template>        
@@ -43,7 +43,16 @@
                     <label class="form-label label-lg">Preço:</label><br />
                     <span v-if="!isEdit" class="fs-4">{{ !formData.price ? 'Não informado' : formData.price}}</span>
                     <span v-if="isEdit">
-                        <InputNumber  v-model="formData.price" class="inputNumber" inputId="minmaxfraction" :minFractionDigits="2" :maxFractionDigits="5"  />
+                        <InputNumber v-model="formData.price" :class="{ 'p-invalid': !formData.price}" class="p-valid inputNumber" inputId="minmaxfraction" :minFractionDigits="2" :maxFractionDigits="5" mode="decimal" />
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 justify-content-end">
+                    <label class="form-label label-lg">Quantidade:</label><br />
+                    <span v-if="!isEdit" class="fs-4">{{ !formData.avaliable_quantity ? 'Não informado' : formData.avaliable_quantity}}</span>
+                    <span v-if="isEdit">
+                        <InputNumber v-model="formData.avaliable_quantity" :class="{ 'p-invalid': !formData.avaliable_quantity}" class="inputNumber" inputId="minmaxfraction" />
                     </span>
                 </div>
             </div>
@@ -52,8 +61,7 @@
                     <label class="form-label label-lg">{{ item.name }}:</label><br />
                     <span v-if="!isEdit" class="fs-4">{{ !item.value_name ? 'Não informado' : item.value_name}}</span>
                     <span v-if="isEdit">
-                        <Dropdown v-if="item.options" v-model="selected[item.id]" editable showClear :options="item.options" optionLabel="name"  />
-                        <InputText v-model="selected[item.id]" size="large" v-if="!item.options" class="form-control" />
+                        <Dropdown @change="handleChangeSelected(item.id, selected[item.id])" v-model="selected[item.id]" editable showClear :options="item.options" optionLabel="name"  />
                     </span>
                 </div>
             </div>
@@ -79,7 +87,8 @@
     </Card>
 </template>
 <script>
-import { PhotoService } from '@/src/services/PhotoService';
+import RegisterProductsService from '@/src/services/RegisterProductsService';
+
 export default {
     props:{
         items:{
@@ -127,18 +136,15 @@ export default {
                     numVisible: 1
                 }
             ],
-            formData: this.items
+            formData: []
         };
-    },
-    mounted() {
-        PhotoService.getImages().then((data) => (this.images = data));
-    },
+    },   
     methods:{
-        async handleSearch(){
+        async handleSearch(){          
             this.$emit('handleSearch'); 
         },
         async handleEdit(data){
-            this.formData.price = data.price;
+           
             const itemSelect = [];
             for(const v in data.attributes){
                 const dd = data.attributes;
@@ -155,30 +161,76 @@ export default {
                 this.isEdit = true;
                 return false;
             }           
-        },       
-        async handleImportItem(mlId){
+        },
+        async handleChangeSelected(id, data){
 
+            const attributes = [];           
+            const field = data;
+            if(field != null && typeof field === 'object'){
+                attributes[id] = {id: id, value_id: data.code, value_name: data.name};                   
+            }else{
+                attributes[id] = {id: id, value_id: '', value_name: data};
+            }
+                    
+            this.formData.attributes = attributes;
+        },
+        async handleImportItem(mlId){
             const listingTypeFree = 'free';
             this.formData.ml_id = mlId;
             this.formData.id = mlId;
             this.formData.entity_id = localStorage.getItem('entityId');
             this.formData.listing_type_id = listingTypeFree;
             this.formData.original_price = 0;
-            this.formData.available_quantity = 0;
             this.formData.buying_mode = 0;
-           
-            let i = 0;
-            const attributes = [];
-            for(const row in this.selected){
-                const field = this.selected[row];
-                if(field != null && typeof field === 'object'){
-                    attributes[row] = {value_id: this.selected[row].code, value_name: this.selected[row].name};
-                    i++;
-                }        
+
+            if(!this.formData.avaliable_quantity){
+                this.showToast('warn','Atenção','Campo quantidade não pode permanecer em branco.');
+                this.handleEdit(this.items);
+                return false;
             }
-            this.formData.attributes = attributes;
-            this.$emit('handleImportItem', this.formData);
-            this.handleSearch();
+
+            if(!this.formData.price){
+                this.showToast('warn','Atenção','Campo preço não pode permanecer em branco.');
+                this.handleEdit(this.items);
+                return false;
+            }           
+           
+            const importItem = new RegisterProductsService();
+            let formData = new FormData();
+            const value = this.formData;
+
+            for(const v in value){
+               if(v != 'attributes'){
+                  formData.append(v,value[v]);
+               }
+
+               if(v == 'attributes'){                   
+                  for(const vv in value[v]){
+                     for(const vvv in value[v][vv]){
+                        if( vvv != 'options'){
+                           let data = value[v][vv][vvv];
+                           let field = 'attributes[' + vv + '][' + vvv + ']';
+                           formData.append(field, data);
+                        }
+                     }
+                  }
+               }
+            }
+
+            const { data: responseData, error: responseError } = await importItem.importItem(formData);
+            let status = responseData.value ? responseData._rawValue.status : null;
+            status = status ?? (responseError.value ? responseError.value.statusCode : null);
+          
+            if(status === 201){
+                this.showToast('success', 'Sucesso', 'Salvo com sucesso');  
+                formData = []; 
+                this.$emit('handleImportItem', true);           
+            }
+
+            if(status === 400){
+                this.showToast('error', 'Erro', responseError.value.data.data[0]);                    
+            }
+
         },
         isObject(obj) {           
             if (obj !== null && obj !== undefined) {
@@ -186,7 +238,10 @@ export default {
             } else {
                 return false;
             }
-        }
+        },
+        async showToast(severity, summary, detail) {
+            this.$toast.add({ severity: severity, summary: summary, detail: detail, life: 3000 });
+        },
     },
     emits: ['handleSearch','handleImportItem']
 };

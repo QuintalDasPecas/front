@@ -2,7 +2,7 @@
     <Card>
         <template #title>
             <div class="row">
-                <div class="col-lg-10 col-md-10 col-sm-10 col-10">
+                <div class="col-lg-8 col-md-8 col-sm-8 col-8">
                     {{ label }}
                     <i v-Tooltip.top="'Preenchimento obrigatório.'" v-if="required" class="bi bi-asterisk icon-required"></i>&nbsp;
                     <i v-Tooltip.top="tooltip" v-if="tooltip" class="pi pi-question-circle icon-tooltip text-primary"></i>
@@ -10,7 +10,11 @@
                 <div class="col-lg-2 col-md-2 col-sm-2 col-2  d-md-flex justify-content-end" v-if="hidden == true || (hidden == false && required == false)">
                     <Button v-if="!compReadOlny[componentKey]" v-Tooltip.top="toopTipNaoAplica" icon="pi pi-eye" severity="primary" rounded outlined  aria-label="Favorite" @click="handleNaoAplica(componentKey)" />
                     <Button v-if="compReadOlny[componentKey]"  v-Tooltip.top="toopTipNaoAplica" icon="pi pi-eye-slash" severity="primary" rounded outlined aria-label="Favorite" @click="handleNaoAplica(componentKey)" />
+                    <Button icon="pi pi-eye-slash" severity="primary" rounded outlined aria-label="Favorite"></Button>
                 </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-4  d-md-flex justify-content-end" v-if="attribute_id == 'TITLE'">
+                    <Button @click="handleSearch()" text class="btn-search-custom">Refazer a busca</Button>
+                </div> 
             </div>
         </template>
         <template #subtitle>
@@ -76,7 +80,7 @@
                 <div class="col-lg-3 col-md-12 col-sm-12 col-12 justify-content-end"></div> 
                 <div class="col-lg-3 col-md-12 col-sm-12 col-12 justify-content-end"></div>
                 <div class="col-lg-3 col-md-12 col-sm-12 col-12 justify-content-end">
-                    <Button label="Confirmar" outlined  @click="handleConfirm(name, !this.value ? this.currency : this.value, attribute_id, componentKey, true)" size="large" class="float-end" />
+                    <Button label="Confirmar" outlined  @click="handleConfirm(name, !this.value ? this.currency : this.value, attribute_id, componentKey, true, label, type)" size="large" class="float-end" />
                 </div>
             </div>
         </template>
@@ -130,16 +134,15 @@ export default {
             type: Number,
             required: true,
             default: 255
-        },
-        // readonly : {
-        //     type: Boolean,
-        //     required: true,
-        //     default: false
-        // },
+        },       
         formGroup: {
             type: String,
             required: false,
-        }
+        },
+        type: {
+            type: String,
+            required: false,
+        },
     },
     data() {
         return {
@@ -153,17 +156,21 @@ export default {
         };
     },
     methods: {
-        async handleConfirm(nameProp, valueProp, attibuteId, position, required){
+        async handleConfirm(nameProp, valueProp, attibuteId, position, required, label, type){           
             this.invalid = false;
             if(required && !valueProp){
                 this.invalid = true;
+                this.showToast('warn','Atenção!','O campo não pode permanecer em branco.');
                 return false; 
             }
-            this.$emit('handleConfirm', { name: nameProp.toUpperCase() , value: valueProp, position: position });
-        },
-        // async handleGetSelected( nameProp, valueProp ){
-        //     this.$emit('handleGetSelected', { name: nameProp, value: valueProp });
-        // },
+            this.$emit('handleConfirm', { 
+                name: nameProp.toUpperCase(), 
+                value: valueProp, 
+                label: label, 
+                type: type, 
+                position: position 
+            });
+        },        
         async handleNaoAplica( position ){
             if(this.compReadOlny[position]){
                 this.compReadOlny[position] = false;
@@ -174,7 +181,6 @@ export default {
                 this.btnDisabled = true;
                 this.value = 'N/A';
             } 
-            //this.$emit('handleNaoAplica', position);
         },
         async handleGetReference(data, domain, attributeOrigin, attributeId){
             if (data){
@@ -195,8 +201,14 @@ export default {
                 }
                 this.$emit('handleGetModelByBrand', data, domain, attributeOrigin, attributeId);
             }
-        }
+        },
+        async showToast(severity, summary, detail) {
+            this.$toast.add({ severity: severity, summary: summary, detail: detail, life: 3000 });
+        },
+        async handleSearch(){
+            this.$emit('handleSearch'); 
+        },
     },   
-    emits: ['handleConfirm']
+    emits: ['handleConfirm','handleSearch']
 };
 </script>

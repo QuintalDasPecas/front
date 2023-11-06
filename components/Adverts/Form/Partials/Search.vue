@@ -1,6 +1,6 @@
 <template>   
     <Card>       
-        <template #content>
+        <template #content>           
             <div class="row box-image">
                 <Message severity="error" v-if="isMessage" :closable="false">{{ message }}</Message>
                 <div class="col-lg-10 col-md-10 col-sm-10 col-10">
@@ -74,7 +74,7 @@ export default {
         };
     },
     methods: {
-        async handleSearch(typeSearch, name){
+        async handleSearch(typeSearch, name){      
             this.typeSearch = typeSearch;
             if (this.typeSearch == 1){
                 this.handleSearchCategory(name);
@@ -87,7 +87,7 @@ export default {
         async handleSelectItems( id ){
             this.$emit('handleSelectItems', id );
         },       
-        handleClean(){
+        async handleClean(){           
             this.isMessage = false;
             this.formData.name = '';
             this.typeSearch = 2;
@@ -97,7 +97,7 @@ export default {
             this.$emit('handleSearchCategory', name);
         }, 
         async handleSearchItems( name ){
-            if( !this.formData.name ){
+            if( !name ){
                 this.message = 'Informe um termo para realizar a pesquisa.';
                 this.isMessage = true;
                 setTimeout(() => {
@@ -105,7 +105,7 @@ export default {
                 }, 5000);
                 return false;
             }
-            this.$emit('handleSearchItems', name);
+            this.$emit('handleSearchItems', name);           
         },       
         async handleSelectCategory( id ){
             this.$emit('handleSelectCategory', id);

@@ -68,7 +68,10 @@ export default {
         hint: {
             type: String,
             required: true
-        }
+        },componentKey: {
+            type: Number,
+            required: true
+        },
     },
     data() {
         return {
@@ -82,7 +85,7 @@ export default {
     },
     methods: {
         async handleConfirm(){           
-            this.$emit('handleConfirm', { name: 'ITEM_CONDITION', value: this.formData, position: 2});
+            this.$emit('handleConfirm', { name: 'ITEM_CONDITION', value: this.formData, label: 'Condição do item', type:'list', position:this.componentKey});
         },       
         async handleNaoAplica( position ){           
             if(this.compReadOlny[position]){

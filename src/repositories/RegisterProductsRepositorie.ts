@@ -24,4 +24,9 @@ export default class RegisterProductsRepositorie {
     return CallApi.store(formData);
   }
 
+  static async store(formData: FormData) {
+    CallApi.setEndPoint('items/store');
+    return CallApi.store(formData);
+  }
+
 }

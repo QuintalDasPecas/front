@@ -1,6 +1,6 @@
 <template> 
     <div class="container">       
-        <div class="row">         
+        <div class="row">
             <form  @submit.prevent="handleOnSubmit" class="row justify-content-lg-center g-4">               
                 <div class="row justify-content-lg-center" v-if="showpredict">
                     <div class="col-lg-8 col-md-12 col-sm-12 col-8">
@@ -11,7 +11,7 @@
                 </div>
                 <div class="row justify-content-lg-center" v-if="showpredict">
                     <div class="col-lg-8 col-md-8 col-sm-12 col-8">
-                        <AdvertsFormPartialsSearch                            
+                        <AdvertsFormPartialsSearch
                             @handleClean="handleClean" 
                             @handleSelectCategory="handleSelectCategory"
                             @handleSelectItems="handleSelectItems" 
@@ -22,7 +22,7 @@
                         />
                     </div>
                 </div>
-                <div class="row justify-content-lg-center" v-if="!showpredict">
+                <div class="row justify-content-lg-center" v-if="showReview">
                     <div class="col-lg-8 col-md-8 col-sm-12 col-8">
                         <AdvertsFormPartialsReviewAndEdit
                             @handleSearch="handleSearch" 
@@ -31,12 +31,13 @@
                         />
                     </div>
                 </div>
-                <div class="row justify-content-lg-center">
+                <div class="row justify-content-lg-center" v-if="showcategory">
                     <div class="col-lg-10 col-md-10 col-sm-10 col-10">
                         <AdvertsFormPartialsStoreItem
                             @handleSearch="handleSearch" 
                             @handleImportItem="handleImportItem"
                             @handleGetModelByBrand="handleGetModelByBrand"
+                            @handleOnSubmit="handleOnSubmit"
                             :showcomponent="showcomponent"
                             :componentData="componentData"
                         />
@@ -80,64 +81,58 @@ export default {
             formList: [],
             formData: [],          
             showcategory: false,
-            showlistcategory: false,           
-            increment: 5,
             showpredict: true,
-            message: '',
-            isSkeleton: false,
-            listCondition:[{
-                code: 2230581,
-                name: 'Usado'
-            },
-            {
-                code: 2230284,
-                name: 'Novo'
-            },
-            {
-                code: 2230582,
-                name: 'Recondicionado'
-            }],
-            load : false,
-            categoryId: ''
+            categoryId: '',
+            showReview: false
         };
     },
     methods: {
-        async handleOnSubmit(){
-          return false;
+        async handleOnSubmit(value){
+            if(value){
+                this.showcategory = false;
+                this.$emit('handleOnSubmit',true);
+            }            
         },        
         async handleConfirm( value ){
             this.formData[value.name] = value;
             this.showcomponent[value.position + 1] = true;
         },     
         async handleSearchOtherCategory(){
-            this.showpredict = true; 
-            this.showlistcategory = false; 
+            this.showpredict = true;           
             this.showcategory = false; 
             this.showcomponent = 0;
         },
         async handleClean( value ){
             this.formData.name = '';
+            this.showcategory = false;
             this.$emit('handleClean');
         },
         handleSearch(){
             this.$emit('handleSearch');
             this.showpredict = true;
+            this.showReview = false;
+            this.showcategory = false;
         },       
         async handleSelectItems(id){
             this.$emit('handleSelectItems', id);
             this.showpredict = false;
+            this.showReview = true;
         },
         async handleSearchItems(name){
-            this.$emit('handleSearchItems', name);
+            this.$emit('handleSearchItems', name);           
         },
         async handleSearchCategory(name){
-            this.$emit('handleSearchCategory', name);
+            this.$emit('handleSearchCategory', name);            
         },
         async handleSelectCategory(id){
             this.categoryId = id;
+            this.showcategory = true;
             this.$emit('handleSelectCategory', id);
         },
-        async handleImportItem( data ){
+        async handleImportItem( data ){            
+            this.showpredict = false;
+            this.showReview = false;
+            this.showcategory = false;
             this.$emit('handleImportItem', data);
         },
         async handleGetModelByBrand( data, domain ){
@@ -152,7 +147,8 @@ export default {
         'handleSelectCategory',
         'handleSearch',
         'handleImportItem',
-        'handleGetModelByBrand'
+        'handleGetModelByBrand',
+        'handleOnSubmit'
     ]
 }
 </script>
