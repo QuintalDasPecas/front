@@ -58,8 +58,8 @@
             </div>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 justify-content-end"  v-for="(item, k) in items.attributes">
-                    <label class="form-label label-lg">{{ item.name }}:</label><br />
-                    <span v-if="!isEdit" class="fs-4">{{ !item.value_name ? 'Não informado' : item.value_name}}</span>
+                    <label class="form-label label-lg">{{ item.name }}:</label><br />                
+                    <span v-if="!isEdit" class="fs-4">{{ !item.value_name ? (!item.values ? 'Não informado' :  item.values) : 'Não informado'}}</span>
                     <span v-if="isEdit">
                         <Dropdown @change="handleChangeSelected(item.id, selected[item.id])" v-model="selected[item.id]" editable showClear :options="item.options" optionLabel="name"  />
                     </span>

@@ -27,7 +27,11 @@ export default class EntityService {
     }
 
     public async importItems(formEntity: FormData){
-        return await repositorie.importItems(formEntity);
+        return await repositorie.importItems(formEntity); 
+    }
+
+    public async importItemsIndex(formEntity: FormData){
+        return await repositorie.importItemsIndex(formEntity); 
     }
 
     public async destroy(id: number){

@@ -124,7 +124,7 @@ export default {
         handleGetProductByToken(token){
             navigateTo(`products?token=${token}`);
         },
-        async handleCarousel(){
+        async handleBanner(){
             const carousel = new Carousel();
 
             const { data: responseData, error: responseError } = await carousel.getAllActive();
@@ -135,7 +135,7 @@ export default {
     },
     mounted() {       
         this.handleViewProducts();
-        this.handleCarousel();
+        this.handleBanner();
 
     },
 };

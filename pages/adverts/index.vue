@@ -42,7 +42,8 @@
                   <AdvertsGrid 
                      :items="itemsGrid" 
                      @handleEnableItem="handleEnableItem" 
-                     @handleDisableItem="handleDisableItem" 
+                     @handleDisableItem="handleDisableItem"
+                     @handleEdit="handleEdit"
                   />
                </div>
             </div>
@@ -313,6 +314,11 @@
          },
          async handleOnSubmit(){
             this.isForm = false;
+         },
+         async handleEdit(data){
+            this.attributes = data;
+            this.isForm = true;
+            this.isGrid = false;
          }
       },
       mounted() {

@@ -22,7 +22,7 @@
                         />
                     </div>
                 </div>
-                <div class="row justify-content-lg-center" v-if="showReview">
+                <div class="row justify-content-lg-center" v-if="attributes">
                     <div class="col-lg-8 col-md-8 col-sm-12 col-8">
                         <AdvertsFormPartialsReviewAndEdit
                             @handleSearch="handleSearch" 

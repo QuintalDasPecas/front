@@ -36,6 +36,11 @@ export default class ProductRepositorie {
     return await CallApi.store(formData);
   }
 
+  static async importItemsIndex(formData: FormData) {   
+    CallApi.setEndPoint('items/importloteindex');
+    return await CallApi.store(formData);
+  }
+
   static async destroy(id: number) {
     CallApi.setEndPoint('product');
     return CallApi.destroy(id);
