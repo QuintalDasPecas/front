@@ -515,3 +515,9 @@ section>.container-recoverpassword {
 .p-inputnumber-input{
   font-size: 18px;
 }
+
+.p-progressbar .p-progressbar-value {
+  border: 0 none;
+  margin: 0;
+  background: #198754;
+}

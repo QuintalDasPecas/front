@@ -30,6 +30,10 @@ export default class EntityService {
         return await repositorie.importItems(formEntity); 
     }
 
+    public async importItem(formEntity: FormData){
+        return await repositorie.importItem(formEntity); 
+    }
+
     public async importItemsIndex(formEntity: FormData){
         return await repositorie.importItemsIndex(formEntity); 
     }
@@ -40,5 +44,9 @@ export default class EntityService {
 
     public async updateProduct(id: number, formEntity: FormData){
         return repositorie.updateProduct(id, formEntity);
+    }
+
+    public async getAnalisys(id: string){
+        return repositorie.getAnalisys(id)
     }
 }

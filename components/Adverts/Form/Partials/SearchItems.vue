@@ -20,7 +20,12 @@
                 <i class="bi bi-chevron-right float-end fs-26 icon-color"></i>
             </div>
         </div>
-    </div>           
+    </div>
+    <div v-if="isLoading && items.length <= 0">   
+        <div class="flex justify-content-center">
+            <ProgressSpinner />
+        </div>
+    </div>
 </template>
 <script>
 export default {
@@ -29,7 +34,12 @@ export default {
             type: Object,
             required: true,
             default: []
-        }
+        },
+        isLoading: {
+            type: Boolean,
+            required: true,
+            default: false
+        },
     },
     methods: {
         async handleSelectItems( id ){

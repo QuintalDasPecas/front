@@ -1,5 +1,5 @@
 <template> 
-    <div class="container">       
+    <div class="container">
         <div class="row">
             <form  @submit.prevent="handleOnSubmit" class="row justify-content-lg-center g-4">               
                 <div class="row justify-content-lg-center" v-if="showpredict">

@@ -1,21 +1,4 @@
-<template>
-    <Card v-if="!isObject(items)">
-        <template #header>                
-        </template>
-        <template #title> 
-        </template>
-        <template #subtitle>         
-        </template>
-        <template #content>
-            <p>Aguarde...</p>
-            <div class="flex justify-content-center">
-                <ProgressSpinner />
-            </div>
-        </template>
-        <template #footer>
-        </template>        
-    </Card>
-    <br>
+<template>   
     <Card v-if="isObject(items)">
         <template #header>                
         </template>
@@ -140,7 +123,8 @@ export default {
         };
     },   
     methods:{
-        async handleSearch(){          
+        async handleSearch(){  
+            this.isLoad = true;        
             this.$emit('handleSearch'); 
         },
         async handleEdit(data){
@@ -162,8 +146,7 @@ export default {
                 return false;
             }           
         },
-        async handleChangeSelected(id, data){
-
+        async handleChangeSelected(id, data){           
             const attributes = [];           
             const field = data;
             if(field != null && typeof field === 'object'){

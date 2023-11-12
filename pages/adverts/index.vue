@@ -64,14 +64,15 @@
                      :attributes="attributes"
                      :showcomponent="showcomponent"
                      :componentData="componentData"
-                  />                 
+                  />
                </div>
             </div>
             <div class="row justify-content-lg-center" v-if="isImport">    
                <div class="col-lg-12 col-md-12 col-sm-12 col-12">                
                  <AdvertsFormPartialsImport />         
                </div>
-            </div>
+            </div>           
+            <br>
          </form>
       </div>
    </div>
@@ -98,7 +99,8 @@
             categories: [],
             componentData: {},
             isImport: false,
-            isGrid: true
+            isGrid: true,
+            isLoad: false
          }
       },
       methods: {
@@ -190,17 +192,22 @@
                      let form = [];
                      let img = '';
                      this.formList = [];
-                     responseData._rawValue.data.forEach(function( vv, key ){
-                        img = vv.picture;
-                        img = img.split(';');
-                        img = img.length > 0 ? img[(img.length)] : img;
+                     const data = responseData._rawValue.data;
+                     data.forEach(function( vv, key ){                      
+                        img = vv.picture ? vv.picture : null;
+                        if(img){
+                           if(img.indexOf(';') !== -1){
+                              img = img.split(';');
+                              img = img.length > 0 ? img[(img.length)] : img;
+                           }
+                        }
                         form[key] = { code: vv.category_id, name: vv.category_name, path: vv.category_root, image: img };
                      });
                      this.categories = form;
                      this.showpredict = true; 
-                  }
-            
+                  }            
             }catch( error ){
+               console.log(error)
                   this.message = 'Não foi possível realizar a pesquisa.';
                   this.isValid = true;
                   setTimeout(() => {
@@ -278,7 +285,7 @@
             const { data: responseData, error: responseError } = await attribute.getAttributeByCategoryId(value);
             let status = responseData.value ? responseData._rawValue.status : null;
             status = status ?? (responseError.value ? responseError.value.statusCode : null);
-
+           
             if(status == 200){
                this.handleForm(responseData._rawValue.data);
             }
@@ -313,7 +320,7 @@
           
          },
          async handleOnSubmit(){
-            this.isForm = false;
+            // this.isForm = true;
          },
          async handleEdit(data){
             this.attributes = data;

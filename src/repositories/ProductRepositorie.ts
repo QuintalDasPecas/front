@@ -36,6 +36,11 @@ export default class ProductRepositorie {
     return await CallApi.store(formData);
   }
 
+  static async importItem(formData: FormData) {   
+    CallApi.setEndPoint('items/import');
+    return await CallApi.store(formData);
+  }
+
   static async importItemsIndex(formData: FormData) {   
     CallApi.setEndPoint('items/importloteindex');
     return await CallApi.store(formData);
@@ -49,5 +54,10 @@ export default class ProductRepositorie {
   static async updateProduct(id: number, formData: FormData) {
     CallApi.setEndPoint('productenable');
     return CallApi.update(id, formData);
+  }
+
+  static async getAnalisys(id: string){
+    CallApi.setEndPoint('items/analysis');
+    return CallApi.getWhere(id);
   }
 }

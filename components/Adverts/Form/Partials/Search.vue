@@ -35,11 +35,13 @@
                 v-if="typeSearch == 2"
                 :items="items" 
                 @handleSelectItems="handleSelectItems"
+                :isLoading="isLoading"
             />
             <AdvertsFormPartialsSearchCategory 
                 v-if="typeSearch == 1"
                 :categories="categories" 
                 @handleSelectCategory="handleSelectCategory"
+                :isLoading="isLoading"
             />
         </template> 
         <template #footer>
@@ -70,11 +72,12 @@ export default {
             isMessage: false,
             placeholder: 'Ex.: Lanterna traseira lado direito',
             typeSearch: 2,
-            isSkeleton: false
+            isLoading: false
         };
     },
     methods: {
-        async handleSearch(typeSearch, name){      
+        async handleSearch(typeSearch, name){
+            this.isLoading = true;
             this.typeSearch = typeSearch;
             if (this.typeSearch == 1){
                 this.handleSearchCategory(name);
@@ -87,7 +90,8 @@ export default {
         async handleSelectItems( id ){
             this.$emit('handleSelectItems', id );
         },       
-        async handleClean(){           
+        async handleClean(){          
+            this.isLoading = false; 
             this.isMessage = false;
             this.formData.name = '';
             this.typeSearch = 2;

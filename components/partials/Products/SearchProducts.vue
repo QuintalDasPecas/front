@@ -30,12 +30,7 @@
                     </h5>
                     <h5>Estes produtos coincidem com sua busca. Algum deles é o seu?</h5>
                 </div>
-            </div>   
-            <!-- <div class="row box-image row-border" v-if="products.length <= 0 ? (categories.length <= 0 ? true : false) : false">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-                    <PartialsProductsSkeletonList /> 
-                </div>
-            </div> -->
+            </div>
             <div class="row box-image row-border cursor-pointer" v-for="product in products">
                 <div class="col-lg-2 col-md-2 col-sm-2 col-2" @click="handleSelectProducts(product.id)">
                     <img :src="product.image" :alt="product.name"  width="70" class="image-ajust"/>
