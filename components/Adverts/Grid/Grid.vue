@@ -16,8 +16,7 @@
                 </template>
             </Column>
             <Column sortable field="ml_product_id" header="MLID"></Column>
-            <Column sortable field="condition" header="Condição"></Column>
-            <Column sortable field="token" header="Token"></Column>
+            <Column sortable field="condition" header="Condição"></Column>           
             <Column sortable header="Ativo">
                 <template #body="slotProps">
                     <Tag class="adverts" :value="slotProps.data.actived" :severity="getSeverity(slotProps.data)" />

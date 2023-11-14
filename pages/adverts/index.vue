@@ -64,6 +64,7 @@
                      :attributes="attributes"
                      :showcomponent="showcomponent"
                      :componentData="componentData"
+                     :isReview="isReview"
                   />
                </div>
             </div>
@@ -100,7 +101,8 @@
             componentData: {},
             isImport: false,
             isGrid: true,
-            isLoad: false
+            isLoad: false,
+            isReview: false
          }
       },
       methods: {
@@ -174,6 +176,7 @@
             this.isForm = value;
             this.isGrid = !value;
             this.items = [];
+            this.isReview = false;
          },
          async handleSearchCategory(value){
             try{
@@ -223,7 +226,7 @@
                   this.formList[0] = value;
                   this.showcategory = false;
                   this.showlistcategory = true;
-            } 
+            }            
          },        
          async handleSearchItems(name){
             this.items = [];
@@ -252,14 +255,15 @@
             }
          },
          async handleSelectItems(id){
+            this.isReview = true;
             this.attributes = undefined;
             const registerproduct = new RegisterProductsService();
             const { data: responseData, error: responseError } = await registerproduct.getItemsByItem(id);
             let status = responseData.value ? responseData._rawValue.status : null;
             status = status ?? (responseError.value ? responseError.value.statusCode : null);
-
+           
             if( status == 200 ){                 
-                  this.attributes = responseData._rawValue.data;
+                  this.attributes = responseData._rawValue.data;                 
             }
          },        
          async handleGetSelected(value){
@@ -275,9 +279,13 @@
             this.isImport = true;
             this.isGrid = false;
          }, 
-         async handleImportItem(value){
-            this.handleCreate(false);
+         async handleImportItem(value){           
             this.handleGetProductsByEntityId();
+            if(value){
+               this.isForm = false;
+               this.isReview = false;
+            }
+            this.handleCreate(false);
          },
          async handleGetAttributeByCategoryId(value){
             this.componentData = [];            
@@ -308,6 +316,7 @@
             this.categories = {};
             this.items = {};
             this.showpredict = true;
+            this.isReview = false;
          },
          async handleClean(){
             this.items = [];
@@ -325,6 +334,7 @@
          async handleEdit(data){
             this.attributes = data;
             this.isForm = true;
+            this.isReview = true;
             this.isGrid = false;
          }
       },

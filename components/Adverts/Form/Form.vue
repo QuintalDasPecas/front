@@ -22,7 +22,7 @@
                         />
                     </div>
                 </div>
-                <div class="row justify-content-lg-center" v-if="attributes">
+                <div class="row justify-content-lg-center" v-if="isReview">
                     <div class="col-lg-8 col-md-8 col-sm-12 col-8">
                         <AdvertsFormPartialsReviewAndEdit
                             @handleSearch="handleSearch" 
@@ -50,6 +50,11 @@
 <script>
 export default {
     props:{
+        isReview: {
+            type: Boolean,
+            required: true,
+            default: false
+        },
         showcomponent: {
             type: Object,
             required: true,
@@ -119,7 +124,7 @@ export default {
             this.showReview = true;
         },
         async handleSearchItems(name){
-            this.$emit('handleSearchItems', name);           
+            this.$emit('handleSearchItems', name);
         },
         async handleSearchCategory(name){
             this.$emit('handleSearchCategory', name);            

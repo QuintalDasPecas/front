@@ -99,7 +99,7 @@
                 </div>               
                 <div class="row justify-content-lg-center">
                     <div class="col-lg-8 col-md-12 col-sm-12 col-12 g-4">
-                        <PartialsProductsUploads  
+                        <PartialsProductsUploads
                         v-if="showcomponent[6]"  
                         :componentKey="6"
                         @handleConfirm="handleConfirm"  />
@@ -108,7 +108,7 @@
                 <span v-for="(group) in componentData">
                     <div class="row justify-content-lg-center"  v-if="showcomponent[group.position]">
                         <div class="col-lg-8 col-md-12 col-sm-12 col-12">
-                            <PartialsProductsAutoComponent                               
+                            <PartialsProductsAutoComponent
                                 :id="group.position" 
                                 :attribute_id="group.ml_attribute_id" 
                                 :component="group.component" 
@@ -150,8 +150,7 @@
             </form>
         </div>
     </div>  
-    <toast></toast> 
-    aaa {{ showpredict }} 
+    <Toast />
 </template>
 <script>
 import items from "@/src/services/RegisterProductsService";
@@ -298,7 +297,7 @@ export default {
             this.formData.name = '';
             this.$emit('handleClean');
         },
-        handleSearch(){            
+        handleSearch(){
             this.$emit('handleSearch');
         },       
         async handleSelectItems(id){
