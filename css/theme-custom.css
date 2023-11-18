@@ -208,8 +208,6 @@ section>.container-recoverpassword {
 
 .input-text-main-features{
   width: 100%;
-  border-right: 0px;
-  border-left: 0px;
 }
 
 .p-listbox-item{
@@ -520,4 +518,13 @@ section>.container-recoverpassword {
   border: 0 none;
   margin: 0;
   background: #198754;
+}
+
+.p-inputtext.p-inputtext-lg {
+  font-size: 1.2rem;
+  padding: 0.9375rem 0.9375rem;
+  padding-top: 0.9375rem;
+  padding-right: 0.9375rem;
+  padding-bottom: 0.9375rem;
+  padding-left: 0.9375rem;
 }

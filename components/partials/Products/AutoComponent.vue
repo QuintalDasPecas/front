@@ -7,10 +7,10 @@
                     <i v-Tooltip.top="'Preenchimento obrigatório.'" v-if="required" class="bi bi-asterisk icon-required"></i>&nbsp;
                     <i v-Tooltip.top="tooltip" v-if="tooltip" class="pi pi-question-circle icon-tooltip text-primary"></i>
                 </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-2"></div>
                 <div class="col-lg-2 col-md-2 col-sm-2 col-2  d-md-flex justify-content-end" v-if="hidden == true || (hidden == false && required == false)">
                     <Button v-if="!compReadOlny[componentKey]" v-Tooltip.top="toopTipNaoAplica" icon="pi pi-eye" severity="primary" rounded outlined  aria-label="Favorite" @click="handleNaoAplica(componentKey)" />
                     <Button v-if="compReadOlny[componentKey]"  v-Tooltip.top="toopTipNaoAplica" icon="pi pi-eye-slash" severity="primary" rounded outlined aria-label="Favorite" @click="handleNaoAplica(componentKey)" />
-                    <Button icon="pi pi-eye-slash" severity="primary" rounded outlined aria-label="Favorite"></Button>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4 col-4  d-md-flex justify-content-end" v-if="attribute_id == 'TITLE'">
                     <Button @click="handleSearch()" text class="btn-search-custom">Refazer a busca</Button>

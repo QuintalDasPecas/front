@@ -26,6 +26,14 @@
                     <Button v-if="!compReadOlny[2]" v-Tooltip.top="toopTipNaoAplica" icon="pi pi-eye" severity="primary" text   aria-label="Favorite" @click="handleNaoAplica(2)"  class="float-end" />
                     <Button v-if="compReadOlny[2]"  v-Tooltip.top="toopTipNaoAplica" icon="pi pi-eye-slash" severity="primary" text  aria-label="Favorite" @click="handleNaoAplica(2)" class="float-end"  />
                     <InputText v-model="formData[2]"  size="large" class="input-text-main-features" :class="{ 'p-invalid': invalid }" :maxlength="'255'" :readonly="compReadOlny[2]" :id="'AVAILABLE_QUANTITY'"/>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                    <label for="stockLocation" class="form-label label-lg">
+                        Localização no estoque <i v-Tooltip.top="'Preenchimento obrigatório.'" v-if="required" class="bi bi-asterisk icon-required"></i>
+                    </label>                   
+                    <Button v-if="!compReadOlny[3]" v-Tooltip.top="toopTipNaoAplica" icon="pi pi-eye" severity="primary" text   aria-label="Favorite" @click="handleNaoAplica(3)"  class="float-end" />
+                    <Button v-if="compReadOlny[3]"  v-Tooltip.top="toopTipNaoAplica" icon="pi pi-eye-slash" severity="primary" text  aria-label="Favorite" @click="handleNaoAplica(3)" class="float-end"  />
+                    <InputText v-model="formData[3]"  size="large" class="input-text-main-features" :class="{ 'p-invalid': invalid }" :maxlength="'255'" :readonly="compReadOlny[3]" :id="'STOCK_LOCATION'"/>
                 </div>                
             </div>
         </template> 
@@ -112,6 +120,7 @@ export default {
             }   
             this.$emit('handleConfirm', { name: 'PRICE', value: this.formData[1], label: 'Preço', type:'number', position: this.componentKey});
             this.$emit('handleConfirm', { name: 'QUANTITY', value: this.formData[2], label: 'Qunatidade', type:'number', position: this.componentKey});
+            this.$emit('handleConfirm', { name: 'STOCK_LOCATION', value: this.formData[3], label: 'Localização', type:'string', position: this.componentKey});
         },       
         async handleNaoAplica( position ){           
             if(this.compReadOlny[position]){

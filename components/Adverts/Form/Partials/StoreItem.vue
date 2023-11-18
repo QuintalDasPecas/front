@@ -212,7 +212,7 @@ export default {
             form.append('buying_mode', 'buy_it_now');
             form.append('id', '');
             form.append('original_price', 0.00);
-            form.append('domain_id', this.componentData[0].ml_domain_id);
+            form.append('domain_id', this.componentData[0].ml_domain_id);           
 
            for(const v in data){
 
@@ -238,6 +238,11 @@ export default {
 
                 if (data[v].name == 'QUANTITY'){
                     form.append('avaliable_quantity', data[v].value);
+                    add = true;
+                }
+
+                if (data[v].name == 'STOCK_LOCATION'){
+                    form.append('stock_location', data[v].value);
                     add = true;
                 }
 
