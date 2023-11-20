@@ -11,4 +11,18 @@ export default class EntityRepositorie {
     CallApi.setEndPoint('entityfile');
     return CallApi.find(id);
   }
+
+  static async approve(id: number){
+    CallApi.setEndPoint('entityfile/document/approve');
+    const formData = new FormData();
+    formData.append('approved', '1');
+    return CallApi.update(id, formData);
+  }
+
+  static async reject(id: number){
+    CallApi.setEndPoint('entityfile/document/reject');
+    const formData = new FormData();
+    formData.append('reject', '1');
+    return CallApi.update(id, formData);
+  }
 }

@@ -3,25 +3,62 @@
     <Message severity="success" v-if="successMessage">{{ successMessage }}</Message>
     <Message severity="error" v-if="errorMessage">{{ errorMessage }}</Message>
     <div class="card">
-        <DataTable v-model:selection="selected" :value="entityFilesData" dataKey="id" tableStyle="min-width: 50rem">
-            <Column selectionMode="multiple" headerStyle="width: 3rem"></Column>
-            <Column field="file_name" header="Nome"></Column>
-            <Column field="format" header="Formato"></Column>
-            <Column field="size" header="Tamanho"></Column>
-            <Column field="name" header="Entidade"></Column>
+        <DataTable 
+            :value="entityFilesData" 
+            dataKey="id" 
+            tableStyle="min-width: 50rem"
+            paginator 
+            :rows="5" 
+            :rowsPerPageOptions="[5, 10, 20, 50]"
+            stripedRows 
+        >            
+            <Column field="id" header="ID" sortable >
+                <template #body="slotProps">                 
+                    #{{slotProps.data.id}}
+                </template>
+            </Column>
+            <Column header="Nome" sortable>
+                <template #body="slotProps">                   
+                    <NuxtLink :to="slotProps.data.file" target="_blank">
+                        {{slotProps.data.file_name}}
+                    </NuxtLink> 
+                </template>
+            </Column>
+            <Column field="format" header="Formato" sortable></Column>
+            <Column field="size" header="Tamanho" sortable></Column>
+            <Column field="name" header="Entidade" sortable></Column>
+            <Column field="status" header="Status" sortable></Column>
+            <Column header="Ação">
+                <template #body="slotProps">                 
+                    <Button
+                        v-if="!slotProps.data.rejected"
+                        icon="pi pi-times" 
+                        v-tooltip.top="'Reprovar'" 
+                        outlined rounded severity="danger" 
+                        @click="handleConfirmDialog(2,slotProps.data.id)"
+                        size="large"
+                    />
+                    {{ !slotProps.data.status ? "&nbsp;" : "" }}
+                    <Button
+                        v-if="!slotProps.data.approved"
+                        icon="pi pi-check" 
+                        v-tooltip.top="'Aprovar'" 
+                        outlined rounded severity="success" 
+                        @click="handleConfirmDialog(1,slotProps.data.id)"
+                        size="large"
+                    />
+                </template>
+            </Column>
         </DataTable>       
-    </div>
-    <div class="d-grip  d-md-flex gap-3 justify-content-end TestDeleteButton"> 
-        <Button label="Excluir" severity="danger" icon="pi pi-trash" @click="handleOnDelete()" />
-    </div>
+    </div>   
     <br>  
     <FileUpload name="files[]" :url="url" @upload="onTemplatedUpload($event)" :multiple="true" accept="image/*" :maxFileSize="1000000" @select="onSelectedFiles">
         <template #header="{ chooseCallback, uploadCallback, clearCallback, files }">
             <div class="flex flex-wrap justify-content-between align-items-center flex-1 gap-2">
                 <div class="flex gap-2">
                     <Button @click="chooseCallback()" icon="pi pi-images" rounded outlined></Button>
-                    <Button @click="uploadEvent()" icon="pi pi-cloud-upload" rounded outlined severity="success" :disabled="!files || files.length === 0"></Button>
-                    <Button @click="ClearMsg();" icon="pi pi-times" rounded outlined severity="danger" :disabled="!files || files.length === 0"></Button>
+                    <Button @click="uploadEvent(uploadCallback)" icon="pi pi-cloud-upload" rounded outlined severity="success" :disabled="!files || files.length === 0"></Button>
+                    <Button @click="clearCallback();" icon="pi pi-times" rounded outlined severity="danger" :disabled="!files || files.length === 0"></Button>
                 </div>
                 <ProgressBar :value="totalSizePercent" :showValue="false" :class="['md:w-20rem h-1rem w-full md:ml-auto', { 'exceeded-progress-bar': totalSizePercent > 100 }]">
                     <span class="white-space-nowrap">{{ totalSize }}B / 1Mb</span>
@@ -65,6 +102,8 @@
                 </div>
             </template>
     </FileUpload>
+    <Toast />
+    <ConfirmDialog />
 </template>
 <script>
 import uploadService from '@/src/services/UploadService';
@@ -110,26 +149,30 @@ export default {
                 this.totalSize += parseInt(this.formatSize(file.size));
             });
         },
-        async uploadEvent() {
+        async uploadEvent(uploadCallback) {
            this.successMessage = '';
            this.totalSizePercent = this.totalSize / 10;
 
-           const formData = new FormData();        
-           formData.append('file', this.files[0], this.files[0].name);
+           const formData = new FormData();   
+           const files = this.files;
+           
+            files.forEach(function(v,k){
+                formData.append('files['+k+']', v);
+            });           
            formData.append('user_id', localStorage.getItem('userId'));
            formData.append('entity_id', localStorage.getItem('entityId'));
+           formData.append('upload_type', 'entityDocuments');
 
            const service = new uploadService();
            const responseData = await service.Upload(formData);
 
-           if (responseData.data._rawValue.status == 201){
-                this.onTemplatedUpload('Upload realizado com sucesso.');
+           if (responseData.data._rawValue.status == 201){               
                 this.getEntityFileByEntityId();
-                this.clearCallback();
+                uploadCallback();
            }
         },
-        onTemplatedUpload( msg ) {
-            this.successMessage = msg;
+        onTemplatedUpload() {
+            this.showToast('success','Sucesso','Upload concluído com sucesso.');
         },
         formatSize(bytes) {
             if (bytes === 0) {
@@ -148,9 +191,11 @@ export default {
         },
         onRowEditSave(event) {
             let { newData, index } = event;
-
             this.products[index] = newData;
-        },        
+        },
+        async showToast(severity, summary, detail) {
+            this.$toast.add({ severity: severity, summary: summary, detail: detail, life: 3000 });
+        },     
         async getEntityFileByEntityId(){           
            
             const entityId = localStorage.getItem('entityId');
@@ -185,15 +230,65 @@ export default {
 
             await Promise.all(deletePromises);  
             this.getEntityFileByEntityId();                
+        },   
+        async handleConfirmDialog( action, data ){           
+            this.confirmDiaog = true;
+            this.formData = data;
+            this.action = action;
+            switch(action){                
+                case 1:
+                    this.msgDialogConfirm = 'Tem certeza que deseja aprovar o documento?';
+                break;
+                case 2:
+                    this.msgDialogConfirm = 'Tem certeza que deseja reprovar o documento?';
+                break;
+            }
+
+            this.$confirm.require({
+                message: this.msgDialogConfirm,
+                header: 'Atenção!',
+                icon: 'pi pi-exclamation-triangle',
+                acceptLabel: 'Sim',
+                rejectLabel: 'Não',
+                accept: () => {
+                    this.handleYesDialog(action, data);
+                },
+                reject: () => {
+                    this.handleNoDialog();
+                }
+            });         
+        },
+        async handleYesDialog(action, id){
+            switch(action){                
+                case 1:
+                    this.handleApproveDoc(id);
+                break;
+                case 2:
+                    this.handleRejectDoc(id);
+                break;
+            }
+        },
+        async handleNoDialog(){
+            console.log('no')
+        },
+        async handleApproveDoc(id){
+            const entity = new entityFileService();
+            const responseData = await entity.approve(id);
+            const status = responseData.data._rawValue ? responseData.data._rawValue.status : [];
+
+            if (status === 201) {
+                this.getEntityFileByEntityId();
+            }
+        },
+        async handleRejectDoc(id){
+            const entity = new entityFileService();
+            const responseData = await entity.reject(id);
+            const status = responseData.data._rawValue ? responseData.data._rawValue.status : [];
+
+            if (status === 201) {
+                this.getEntityFileByEntityId();
+            }
         }
-    },
-    created() {
-        this.columns = [
-            { field: 'file_name', header: 'Name' },
-            { field: 'format', header: 'Tipo' },
-            { field: 'size', header: 'Tamanho' },
-            { field: 'name', header: 'Entidade' }
-        ];
     },
     mounted() {
         this.getEntityFileByEntityId();

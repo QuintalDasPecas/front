@@ -8,7 +8,7 @@
     </div>
     <div class="col-lg-10 col-md-10 col-sm-10 col-10"></div>
     <div class="row g-4 bannerTop">
-        <DataTable v-model:selection="selected" :value="bannerServiceData" dataKey="id" tableStyle="min-width: 50rem">
+        <DataTable v-model:selection="selected" :value="bannerServiceData" dataKey="id" tableStyle="min-width: 50rem" paginator :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]">
             <Column field="id" header="ID"></Column>
             <Column field="file_path" header="Banner">
                 <template #body="slotProps">
@@ -36,8 +36,8 @@
             <div class="flex flex-wrap justify-content-between align-items-center flex-1 gap-2">
                 <div class="flex gap-2">
                     <Button @click="chooseCallback()" icon="pi pi-images" rounded outlined></Button>
-                    <Button @click="uploadEvent()" icon="pi pi-cloud-upload" rounded outlined severity="success" :disabled="!files || files.length === 0"></Button>
-                    <Button @click="ClearMsg();" icon="pi pi-times" rounded outlined severity="danger" :disabled="!files || files.length === 0"></Button>
+                    <Button @click="uploadEvent(uploadCallback)" icon="pi pi-cloud-upload" rounded outlined severity="success" :disabled="!files || files.length === 0"></Button>
+                    <Button @click="clearCallback();" icon="pi pi-times" rounded outlined severity="danger" :disabled="!files || files.length === 0"></Button>
                 </div>
                 <ProgressBar :value="totalSizePercent" :showValue="false" :class="['md:w-20rem h-1rem w-full md:ml-auto', { 'exceeded-progress-bar': totalSizePercent > 100 }]">
                     <span class="white-space-nowrap">{{ totalSize }}B / 1Mb</span>
@@ -81,6 +81,7 @@
                 </div>
             </template>
     </FileUpload>
+    <Toast />
 </template>
 <script>
 import BannerService from '@/src/services/BannerService';
@@ -124,26 +125,30 @@ export default {
                 this.totalSize += parseInt(this.formatSize(file.size));
             });
         },
-        async uploadEvent() {
+        async uploadEvent(callback) {
            this.successMessage = '';
            this.totalSizePercent = this.totalSize / 10;
 
-           const formData = new FormData();        
-           formData.append('file', this.files[0], this.files[0].name);
+           const formData = new FormData();
+           const files = this.files;
+
+            files.forEach(function(v,k){
+                formData.append('files['+k+']', v);
+            }); 
+
            formData.append('user_id', localStorage.getItem('userId'));
            formData.append('entity_id', localStorage.getItem('entityId'));
 
            const service = new BannerService();
            const responseData = await service.Upload(formData);
 
-           if (responseData.data._rawValue.status == 201){
-                this.onTemplatedUpload('Upload realizado com sucesso.');
+           if (responseData.data._rawValue.status == 201){             
                 this.getBanner();
-                this.clearCallback();
            }
+           callback();
         },
-        onTemplatedUpload( msg ) {
-            this.successMessage = msg;
+        onTemplatedUpload() {
+            this.showToast('success','Sucesso','Upload realizado com sucesso.');
         },
         formatSize(bytes) {
             if (bytes === 0) {
@@ -216,7 +221,10 @@ export default {
                     default:
                         return null;
                 }
-            },
+        },
+        async showToast(severity, summary, detail) {
+            this.$toast.add({ severity: severity, summary: summary, detail: detail, life: 3000 });
+        }, 
     },
     created() {
         this.columns = [

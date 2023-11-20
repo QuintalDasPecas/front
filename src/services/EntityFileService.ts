@@ -10,4 +10,11 @@ export default class EntityService {
         return await repositorie.getFileByEntityId(id);
     }
 
+    public async approve(id: number){
+        return await repositorie.approve(id);
+    }
+
+    public async reject(id: number){
+        return await repositorie.reject(id);
+    }
 }
