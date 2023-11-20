@@ -132,6 +132,7 @@ export default {
         async handleSelectCategory(id){
             this.categoryId = id;
             this.showcategory = true;
+            this.showpredict = false;
             this.$emit('handleSelectCategory', id);
         },
         async handleImportItem( data ){            

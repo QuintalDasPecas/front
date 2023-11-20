@@ -32,10 +32,9 @@
                         />
                     </div>
                 </div> 
-                <div class="row justify-content-lg-center">
+                <div v-if="showcomponent[1]" class="row justify-content-lg-center">
                     <div class="col-lg-8 col-md-8 col-sm-12 col-12 g-4">                      
-                        <PartialsProductsGroupBrandAndModel
-                            v-if="showcomponent[1]" 
+                        <PartialsProductsGroupBrandAndModel                           
                             :label="'Preencha as informações do seu produto.'"
                             :hint="''"
                             :required="true"
@@ -48,10 +47,9 @@
                         />
                     </div>
                 </div>              
-                <div class="row justify-content-lg-center">
-                    <div class="col-lg-8 col-md-8 col-sm-12 col-12 g-4">
-                        <PartialsProductsItemCondition
-                            v-if="showcomponent[2]" 
+                <div v-if="showcomponent[2]" class="row justify-content-lg-center">
+                    <div class="col-lg-8 col-md-8 col-sm-12 col-12 g-4" >
+                        <PartialsProductsItemCondition                           
                             :label="'Qual é a condição do seu produto?'"
                             :hint="'Se foi usado de alguma forma, selecione usado.'"
                             :required="true"
@@ -62,10 +60,9 @@
                         />
                     </div>
                 </div>
-                <div class="row justify-content-lg-center">
-                    <div class="col-lg-8 col-md-8 col-sm-12 col-12 g-4">
+                <div v-if="showcomponent[3]" class="row justify-content-lg-center">
+                    <div class="col-lg-8 col-md-8 col-sm-12 col-12 g-4"  >
                         <PartialsProductsGroupPriceAndQuantity
-                            v-if="showcomponent[3]" 
                             :label="'Preencha as informações do seu produto.'"
                             :hint="''"
                             :required="true"
@@ -75,10 +72,9 @@
                         />
                     </div>
                 </div>
-                <div class="row justify-content-lg-center">
+                <div v-if="showcomponent[4]" class="row justify-content-lg-center">
                     <div class="col-lg-8 col-md-12 col-sm-12 col-12 g-4">
-                        <PartialsProductsRegulatoryInformation
-                            v-if="showcomponent[4]" 
+                        <PartialsProductsRegulatoryInformation                            
                             :label="'Preencha as informações regulatórias'"
                             :hint="'Conforme a legislação vigete do Brasil, estes dados são necessários para que você possa vender seu produto'"
                             @handleConfirm="handleConfirm"
@@ -86,7 +82,7 @@
                         />
                     </div>
                 </div> 
-                <div class="row justify-content-lg-center">
+                <div v-if="showcomponent[5]" class="row justify-content-lg-center">
                     <div class="col-lg-8 col-md-12 col-sm-12 col-12 g-4">
                         <PartialsProductsUniversalCode
                             v-if="showcomponent[5]" 
@@ -97,16 +93,15 @@
                         />
                     </div>
                 </div>               
-                <div class="row justify-content-lg-center">
+                <div v-if="showcomponent[6]" class="row justify-content-lg-center">
                     <div class="col-lg-8 col-md-12 col-sm-12 col-12 g-4">
-                        <PartialsProductsUploads
-                        v-if="showcomponent[6]"  
+                        <PartialsProductsUploads                        
                         :componentKey="6"
                         @handleConfirm="handleConfirm"  />
                     </div>
                 </div>
                 <span v-for="(group) in componentData">
-                    <div class="row justify-content-lg-center"  v-if="showcomponent[group.position]">
+                    <div v-if="showcomponent[group.position]" class="row justify-content-lg-center">
                         <div class="col-lg-8 col-md-12 col-sm-12 col-12">
                             <PartialsProductsAutoComponent
                                 :id="group.position" 
@@ -130,23 +125,23 @@
                             /><br>
                         </div>
                     </div>
-                </span>
-                <div class="row justify-content-lg-center"  v-if="showpredict">
-                    <Card>
-                        <template #content>
-                            <div class="row">
-                                <div class="col-lg-2 col-md-2 col-sm-2 col-2">
-                                    <Button @click="handleReset()" label="Cancelar" outlined size="large" class="float-start" />
+                    <div v-if="showbuttom[group.position]" class="row justify-content-lg-center">
+                        <Card>
+                            <template #content>
+                                <div class="row">
+                                    <div class="col-lg-2 col-md-2 col-sm-2 col-2">
+                                        <Button @click="handleReset()" label="Cancelar" outlined size="large" class="float-start" />
+                                    </div>
+                                    <div class="col-lg-8 col-md-8 col-sm-8 col-8">
+                                    </div>
+                                    <div class="col-lg-2 col-md-2 col-sm-2 col-2">
+                                        <Button @click="handleOnSubmit()" label="Cadastrar" outlined size="large" class="float-end" />
+                                    </div>
                                 </div>
-                                <div class="col-lg-8 col-md-8 col-sm-8 col-8">
-                                </div>
-                                <div class="col-lg-2 col-md-2 col-sm-2 col-2">
-                                    <Button @click="handleOnSubmit()" label="Cadastrar" outlined size="large" class="float-end" />
-                                </div>
-                            </div>
-                        </template>
-                    </Card>
-                </div>               
+                            </template>
+                        </Card>
+                    </div>
+                </span>                               
             </form>
         </div>
     </div>  
@@ -184,7 +179,8 @@ export default {
                 code: 'reconditioned',
                 name: 'Recondicionado'
             }],
-            listBrand: []
+            listBrand: [],
+            showbuttom: []
         };
     },
     methods: {
@@ -193,18 +189,20 @@ export default {
         }, 
         async handleOnSubmit(){
             
-            const isValid = await this.isValidForm();
+            // const isValid = await this.isValidForm();
 
-            if(!isValid){
-                this.$emit('handleOnSubmit',false);
-                return false;
-            }
+            // if(!isValid){
+            //     this.$emit('handleOnSubmit',false);
+            //     return false;
+            // }
 
             const data = this.formData;
             const form = new FormData();
             let i = 0;
             let add = false;
             const entityId = localStorage.getItem('entityId');
+            const userId = localStorage.getItem('userId');
+            form.append('user_id', userId);
             form.append('entity_id', entityId);
             form.append('listing_type_id', 'free');            
             form.append('category_id', this.componentData[0].ml_category_id)
@@ -213,11 +211,16 @@ export default {
             form.append('id', '');
             form.append('original_price', 0.00);
             form.append('domain_id', this.componentData[0].ml_domain_id);           
+            form.append('upload_type', 'items'); 
 
            for(const v in data){
 
                 if (data[v].name == 'files'){
-                    form.append('file', data[v].value[0], data[v].value[0].name);
+                    const file = data[v].value;
+
+                    file.forEach(function(v,k){
+                        form.append('files['+ k +']', v); 
+                    })
                     add = true;
                 }
 
@@ -264,7 +267,7 @@ export default {
             }
 
             const item = new items();
-            const {data: responseData, error: responseError} = await item.store(form);
+            const {data: responseData, error: responseError} = await item.upload(form);
 
             let status = responseData.value ? responseData._rawValue.status : null;
             status = status ?? (responseError.value ? responseError.value.statusCode : null);
@@ -272,9 +275,14 @@ export default {
             if(status == 201){
                 this.showToast('success','Sucesso','Registro salvo com sucesso');
                 this.formData = [];
+                this.showbuttom = [];
                 this.$emit('handleOnSubmit',true);
-            }
 
+                const showComponent = this.showcomponent;
+                for(let i = 1; showComponent.length > i; i++){
+                    this.showcomponent[i] = false;
+                }
+            }
             
         },
         async handleReset(){
@@ -283,6 +291,8 @@ export default {
         async handleConfirm( value ){
             this.formData[value.name] = value;
             this.showcomponent[value.position + 1] = true;
+            this.showbuttom[value.position] = false;
+            this.showbuttom[value.position + 1] = true;
             let values = this.componentData ?? [];
             let list = [];
 
@@ -302,7 +312,7 @@ export default {
             this.formData.name = '';
             this.$emit('handleClean');
         },
-        handleSearch(){
+        async handleSearch(){
             this.$emit('handleSearch');
         },       
         async handleSelectItems(id){
@@ -327,11 +337,11 @@ export default {
         },
         async isValidForm(){
             const data = this.formData;
-            let isValid = false;
+            let isValid = true;
            
             if(data.length == 0){
                 this.showToast('warn','Atenção','Campos obrigatórios em branco.');
-                isValid = true;
+                isValid = false;
             }
             
             return isValid;

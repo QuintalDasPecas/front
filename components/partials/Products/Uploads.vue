@@ -109,8 +109,8 @@ export default {
            this.successMessage = '';
            this.totalSizePercent = this.totalSize / 10;
 
-           const formData = new FormData();        
-           formData.append('file', this.files[0], this.files[0].name);
+           const formData = new FormData();
+           formData.append('files[]', this.files, this.files[0].name);
            formData.append('user_id', localStorage.getItem('userId'));
            formData.append('entity_id', localStorage.getItem('entityId'));
 

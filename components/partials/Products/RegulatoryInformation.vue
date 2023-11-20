@@ -101,7 +101,6 @@ export default {
                 this.btnDisabled = true;
                 this.formData.inmetro = 'N/A';
             } 
-            this.$emit('handleNaoAplica', position);
         }
     },   
     emits: ['handleConfirm']

@@ -136,8 +136,7 @@ export default {
                 this.compReadOlny[position] = true;
                 this.btnDisabled = true;
                 this.formData[position] = 'N/A';
-            } 
-            this.$emit('handleNaoAplica', position);
+            }            
         },
         async handleGetModelByBrand(data, domain, attributeOrigin, attributeId){
             if (data){

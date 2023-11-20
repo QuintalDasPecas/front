@@ -120,7 +120,6 @@ export default {
                 this.btnDisabled = true;
                 this.formData[position] = 'N/A';
             } 
-            this.$emit('handleNaoAplica', position);
         }
     },   
     emits: ['handleConfirm']
