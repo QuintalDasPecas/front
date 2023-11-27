@@ -1,4 +1,3 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
   css: [
@@ -16,8 +15,7 @@ export default defineNuxtConfig({
     '~/css/swiper.css' ,
     'primevue/resources/themes/lara-light-blue/theme.css',
     'bootstrap/dist/css/bootstrap.min.css',
-    'bootstrap-icons/font/bootstrap-icons.min.css' ,
-    
+    'bootstrap-icons/font/bootstrap-icons.min.css',    
   ],
   build: {
 		transpile: ["primevue"]
