@@ -532,7 +532,3 @@ section>.container-recoverpassword {
 .ui-pdp-gallery__column__variation-picture, .ui-pdp-gallery__figure {
    height: 0%;
 }
-
-button {
-  border-radius: inherit;
-}

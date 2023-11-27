@@ -2,6 +2,7 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   css: [
+    'primeflex/primeflex.css',
     '~/css/navigation-desktop.css',
     '~/css/home.css',
     '~/css/font-family.css',
@@ -15,8 +16,7 @@ export default defineNuxtConfig({
     'bootstrap/dist/css/bootstrap.min.css',
     'bootstrap-icons/font/bootstrap-icons.min.css' ,
     'primeicons/primeicons.css',
-    '~/css/theme-custom.css',
-    'primeflex/primeflex.css' 
+    '~/css/theme-custom.css',    
   ],
   build: {
 		transpile: ["primevue"]
