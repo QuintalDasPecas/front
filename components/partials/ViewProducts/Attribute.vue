@@ -11,7 +11,7 @@
                             <div class="andes-table__header__container">{{ v.name }}</div>
                         </th>
                         <td class="andes-table__column andes-table__column--left andes-table__column--vertical-align-center ui-vpp-striped-specs__row__column">
-                            <span class="andes-table__column--value">{{ v.values }}</span>
+                            <span class="andes-table__column--value">{{ v.value_name }}</span>
                         </td>
                     </tr>                    
                 </tbody>

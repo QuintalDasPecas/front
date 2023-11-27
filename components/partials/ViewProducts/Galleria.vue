@@ -34,8 +34,7 @@
                                             <Image :src="v.url" class="ui-pdp-image" />
                                         </div>
                                     </div>
-                                </label>
-                                
+                                </label>                                
                             </span> 
                         </span> 
                     </div>
@@ -44,7 +43,6 @@
         </div>
     </div>
 </template>
-
 <script>
     export default{
         props:{

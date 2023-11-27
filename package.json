@@ -4,7 +4,8 @@
   "scripts": {    
     "postinstall": "nuxt build",    
     "start": "nuxt start",
-    "generate": "nuxt generate"
+    "generate": "nuxt generate",
+    "dev": "nuxt dev"
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",

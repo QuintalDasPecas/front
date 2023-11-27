@@ -528,3 +528,7 @@ section>.container-recoverpassword {
   padding-bottom: 0.9375rem;
   padding-left: 0.9375rem;
 }
+
+.ui-pdp-gallery__column__variation-picture, .ui-pdp-gallery__figure {
+   height: 0%;
+}

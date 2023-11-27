@@ -5,9 +5,7 @@
                 id="ui-pdp-main-container">
                 <PartialsViewProductsViewItem :formData="formData" />               
                 <div class="ui-pdp-container__col col-2 ui-pdp-container--column-left pb-40">
-                    <PartialsViewProductsGalleria :Images="formData.pictures" />
-                    <PartialsViewProductsDescription :description="formData.description" /> 
-                    <!-- CARACTERISTICAS DO PRODUTO  -->
+                    <PartialsViewProductsGalleria :Images="formData.pictures" />                  
                     <PartialsViewProductsAttribute :Attributes="formData.attributes" />
                 </div>
             </div>
