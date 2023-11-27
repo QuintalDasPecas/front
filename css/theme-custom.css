@@ -16,9 +16,6 @@
     color: #000; /* Defina a cor do texto */
   }
 
-  button {
-    border-radius: none;
-  }
   
   .p-inputtext-search
   {
@@ -476,4 +473,8 @@ section>.container-recoverpassword {
 
 .ui-pdp-gallery__column__variation-picture, .ui-pdp-gallery__figure {
    height: 0%;
+}
+
+.rounded{
+  border-radius:50%!important;
 }

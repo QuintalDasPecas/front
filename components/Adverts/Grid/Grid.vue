@@ -22,13 +22,34 @@
                     <Tag class="adverts" :value="slotProps.data.actived" :severity="getSeverity(slotProps.data)" />
                 </template>
             </Column>
-            <Column field="name" header="Ação">
+            <Column  header="Ação">
                 <template #body="slotProps">
-                    <Button v-if="slotProps.data.actived==='Sim'" icon="pi pi-pencil" v-tooltip.top="'Editar'" outlined rounded @click="handleConfirmDialog(3,slotProps.data)" />
+                    <Button 
+                        v-if="slotProps.data.actived==='Sim'" 
+                        icon="pi pi-pencil" 
+                        v-tooltip.top="'Editar'"
+                        outlined
+                        class="rounded"
+                        @click="handleConfirmDialog(3,slotProps.data)" 
+                    />
                     &nbsp;
-                    <Button v-if="slotProps.data.actived==='Não'" icon="pi pi-check" v-tooltip.top="'Ativar'" outlined rounded severity="success" class="mr-2" @click="handleConfirmDialog(1,slotProps.data.id)" />
+                    <Button 
+                        v-if="slotProps.data.actived==='Não'" 
+                        icon="pi pi-check" 
+                        v-tooltip.top="'Ativar'" 
+                        outlined  
+                        severity="success" 
+                        class="rounded mr-2" 
+                        @click="handleConfirmDialog(1,slotProps.data.id)" 
+                    />
                     &nbsp;
-                    <Button v-if="slotProps.data.actived==='Sim'" icon="pi pi-times" v-tooltip.top="'Desativar'" outlined rounded severity="danger" @click="handleConfirmDialog(2,slotProps.data.id)" />
+                    <Button 
+                        v-if="slotProps.data.actived==='Sim'" 
+                        icon="pi pi-times" v-tooltip.top="'Desativar'" 
+                        outlined severity="danger"
+                        class="rounded" 
+                        @click="handleConfirmDialog(2,slotProps.data.id)" 
+                     />
                 </template>
             </Column>
             <template #footer> In total there are {{ items ? items.length : 0 }} products. </template>

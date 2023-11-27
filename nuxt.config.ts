@@ -1,9 +1,12 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   css: [
-    '~/css/theme-custom.css',    
     'primeicons/primeicons.css',
     'primeflex/primeflex.css',
+    'primevue/resources/themes/lara-light-blue/theme.css',
+    'bootstrap/dist/css/bootstrap.min.css',
+    'bootstrap-icons/font/bootstrap-icons.min.css',   
+    '~/css/theme-custom.css',
     '~/css/navigation-desktop.css',
     '~/css/home.css',
     '~/css/font-family.css',
@@ -12,10 +15,7 @@ export default defineNuxtConfig({
     '~/css/search-custom.css',    
     '~/css/vip.core.css',
     '~/css/insurtech.css',
-    '~/css/swiper.css' ,
-    'primevue/resources/themes/lara-light-blue/theme.css',
-    'bootstrap/dist/css/bootstrap.min.css',
-    'bootstrap-icons/font/bootstrap-icons.min.css',    
+    '~/css/swiper.css',       
   ],
   build: {
 		transpile: ["primevue"]

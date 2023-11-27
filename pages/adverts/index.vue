@@ -38,7 +38,7 @@
                </div>
             </div> 
             <div class="row justify-content-lg-center" v-if="isGrid">    
-               <div class="col-lg-12 col-md-12 col-sm-12 col-12">                
+               <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                   <AdvertsGrid 
                      :items="itemsGrid" 
                      @handleEnableItem="handleEnableItem" 
