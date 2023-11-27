@@ -33,7 +33,7 @@ export default defineNuxtConfig({
           host: 'https://quintaldaspecas.com.br',
         },
       },
-      apiUrl: ':8000/api/',//'/backend/public/api/',
+      apiUrl: '/backend/public/api/',
       csrf: '/backend/public/sanctum/csrf-cookie',
     }
   }

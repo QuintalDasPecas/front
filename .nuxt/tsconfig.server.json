@@ -8,54 +8,62 @@
     "allowJs": true,
     "resolveJsonModule": true,
     "jsx": "preserve",
+    "allowSyntheticDefaultImports": true,
     "jsxFactory": "h",
     "jsxFragmentFactory": "Fragment",
     "paths": {
       "#imports": [
-        "C:/xampp/htdocs/quintaldaspecas/frontend/.nuxt/types/nitro-imports"
+        "./types/nitro-imports"
       ],
       "#paths": [
-        "C:/xampp/htdocs/quintaldaspecas/frontend/node_modules/nuxt/dist/core/runtime/nitro/paths"
+        "../node_modules/nuxt/dist/core/runtime/nitro/paths"
       ],
       "~": [
-        "C:/xampp/htdocs/quintaldaspecas/frontend"
+        "./.."
       ],
       "~/*": [
-        "C:/xampp/htdocs/quintaldaspecas/frontend/*"
+        "../*"
       ],
       "@": [
-        "C:/xampp/htdocs/quintaldaspecas/frontend"
+        "./.."
       ],
       "@/*": [
-        "C:/xampp/htdocs/quintaldaspecas/frontend/*"
+        "../*"
       ],
       "~~": [
-        "C:/xampp/htdocs/quintaldaspecas/frontend"
+        "./.."
       ],
       "~~/*": [
-        "C:/xampp/htdocs/quintaldaspecas/frontend/*"
+        "../*"
       ],
       "@@": [
-        "C:/xampp/htdocs/quintaldaspecas/frontend"
+        "./.."
       ],
       "@@/*": [
-        "C:/xampp/htdocs/quintaldaspecas/frontend/*"
+        "../*"
       ],
       "assets": [
-        "C:/xampp/htdocs/quintaldaspecas/frontend/assets"
+        "../assets"
       ],
       "public": [
-        "C:/xampp/htdocs/quintaldaspecas/frontend/public"
+        "../public"
       ],
       "public/*": [
-        "C:/xampp/htdocs/quintaldaspecas/frontend/public/*"
+        "../public/*"
       ]
     }
   },
   "include": [
-    "C:/xampp/htdocs/quintaldaspecas/frontend/.nuxt/types/nitro-nuxt.d.ts",
+    "./types/nitro-nuxt.d.ts",
+    "../node_modules/@nuxt/devtools/runtime/server",
+    "../node_modules/@nuxt/telemetry/runtime/server",
     "./types/nitro.d.ts",
     "../**/*",
     "../server/**/*"
+  ],
+  "exclude": [
+    "../node_modules",
+    "../node_modules/nuxt/node_modules",
+    "../dist"
   ]
 }

@@ -1,26 +1,27 @@
 {
-  "name": "nuxt-app",
+  "name": "quintaldaspecas",
   "private": true,
-  "scripts": {
-    "build": "nuxt build",
-    "dev": "nuxt dev",
-    "generate": "nuxt generate",
-    "preview": "nuxt preview",
-    "postinstall": "nuxt prepare",
-    "start": "node .output/server/index.mjs"
+  "scripts": {    
+    "postinstall": "nuxt build",    
+    "start": "nuxt start",
+    "generate": "nuxt generate"
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
     "@nuxtjs/dotenv": "^1.4.1",
     "@types/node": "^18.16.19",
     "@types/qs": "^6.9.7",
-    "nuxt": "^3.6.2"
+    "nuxt": "^3.8.2"
   },
   "dependencies": {
     "@blowstack/ckeditor-nuxt": "^0.6.0",
+    "@nuxt/devtools": "latest",
+    "@nuxtjs/dotenv": "^1.4.1",
     "@tiptap/pm": "^2.1.11",
     "@tiptap/starter-kit": "^2.1.11",
     "@tiptap/vue-3": "^2.1.11",
+    "@types/node": "^18.16.19",
+    "@types/qs": "^6.9.7",
     "bootstrap": "^5.3.0",
     "bootstrap-icons": "^1.10.5",
     "nuxt-storage": "^1.2.2",

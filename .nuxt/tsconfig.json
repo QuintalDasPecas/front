@@ -3,84 +3,94 @@
   "compilerOptions": {
     "forceConsistentCasingInFileNames": true,
     "jsx": "preserve",
+    "jsxImportSource": "vue",
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "Node",
     "skipLibCheck": true,
+    "isolatedModules": true,
+    "useDefineForClassFields": true,
     "strict": true,
+    "noImplicitThis": true,
+    "esModuleInterop": true,
+    "types": [],
+    "verbatimModuleSyntax": true,
     "allowJs": true,
-    "baseUrl": "C:/xampp/htdocs/quintaldaspecas/frontend",
     "noEmit": true,
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
-    "types": [
-      "node"
-    ],
     "paths": {
       "~": [
-        "C:/xampp/htdocs/quintaldaspecas/frontend"
+        ".."
       ],
       "~/*": [
-        "C:/xampp/htdocs/quintaldaspecas/frontend/*"
+        "../*"
       ],
       "@": [
-        "C:/xampp/htdocs/quintaldaspecas/frontend"
+        ".."
       ],
       "@/*": [
-        "C:/xampp/htdocs/quintaldaspecas/frontend/*"
+        "../*"
       ],
       "~~": [
-        "C:/xampp/htdocs/quintaldaspecas/frontend"
+        ".."
       ],
       "~~/*": [
-        "C:/xampp/htdocs/quintaldaspecas/frontend/*"
+        "../*"
       ],
       "@@": [
-        "C:/xampp/htdocs/quintaldaspecas/frontend"
+        ".."
       ],
       "@@/*": [
-        "C:/xampp/htdocs/quintaldaspecas/frontend/*"
+        "../*"
       ],
       "assets": [
-        "C:/xampp/htdocs/quintaldaspecas/frontend/assets"
+        "../assets"
       ],
       "public": [
-        "C:/xampp/htdocs/quintaldaspecas/frontend/public"
+        "../public"
       ],
       "public/*": [
-        "C:/xampp/htdocs/quintaldaspecas/frontend/public/*"
+        "../public/*"
       ],
       "#app": [
-        "C:/xampp/htdocs/quintaldaspecas/frontend/node_modules/nuxt/dist/app"
+        "../node_modules/nuxt/dist/app"
       ],
       "#app/*": [
-        "C:/xampp/htdocs/quintaldaspecas/frontend/node_modules/nuxt/dist/app/*"
+        "../node_modules/nuxt/dist/app/*"
       ],
       "vue-demi": [
-        "C:/xampp/htdocs/quintaldaspecas/frontend/node_modules/nuxt/dist/app/compat/vue-demi"
+        "../node_modules/nuxt/dist/app/compat/vue-demi"
       ],
       "#vue-router": [
-        "C:/xampp/htdocs/quintaldaspecas/frontend/.nuxt/vue-router"
+        "./vue-router-stub"
       ],
       "#imports": [
-        "C:/xampp/htdocs/quintaldaspecas/frontend/.nuxt/imports"
+        "./imports"
       ],
       "#build": [
-        "C:/xampp/htdocs/quintaldaspecas/frontend/.nuxt"
+        "."
       ],
       "#build/*": [
-        "C:/xampp/htdocs/quintaldaspecas/frontend/.nuxt/*"
+        "./*"
       ],
       "#components": [
-        "C:/xampp/htdocs/quintaldaspecas/frontend/.nuxt/components"
+        "./components"
       ]
     }
   },
   "include": [
     "./nuxt.d.ts",
-    "../**/*"
+    "../**/*",
+    "../node_modules/@nuxt/devtools/runtime",
+    "../node_modules/@nuxt/telemetry/runtime",
+    ".."
   ],
   "exclude": [
+    "../node_modules",
+    "../node_modules/nuxt/node_modules",
+    "../node_modules/@nuxt/devtools/runtime/server",
+    "../node_modules/@nuxt/telemetry/runtime/server",
     "../dist",
     "../.output"
   ]
