@@ -2,6 +2,7 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   css: [
+    'primeicons/primeicons.css',
     'primeflex/primeflex.css',
     '~/css/navigation-desktop.css',
     '~/css/home.css',
@@ -15,7 +16,6 @@ export default defineNuxtConfig({
     'primevue/resources/themes/lara-light-blue/theme.css',
     'bootstrap/dist/css/bootstrap.min.css',
     'bootstrap-icons/font/bootstrap-icons.min.css' ,
-    'primeicons/primeicons.css',
     '~/css/theme-custom.css',    
   ],
   build: {
