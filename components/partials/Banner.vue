@@ -24,8 +24,8 @@
             </Column>
             <Column field="name" header="Ação">
                 <template #body="slotProps">
-                    <Button v-if="slotProps.data.status==='Não'" icon="pi pi-check" outlined rounded severity="success" class="mr-2" @click="handleEnable(slotProps.data.id)" />
-                    <Button v-if="slotProps.data.status==='Sim'" icon="pi pi-times" outlined rounded severity="danger" @click="handleDisable(slotProps.data.id)" />
+                    <Button v-if="slotProps.data.status==='Não'" class="rounded" icon="pi pi-check" outlined rounded severity="success" @click="handleEnable(slotProps.data.id)" />
+                    <Button v-if="slotProps.data.status==='Sim'" class="rounded" icon="pi pi-times" outlined rounded severity="danger" @click="handleDisable(slotProps.data.id)" />
                 </template>
             </Column>
         </DataTable>       
@@ -35,9 +35,9 @@
         <template #header="{ chooseCallback, uploadCallback, clearCallback, files }">
             <div class="flex flex-wrap justify-content-between align-items-center flex-1 gap-2">
                 <div class="flex gap-2">
-                    <Button @click="chooseCallback()" icon="pi pi-images" rounded outlined></Button>
-                    <Button @click="uploadEvent(uploadCallback)" icon="pi pi-cloud-upload" rounded outlined severity="success" :disabled="!files || files.length === 0"></Button>
-                    <Button @click="clearCallback();" icon="pi pi-times" rounded outlined severity="danger" :disabled="!files || files.length === 0"></Button>
+                    <Button class="rounded" @click="chooseCallback()" icon="pi pi-images" rounded outlined></Button>
+                    <Button class="rounded" @click="uploadEvent(uploadCallback)" icon="pi pi-cloud-upload" rounded outlined severity="success" :disabled="!files || files.length === 0"></Button>
+                    <Button class="rounded"  @click="clearCallback();" icon="pi pi-times" rounded outlined severity="danger" :disabled="!files || files.length === 0"></Button>
                 </div>
                 <ProgressBar :value="totalSizePercent" :showValue="false" :class="['md:w-20rem h-1rem w-full md:ml-auto', { 'exceeded-progress-bar': totalSizePercent > 100 }]">
                     <span class="white-space-nowrap">{{ totalSize }}B / 1Mb</span>
@@ -55,7 +55,7 @@
                         <span class="font-semibold">{{ file.name }}</span>
                         <div>{{ formatSize(file.size) }}</div>
                         <Badge value="Pending" severity="warning" />
-                        <Button icon="pi pi-times" @click="onRemoveTemplatingFile(file, removeFileCallback, index)" outlined rounded  severity="danger" />
+                        <Button class="rounded" icon="pi pi-times" @click="onRemoveTemplatingFile(file, removeFileCallback, index)" outlined rounded  severity="danger" />
                     </div>
                 </div>
             </div>
@@ -69,7 +69,7 @@
                         <span class="font-semibold">{{ file.name }}</span>
                         <div>{{ formatSize(file.size) }}</div>
                         <Badge value="Completed" class="mt-3" severity="success" />
-                        <Button icon="pi pi-times" @click="removeUploadedFileCallback(index)" outlined rounded  severity="danger" />
+                        <Button class="rounded" icon="pi pi-times" @click="removeUploadedFileCallback(index)" outlined rounded  severity="danger" />
                     </div>
                 </div>
             </div>

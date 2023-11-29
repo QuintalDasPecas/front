@@ -11,11 +11,11 @@
         </Column>
         <Column header="Ação" :exportable="false" style="min-width:8rem">
             <template #body="slotProps">
-                <Button v-if="slotProps.data.status == 'Sim'" v-tooltip.top="'Editar'" icon="pi pi-pencil" outlined rounded @click="handleConfirmDialog(3,slotProps.data)" />
+                <Button v-if="slotProps.data.status == 'Sim'" class="rounded" v-tooltip.top="'Editar'" icon="pi pi-pencil" outlined rounded @click="handleConfirmDialog(3,slotProps.data)" />
                 &nbsp;
-                <Button  v-if="slotProps.data.status == 'Não'" v-tooltip.top="'Ativar'" icon="pi pi-check" outlined rounded severity="success" @click="handleConfirmDialog(1,slotProps.data)" />
+                <Button  v-if="slotProps.data.status == 'Não'" class="rounded" v-tooltip.top="'Ativar'" icon="pi pi-check" outlined rounded severity="success" @click="handleConfirmDialog(1,slotProps.data)" />
                 &nbsp;
-                <Button  v-if="slotProps.data.status == 'Sim'" v-tooltip.top="'Desativar'" icon="pi pi-times" outlined rounded severity="danger" @click="handleConfirmDialog(2,slotProps.data)" />
+                <Button  v-if="slotProps.data.status == 'Sim'" class="rounded" v-tooltip.top="'Desativar'" icon="pi pi-times" outlined rounded severity="danger" @click="handleConfirmDialog(2,slotProps.data)" />
             </template>
         </Column>
     </DataTable>
