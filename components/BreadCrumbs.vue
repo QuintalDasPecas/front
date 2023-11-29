@@ -10,9 +10,7 @@
                 </div>
         </div>        
 </template>
-
 <script>
-
 import utils from '@/src/utils/Utils';
 export default {
     data(){
