@@ -26,14 +26,14 @@ export default defineNuxtConfig({
     public: {
       enviroment: {
         dev: {
-          host: 'http://localhost',
+          host: 'https://quintaldaspecas.com.br',
         },
         prod: {
           host: 'https://quintaldaspecas.com.br',
         },
       },
-      apiUrl: ':8000/api/',//'/backend/public/api/',
-      csrf: ':8000/sanctum/csrf-cookie',//'/backend/public/sanctum/csrf-cookie',
+      apiUrl: '/backend/public/api/',
+      csrf: '/backend/public/sanctum/csrf-cookie',
     }
   }
 })
