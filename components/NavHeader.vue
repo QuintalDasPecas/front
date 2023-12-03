@@ -1,7 +1,7 @@
 <template>
     <Toolbar :pt="cssToolBar">
         <template #start>
-            <span >
+            <span>
                <img v-if="formData.file_path"  width="70" height="70" :src="formData.file_path" >
             </span>
         </template>
@@ -71,7 +71,7 @@ export default {
                 }   
             ],
             searchItem: '',
-            formData:{file_path:''}
+            formData: []
         }
     },
     methods: {
@@ -127,12 +127,10 @@ export default {
         async handleGetLogo(){
             const logo = new Logo();
             const responseData = await logo.getAllActive();
-
             const status = responseData.data._rawValue ? responseData.data._rawValue.status : [];
-
             if (status === 200) {
-                const logoData = responseData.data._rawValue ? responseData.data._rawValue.data[0] : [];
-                this.formData.file_path = logoData ? logoData.file_path : '';
+                const logoData = responseData.data._rawValue ? responseData.data._rawValue.data : [];
+                this.formData.file_path = logoData.file_path ?? '';
             }
         }
     },
