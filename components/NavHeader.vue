@@ -2,7 +2,9 @@
     <Toolbar :pt="cssToolBar">
         <template #start>
             <span>
-               <img v-if="formData.file_path"  width="70" height="70" :src="formData.file_path" >
+                <NuxtLink to="/">
+                    <img v-if="formData.file_path"  width="70" height="70" :src="formData.file_path" >
+                </NuxtLink> 
             </span>
         </template>
         <template #center>

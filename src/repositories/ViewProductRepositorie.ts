@@ -16,4 +16,9 @@ export default class ViewProductRepositorie {
     CallApi.setEndPoint('searchitems');
     return await CallApi.store(formData);
   }
+
+  static async getProductNoBasePrice() {
+    CallApi.setEndPoint('viewproduct/nobaseprice');
+    return await CallApi.getWhere('');
+  }
 }

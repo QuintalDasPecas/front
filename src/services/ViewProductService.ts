@@ -14,5 +14,8 @@ export default class ViewProductService {
         return repositorie.getActiveProductsByTitle(formData);
     }
 
+    public async getProductNoBasePrice(){
+        return repositorie.getProductNoBasePrice();
+    }
 }
 
