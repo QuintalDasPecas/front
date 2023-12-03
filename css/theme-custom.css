@@ -478,3 +478,15 @@ section>.container-recoverpassword {
 .rounded{
   border-radius:50%!important;
 }
+
+.remove-borda{
+  padding-left: 0px;
+  padding-right: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+.link-voltar{
+  font-size: 16px;
+  
+}

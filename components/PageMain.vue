@@ -5,7 +5,7 @@
         <div class="col-lg-10">
             <div class="titulo">
                 Baseada na sua última visita 
-                <NuxtLink to="/" class="min-titulo">Ver Histórico</NuxtLink> 
+                <NuxtLink to="/navigation?vt=1" class="min-titulo">Ver Histórico</NuxtLink> 
             </div>        
         </div>
     </div>
@@ -43,9 +43,10 @@
             </Carousel>
         </div>
     </div> -->
+
     <div class="row g-8 justify-content-lg-center">
         <div class="col-lg-10">
-            <div class="titulo">Ofertas do dias <NuxtLink class="min-titulo">Ver Histórico</NuxtLink> </div>        
+            <div class="titulo">Ofertas do dias <NuxtLink to="/navigation?vt=2" class="min-titulo">Ver Histórico</NuxtLink> </div>        
         </div>
     </div>
     <div class="row g-8 justify-content-center">
@@ -89,7 +90,7 @@
 
     <div class="row g-8 justify-content-lg-center">
         <div class="col-lg-10">
-            <div class="titulo">Confira nossos itens <NuxtLink class="min-titulo">Ver Histórico</NuxtLink> </div>       
+            <div class="titulo">Confira nossos itens <NuxtLink  to="/navigation?vt=3" class="min-titulo">Ver Histórico</NuxtLink> </div>       
         </div>
     </div>
     <div class="row g-8 justify-content-center">
