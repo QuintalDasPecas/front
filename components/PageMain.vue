@@ -116,7 +116,7 @@ import Carousel  from '@/src/services/BannerService';
 export default {
     data() {
         return {
-            banner: '',
+            banner: null,
             products: null,
             responsiveOptions: [
                 {
@@ -178,8 +178,7 @@ export default {
             let status = responseData.value ? responseData._rawValue.status : null;
             status = status ?? (responseError.value ? responseError.value.statusCode : null); 
             if(status === 200){
-                this.viewproductscache = responseData._rawValue.data;
-                console.log(this.viewproductscache)
+                this.viewproductscache = responseData._rawValue.data;             
             }       
         },
         async handleStoreCache(token){
