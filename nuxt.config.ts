@@ -26,10 +26,10 @@ export default defineNuxtConfig({
     public: {
       enviroment: {
         dev: {
-          host: 'https://quintaldaspecas.com.br',
+          host: 'http://localhost',
         },
         prod: {
-          host: 'https://quintaldaspecas.com.br',
+          host: 'http://localhost',
         },
       },
       apiUrl: '/backend/public/api/',
