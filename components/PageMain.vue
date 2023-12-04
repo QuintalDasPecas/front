@@ -116,7 +116,7 @@ import Carousel  from '@/src/services/BannerService';
 export default {
     data() {
         return {
-            banner: [],
+            banner: '',
             products: null,
             responsiveOptions: [
                 {
