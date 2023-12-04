@@ -29,7 +29,7 @@ export default defineNuxtConfig({
           host: 'https://quintaldaspecas.com.br',
         },
         prod: {
-          host: https://quintaldaspecas.com.br',
+          host: 'https://quintaldaspecas.com.br',
         },
       },
       apiUrl: '/backend/public/api/',
