@@ -80,12 +80,15 @@ export default {
             const viewProductService = new ViewProductService();
             switch(this.viewtype){
                 case '1':
-                    var { data: responseData, error: responseError } = await viewProductService.getActiveProducts('');                  
+                    var { data: responseData, error: responseError } = await viewProductService.getCache();
+                    this.title = 'Última visita';                  
                 break;
                 case '2':
-                    var { data: responseData, error: responseError } = await viewProductService.getActiveProducts('');                   
+                    var { data: responseData, error: responseError } = await viewProductService.getActiveProducts(''); 
+                    this.title = 'Ofertas do dia';                   
                 break;
                 case '3':
+                    this.title = 'Confira nossos itens'; 
                     var { data: responseData, error: responseError } = await viewProductService.getProductNoBasePrice('');                   
                 break;
             } 
@@ -98,7 +101,17 @@ export default {
         },
         handleGetProductByToken(token){
             navigateTo(`products?token=${token}`);
-        },       
+        },
+        async handleGetCache(){          
+            const viewProductService = new ViewProductService();
+            const form = new FormData();
+            const { data: responseData, error: responseError } = await viewProductService.getCache();
+            let status = responseData.value ? responseData._rawValue.status : null;
+            status = status ?? (responseError.value ? responseError.value.statusCode : null); 
+            if(status === 200){
+                this.formData = responseData._rawValue.data;
+            }
+        }, 
     },
     mounted() {       
        

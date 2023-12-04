@@ -1,7 +1,7 @@
 <template> 
     <CarouselCustom :banners="banner"></CarouselCustom>
     <br><br>
-    <!-- <div class="row g-8 justify-content-lg-center">
+    <div class="row g-8 justify-content-lg-center" v-if="viewproductscache">
         <div class="col-lg-10">
             <div class="titulo">
                 Baseada na sua última visita 
@@ -9,16 +9,9 @@
             </div>        
         </div>
     </div>
-    <div class="row justify-content-lg-center">
-        <div class="col-lg-10">
-            <div v-if="viewproducts == ''">
-                <div class="flex flex-wrap">
-                    <div class="w-full md:w-6 p-3">
-                        <Skeleton width="15rem" height="15rem"></Skeleton>
-                    </div>
-                </div>
-            </div>            
-            <Carousel :value="viewproducts" :numVisible="5" :numScroll="5">
+    <div class="row justify-content-lg-center" v-if="viewproductscache">
+        <div :class="viewproductscache.length <= 1  ? 'col-lg-4' : 'col-lg-10'">
+            <Carousel :value="viewproductscache" :numVisible="5" :numScroll="5">
                 <template #item="slotProps">
                     <NuxtLink :to="`products?token=${slotProps.data.token}`">
                         <div class="border-1 surface-border border-round m-1 bg-custom">
@@ -42,25 +35,17 @@
                 </template>
             </Carousel>
         </div>
-    </div> -->
-
-    <div class="row g-8 justify-content-lg-center">
+    </div>
+    <div class="row g-8 justify-content-lg-center" v-if="viewproductsbaseprice">
         <div class="col-lg-10">
-            <div class="titulo">Ofertas do dias <NuxtLink to="/navigation?vt=2" class="min-titulo">Ver Histórico</NuxtLink> </div>        
+            <div class="titulo">Ofertas do dia <NuxtLink to="/navigation?vt=2" class="min-titulo">Ver lista completa</NuxtLink> </div>        
         </div>
     </div>
-    <div class="row g-8 justify-content-center">
+    <div class="row g-8 justify-content-center" >
         <div class="col-lg-10 col-md-10 col-sm-10 col-10">
-            <div v-if="viewproducts == ''">
-                <div class="flex flex-wrap">
-                    <div class="w-full md:w-6 p-3">
-                        <Skeleton width="15rem" height="15rem"></Skeleton>
-                    </div>
-                </div>
-            </div>  
-            <Carousel :value="viewproducts" :numVisible="5" :numScroll="5">
+            <Carousel :value="viewproductsbaseprice" :numVisible="5" :numScroll="5">
                 <template #item="slotProps">
-                    <NuxtLink :to="`products?token=${slotProps.data.token}`">
+                    <NuxtLink @click="handleStoreCache(slotProps.data.token)" :to="`products?token=${slotProps.data.token}`">
                         <div class="border-1 surface-border border-round m-1 bg-custom">
                             <div class="mb-3">
                                 <img :src="slotProps.data.thumbnail" :alt="slotProps.data.name" class="w-12"/>
@@ -90,21 +75,14 @@
 
     <div class="row g-8 justify-content-lg-center">
         <div class="col-lg-10">
-            <div class="titulo">Confira nossos itens <NuxtLink  to="/navigation?vt=3" class="min-titulo">Ver Histórico</NuxtLink> </div>       
+            <div class="titulo">Confira nossos itens <NuxtLink  to="/navigation?vt=3" class="min-titulo">Ver lista completa</NuxtLink> </div>       
         </div>
     </div>
     <div class="row g-8 justify-content-center">
-        <div class="col-lg-10 col-md-10 col-sm-10 col-10">
-            <div v-if="viewproducts == ''">
-                <div class="flex flex-wrap">
-                    <div class="w-full md:w-6 p-3">
-                        <Skeleton width="15rem" height="15rem"></Skeleton>
-                    </div>
-                </div>
-            </div>  
-            <Carousel :value="viewproductsbaseprice" :numVisible="5" :numScroll="5">
+        <div class="col-lg-10 col-md-10 col-sm-10 col-10">           
+            <Carousel :value="viewproducts" :numVisible="5" :numScroll="5">
                 <template #item="slotProps">
-                    <NuxtLink :to="`products?token=${slotProps.data.token}`">
+                    <NuxtLink  @click="handleStoreCache(slotProps.data.token)" :to="`products?token=${slotProps.data.token}`">
                         <div class="border-1 surface-border border-round m-1 bg-custom">
                             <div class="mb-3">
                                 <img :src="slotProps.data.thumbnail" :alt="slotProps.data.name" class="w-12"/>
@@ -138,7 +116,7 @@ import Carousel  from '@/src/services/BannerService';
 export default {
     data() {
         return {
-            banner: null,
+            banner: [],
             products: null,
             responsiveOptions: [
                 {
@@ -158,8 +136,9 @@ export default {
                 }
                 
             ],
-            viewproducts: '',
-            viewproductsbaseprice: ''
+            viewproducts: false,
+            viewproductscache: false,
+            viewproductsbaseprice: false
         };
     },    
     methods: {      
@@ -170,14 +149,14 @@ export default {
             let status = responseData.value ? responseData._rawValue.status : null;
             status = status ?? (responseError.value ? responseError.value.statusCode : null); 
             if (status == 200) {
-                this.viewproducts = responseData._rawValue.data;
+                this.viewproductsbaseprice = responseData._rawValue.data;
             }
 
             var { data: responseData, error: responseError } = await viewProductService.getProductNoBasePrice('');
             status = responseData.value ? responseData._rawValue.status : null;
             status = status ?? (responseError.value ? responseError.value.statusCode : null); 
             if (status == 200) {
-                this.viewproductsbaseprice = responseData._rawValue.data;
+                this.viewproducts = responseData._rawValue.data;
             }
         },
         handleGetProductByToken(token){
@@ -191,12 +170,31 @@ export default {
             if (status == 200) {
                 this.banner = responseData._rawValue.data;
             }
-        }
+        },
+        async handleGetCache(){          
+            const viewProductService = new ViewProductService();
+            const form = new FormData();
+            const { data: responseData, error: responseError } = await viewProductService.getCache();
+            let status = responseData.value ? responseData._rawValue.status : null;
+            status = status ?? (responseError.value ? responseError.value.statusCode : null); 
+            if(status === 200){
+                this.viewproductscache = responseData._rawValue.data;
+                console.log(this.viewproductscache)
+            }       
+        },
+        async handleStoreCache(token){
+            const viewProductService = new ViewProductService();
+            const form = new FormData();
+            form.append('token', token);
+            const { data: responseData, error: responseError } = await viewProductService.storeCache(form);
+            let status = responseData.value ? responseData._rawValue.status : null;
+            status = status ?? (responseError.value ? responseError.value.statusCode : null); 
+        },
     },
     mounted() {       
         this.handleViewProducts();
         this.handleBanner();
-
+        this.handleGetCache();
     },
 };
 </script>

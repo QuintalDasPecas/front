@@ -2,11 +2,11 @@
   <BreadCrumbs :items="formData.items"></BreadCrumbs>
   <Products :formData="formData"></Products>
 </template>
-  <style>
-  .ui-vip-core .ui-pdp-container--top {
-    margin-bottom: 12px;
-  }
-  </style>
+<style>
+.ui-vip-core .ui-pdp-container--top {
+  margin-bottom: 12px;
+}
+</style>
 <script >
 
   import utils from '@/src/utils/Utils';
@@ -17,7 +17,7 @@
       return{
         productToken: '',
         formData: {},
-        items:{}
+        items:{},
       }
     },
     methods:{
@@ -46,7 +46,7 @@
           this.formData.city = responseData._rawValue.data.city;
           this.formData = responseData._rawValue.data;
         }      
-      }
+      }     
     },
     mounted () {
       this.handlequeryString();

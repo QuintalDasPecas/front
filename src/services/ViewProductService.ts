@@ -17,5 +17,12 @@ export default class ViewProductService {
     public async getProductNoBasePrice(){
         return repositorie.getProductNoBasePrice();
     }
-}
 
+    public async storeCache(formData: FormData){
+        return repositorie.storeCache(formData);
+    }
+
+    public async getCache(){
+        return repositorie.getCache();
+    }
+}

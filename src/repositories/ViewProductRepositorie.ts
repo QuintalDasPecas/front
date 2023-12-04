@@ -21,4 +21,14 @@ export default class ViewProductRepositorie {
     CallApi.setEndPoint('viewproduct/nobaseprice');
     return await CallApi.getWhere('');
   }
+
+  static async storeCache(formData: FormData) {
+    CallApi.setEndPoint('viewcache');
+    return await CallApi.store(formData);
+  }
+
+  static async getCache() {
+    CallApi.setEndPoint('viewcache');
+    return await CallApi.getWhere('1');
+  }
 }

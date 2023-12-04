@@ -15,7 +15,6 @@
     <br/>
 </template>
 <script>
-
     export default{
     props: {
         formData: {
