@@ -142,16 +142,14 @@ export default {
             let status = responseData.value ? responseData._rawValue.status : null;
             status = status ?? (responseError.value ? responseError.value.statusCode : null);
 
-            if(status === 200) {
-                this.formData.id = responseData._rawValue.data[0].id;
-                this.formData.color = responseData._rawValue.data[0].color;
-                localStorage.setItem('color', this.formData.color);                  
+            if(status === 200) {              
+                this.color = responseData._rawValue.data[0].color;
+                localStorage.setItem('color', this.color);
             }
         }
     },
     mounted(){
-        this.toInit();
-        this.color = localStorage.getItem('color');
+        this.toInit();       
         this.cssToolBar = {
             root: { 
                 style: { 
@@ -164,16 +162,15 @@ export default {
                     borderColor: this.color
                 } 
             }
-        };
-
+        };      
+        this.handleGetLogo();
+        this.getHandleColor();
         this.colorMenu ={
             padding: '0.5rem 1rem',
-            color: '#000',
+            color: this.color ?? '#000',
             border: '0 none',
             borderRadius: '4px'
         };
-        this.handleGetLogo();
-        this.getHandleColor();
     }
 }   
 </script>
