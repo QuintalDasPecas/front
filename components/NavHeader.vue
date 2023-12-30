@@ -26,7 +26,7 @@
 <script>
     import Logout from "@/src/services/LogoutService";
     import Logo from '@/src/services/LogoService';
-
+    import Color from '@/src/services/ConfigColorService';
 export default {
     data(){
         return {
@@ -133,6 +133,19 @@ export default {
             if (status === 200) {
                 const logoData = responseData.data._rawValue ? responseData.data._rawValue.data : [];
                 this.formData.file_path = logoData.file_path ?? '';
+            }
+        },
+        async getHandleColor(){
+            const color = new Color();
+
+            const { data: responseData, error: responseError } = await color.all(); 
+            let status = responseData.value ? responseData._rawValue.status : null;
+            status = status ?? (responseError.value ? responseError.value.statusCode : null);
+
+            if(status === 200) {
+                this.formData.id = responseData._rawValue.data[0].id;
+                this.formData.color = responseData._rawValue.data[0].color;
+                localStorage.setItem('color', this.formData.color);                  
             }
         }
     },
