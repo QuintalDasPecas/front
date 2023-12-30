@@ -143,8 +143,7 @@ export default {
 
             if(status === 200) {              
                 this.color = responseData._rawValue.data[0].color;
-                localStorage.setItem('color', this.color);
-                console.log(responseData._rawValue.data[0].color)
+                localStorage.setItem('color', this.color);                
             }
         },
         async setColorNavBar(){
@@ -168,6 +167,7 @@ export default {
                 border: '0 none',
                 borderRadius: '4px'
             };
+            console.log(this.color)
         }
     },
     mounted(){
