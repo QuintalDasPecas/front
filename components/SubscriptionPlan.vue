@@ -17,7 +17,6 @@
                             <Column sortable field="subscribe_name" header="Plano"></Column>
                             <Column sortable field="form_of_payment_name" header="Forma de pagamento"></Column>
                             <Column sortable field="payment_term_name" header="Condição de pagamento"></Column>
-
                             <Column sortable field="description" header="Descrição"></Column>
                             <Column sortable field="installments" header="Parcelas"></Column>
                             <Column sortable field="price" header="Preço"></Column>
@@ -45,9 +44,7 @@
     <div v-if="isForm" class="row g-4 justify-content-center">
         <div class="col-lg-8 col-md-8 col-sm-8 col-8">
             <form class="panel">                
-                <div class="row">
-                        <h1>Nome</h1>
-                    <h1>Descrição</h1>
+                <div class="row">                      
                     <br>
                     <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                         <label class="form-label label-lg" > Nome: </label>
@@ -91,13 +88,13 @@
                           <InputText v-model="formData.price" class="form-control" size="large" maxlength="25" />
                         </div>
                     </div>
-                    <div class="col-lg-2 col-md-2 col-sm-2 col-2">
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-3">
                         <NuxtLink @click="handleCreate(false)" class="btn btn-outline-primary btn-lg btn-width-defult">
                             Voltar
                         </NuxtLink>
                     </div>
-                        <div class="col-lg-8 col-md-8 col-sm-8 col-8"></div>
-                    <div class="col-lg-2 col-md-2 col-sm-2 col-2">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-6"></div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-3">
                         <NuxtLink @click="handleSubmit()" class="btn btn-primary btn-lg btn-width-defult">
                             Confirmar
                         </NuxtLink>

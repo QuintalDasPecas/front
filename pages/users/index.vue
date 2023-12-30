@@ -33,14 +33,14 @@
                 </form>
             </div>
         </div>
-    </div>
-    
+    </div>    
     <PartialsUsersForm 
         v-if="isForm" 
         @handleCreate="handleCreate"
         @handleSubmit="handleSubmit"
         :errorMessage="errorMessage"
         :data="formData"
+        :action="action"
     />
     <Toast />
 </template>
@@ -55,7 +55,8 @@
                 errorMessage: { name: '', cpf_cnpj: '', email: '', password: '', recoverpassword: '', message: []},
                 visible: false,
                 isForm: false,
-                formData:{}
+                formData: {},
+                action: ''
             }
         },
         methods:{
@@ -136,6 +137,7 @@
                 this.formData = '';
             },
             async handleSubmit(formData){
+                let status = 200;
                 if(formData.id){
                     const userService = new UserService();
                     const form = new FormData();
@@ -143,10 +145,21 @@
                     form.append('email', formData.email);
                     form.append('id', formData.id);
                     const {data: responseData, error: responseError } = await userService.update(formData.id,form);
-                    let status = responseData.value ? responseData._rawValue.status : null;
+                    status = responseData.value ? responseData._rawValue.status : null;
                     status = status ?? (responseError.value ? responseError.value.statusCode : null);
 
+                    if (status >= 400) {                       
+                        this.errorMessage.message = responseError.value.data.errors;
+                    }
+
+                    if (status === 201) {
+                        this.formData = '';
+                        this.action = 'save';
+                        this.showToast('success','Sucesso','Registro salvo com sucesso.');
+                        this.handleGetAll();
+                    } 
                 }
+
                 if(!formData.id){
                     const form = new FormData();
                     form.append('name', formData.name);
@@ -157,20 +170,19 @@
 
                     const userService = new UserService();
                     const {data: responseData, error: responseError } = await userService.store(form);
-                    let status = responseData.value ? responseData._rawValue.status : null;
+                    status = responseData.value ? responseData._rawValue.status : null;
                     status = status ?? (responseError.value ? responseError.value.statusCode : null);
-                }
-                
 
-                if (status === 201) {
-                    this.formData = '';
-                    this.showToast('success','Sucesso','Registro salvo com sucesso.');
-                    this.handleGetAll();
-                } 
-                
-                if (status >= 400) {
-                    this.errorMessage.message = responseError.value.data.data.errors;
-                }   
+                    if (status >= 400) {
+                        this.errorMessage.message = responseError.value.data.data.errors;
+                    }
+
+                    if (status === 201) {
+                        this.formData = '';
+                        this.showToast('success','Sucesso','Registro salvo com sucesso.');
+                        this.handleGetAll();
+                    } 
+                }               
             },
             async handleEdit(data){
                 this.formData = data;

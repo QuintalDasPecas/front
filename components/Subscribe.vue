@@ -46,13 +46,13 @@
                             <InputText v-model="formData.name" class="form-control" size="large" maxlength="50" />
                         </div>
                     </div>                    
-                    <div class="col-lg-2 col-md-2 col-sm-2 col-2">
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-3">
                         <NuxtLink @click="handleCreate(false)" class="btn btn-outline-primary btn-lg btn-width-defult">
                             Voltar
                         </NuxtLink>
                     </div>
-                        <div class="col-lg-8 col-md-8 col-sm-8 col-8"></div>
-                    <div class="col-lg-2 col-md-2 col-sm-2 col-2">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-6"></div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-3">
                         <NuxtLink @click="handleSubmit()" class="btn btn-outline-primary btn-lg btn-width-defult">
                             Confirmar
                         </NuxtLink>

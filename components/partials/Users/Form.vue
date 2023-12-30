@@ -20,11 +20,11 @@
                         </div>
                         <div v-if="!data" class="col-lg-12 col-md-12 col-sm-12 col-12">
                             <label for="password" class="form-label label-lg">Senha</label>
-                            <Password v-model="formData.password" size="large" id="password" toggleMask :feedback="false" :maxlength="16" />
+                            <Password v-model="formData.password" size="large" toggleMask :feedback="false" :maxlength="16" />
                         </div>
                         <div v-if="!data" class="col-lg-12 col-md-12 col-sm-12 col-12">
                             <label for="password_confirmation" class="form-label label-lg">Repetir senha</label>
-                            <Password v-model="formData.password_confirmation" size="large" id="password_confirmation" toggleMask :feedback="false" :maxlength="16" />
+                            <Password v-model="formData.password_confirmation" size="large" toggleMask :feedback="false" :maxlength="16" />
                         </div>                         
                         <div class="row g-2 justify-content-center ButtonBottom">
                             <div class="col-lg-6 col-md-6 col-sm-6 col-6">
@@ -50,13 +50,18 @@ export default {
         data:{
             type: Object,
             default: {},
-            required: true
+            required: false
         },
         errorMessage:{
             type: Object,
             default: {},
             required: false
         },
+        action:{
+            type: String,
+            default: {},
+            required: false
+        }
     },
     data(){
         return {
@@ -64,7 +69,7 @@ export default {
             isForm: false,
             confirmDiaog: false, 
             msgDialogConfirm: '',
-            formData: this.data
+            formData: (this.data ? this.data : {})
         }
     },
     methods:{
@@ -75,8 +80,8 @@ export default {
         async handleSubmit(){
             this.formData.entityId = localStorage.getItem('entityId');
             this.errorMessage.message = '';
-            this.$emit('handleSubmit', this.formData);
-            this.formData = {};
+            this.$emit('handleSubmit', this.formData);  
+            this.formData = '';          
         }
     }
 }
