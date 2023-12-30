@@ -149,7 +149,8 @@ export default {
         }
     },
     mounted(){
-        this.toInit();       
+        this.toInit();
+        this.getHandleColor();
         this.cssToolBar = {
             root: { 
                 style: { 
@@ -163,8 +164,7 @@ export default {
                 } 
             }
         };      
-        this.handleGetLogo();
-        this.getHandleColor();
+        this.handleGetLogo();        
         this.colorMenu ={
             padding: '0.5rem 1rem',
             color: this.color ?? '#000',
