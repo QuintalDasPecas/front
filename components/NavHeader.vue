@@ -26,7 +26,7 @@
 <script>
     import Logout from "@/src/services/LogoutService";
     import Logo from '@/src/services/LogoService';
-    import Color from '@/src/services/ConfigColorService';
+    import configColor from '@/src/services/ConfigColorService';
 export default {
     data(){
         return {
@@ -136,42 +136,44 @@ export default {
             }
         },
         async getHandleColor(){
-            const color = new Color();
-
-            const { data: responseData, error: responseError } = await color.all(); 
+            const Color = new configColor();
+            const { data: responseData, error: responseError } = await Color.all(); 
             let status = responseData.value ? responseData._rawValue.status : null;
             status = status ?? (responseError.value ? responseError.value.statusCode : null);
 
             if(status === 200) {              
                 this.color = responseData._rawValue.data[0].color;
                 localStorage.setItem('color', this.color);
+                console.log(responseData._rawValue.data[0].color)
             }
+        },
+        async setColorNavBar(){
+            const c = await this.getHandleColor();
+            this.cssToolBar = {
+                root: { 
+                    style: { 
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-evenly!important',
+                        flexWrap: 'wrap',
+                        backgroundColor: this.color,
+                        borderRadius: '0px',
+                        borderColor: this.color
+                    } 
+                }
+            };
+            this.colorMenu ={
+                padding: '0.5rem 1rem',
+                color: this.color ?? '#000',
+                border: '0 none',
+                borderRadius: '4px'
+            };
         }
     },
     mounted(){
         this.toInit();
-        this.getHandleColor();
-        this.cssToolBar = {
-            root: { 
-                style: { 
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-evenly!important',
-                    flexWrap: 'wrap',
-                    backgroundColor: this.color,
-                    borderRadius: '0px',
-                    borderColor: this.color
-                } 
-            }
-        };      
-        this.handleGetLogo();        
-        this.colorMenu ={
-            padding: '0.5rem 1rem',
-            color: this.color ?? '#000',
-            border: '0 none',
-            borderRadius: '4px'
-        };
-        console.log(this.color);
+        this.setColorNavBar();          
+        this.handleGetLogo();
     }
 }   
 </script>
