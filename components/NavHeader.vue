@@ -171,6 +171,7 @@ export default {
             border: '0 none',
             borderRadius: '4px'
         };
+        console.log(this.color);
     }
 }   
 </script>
