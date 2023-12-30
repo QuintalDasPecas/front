@@ -42,7 +42,7 @@
         </div>
     </div>
     <div class="row g-8 justify-content-center" >
-        <div class="col-lg-10 col-md-10 col-sm-10 col-10">
+        <div :class="viewproductsbaseprice.length <= 1  ? 'col-lg-4' : 'col-lg-10'">
             <Carousel :value="viewproductsbaseprice" :numVisible="5" :numScroll="5">
                 <template #item="slotProps">
                     <NuxtLink @click="handleStoreCache(slotProps.data.token)" :to="`products?token=${slotProps.data.token}`">
@@ -79,7 +79,7 @@
         </div>
     </div>
     <div class="row g-8 justify-content-center">
-        <div class="col-lg-10 col-md-10 col-sm-10 col-10">           
+        <div :class="viewproducts.length <= 1  ? 'col-lg-4' : 'col-lg-10'">         
             <Carousel :value="viewproducts" :numVisible="5" :numScroll="5">
                 <template #item="slotProps">
                     <NuxtLink  @click="handleStoreCache(slotProps.data.token)" :to="`products?token=${slotProps.data.token}`">
