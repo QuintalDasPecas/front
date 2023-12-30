@@ -173,6 +173,7 @@ export default {
             borderRadius: '4px'
         };
         this.handleGetLogo();
+        this.getHandleColor();
     }
 }   
 </script>
