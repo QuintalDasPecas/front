@@ -25,4 +25,15 @@ export default class EntityRepositorie {
     formData.append('reject', '1');
     return CallApi.update(id, formData);
   }
+
+  static async findByIdAndTypeFile(id: number, type: string){
+    CallApi.setEndPoint('entityfile');
+    return CallApi.findByIdAndTypeFile(id, type);
+  }
+
+  static async findByIdAndTypeFileAndApproved(id: number, type: string){
+    CallApi.setEndPoint('entityfile/file');
+    return CallApi.findByIdAndTypeFileAndApproved(id, type);
+  }
+
 }

@@ -118,6 +118,24 @@ export default class CallApi{
 
     }
 
+    static async findByIdAndTypeFile(id: Number, type: String){
+        
+        const apiUrl = utils.getEnviromentHost(this.getEndPoint());
+        return await useFetch( apiUrl, {
+            onRequest({ request, options }) {
+                options.query = {'id' : id, 'type_file' : type};
+                options.method = 'GET';
+            },
+            onResponse({ request, response, options }) {
+                return response._data;
+            },
+            onResponseError({ request, response, options }) {
+                return response._data;
+            }
+        });
+
+    }
+
     static async all(){
         const apiUrl = utils.getEnviromentHost(this.getEndPoint());
         return await useFetch( apiUrl, {
@@ -265,5 +283,23 @@ export default class CallApi{
                return response._data;
             }
         });
+    }
+
+    static async findByIdAndTypeFileAndApproved(id: Number, type: String){
+        
+        const apiUrl = utils.getEnviromentHost(this.getEndPoint());
+        return await useFetch( apiUrl, {
+            onRequest({ request, options }) {
+                options.query = {'id' : id, 'type_file' : type};
+                options.method = 'GET';
+            },
+            onResponse({ request, response, options }) {
+                return response._data;
+            },
+            onResponseError({ request, response, options }) {
+                return response._data;
+            }
+        });
+
     }
 }

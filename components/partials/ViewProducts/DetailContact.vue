@@ -17,6 +17,9 @@
                     <span v-if="formData.state">{{ formData.state }}, </span>
                     <span v-if="formData.zipcode">{{ formData.zipcode }} <hr></span>                    
                 </div>
+                <div v-if="formData.file_path">
+                    <Img height="70" width="70" :src="formData.file_path" />
+                </div>
                 <div v-if="formData.facebook">
                     <i class="pi pi-facebook iconSize"></i> {{ formData.facebook }}
                 </div>

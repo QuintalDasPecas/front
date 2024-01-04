@@ -25,7 +25,7 @@
 </template>
 <script>
     import Logout from "@/src/services/LogoutService";
-    import Logo from '@/src/services/LogoService';
+    import Logo from '@/src/services/EntityFileService';
     import configColor from '@/src/services/ConfigColorService';
 export default {
     data(){
@@ -128,11 +128,11 @@ export default {
         },
         async handleGetLogo(){
             const logo = new Logo();
-            const responseData = await logo.getAllActive();
+            const responseData = await logo.findByIdAndTypeFileAndApproved(0, 'quintalLogo');
             const status = responseData.data._rawValue ? responseData.data._rawValue.status : [];
             if (status === 200) {
                 const logoData = responseData.data._rawValue ? responseData.data._rawValue.data : [];
-                this.formData.file_path = logoData.file_path ?? '';
+                this.formData.file_path = logoData[0].file ?? '';
             }
         },
         async getHandleColor(){
@@ -167,7 +167,6 @@ export default {
                 border: '0 none',
                 borderRadius: '4px'
             };
-            console.log(this.color)
         }
     },
     mounted(){

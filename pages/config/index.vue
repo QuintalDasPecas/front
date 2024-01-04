@@ -20,7 +20,11 @@
                                 <PartialsMenuFooter />
                             </AccordionTab>
                             <AccordionTab header="Imagem para logo marca">
-                                <LogoBrand />
+                                <PartialsGridEntityFiles typeFile="quintalLogo"/>
+                                <PartialsUploads
+                                    url="https://quintaldaspecas.com.br/backend/public/api/upload"
+                                    uploadType="quintalLogo"
+                                />
                             </AccordionTab>
                             <AccordionTab header="Publicidades">
                                 <span>Upload de banner para publicidades</span>                                

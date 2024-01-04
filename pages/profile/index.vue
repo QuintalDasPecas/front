@@ -26,7 +26,18 @@
                                     <FormChangePassword />
                                 </AccordionTab>
                                 <AccordionTab header="Arquivos">
-                                    <FormUploads />
+                                    <PartialsGridEntityFiles typeFile="documents"/>
+                                    <PartialsUploads
+                                        url="https://quintaldaspecas.com.br/backend/public/api/upload"
+                                        uploadType="documents"
+                                    />
+                                </AccordionTab>
+                                <AccordionTab header="Logo">
+                                    <PartialsGridEntityFiles typeFile="entityLogo"/>
+                                    <PartialsUploads
+                                        url="https://quintaldaspecas.com.br/backend/public/api/upload"
+                                        uploadType="entityLogo"
+                                    />
                                 </AccordionTab>    
                             </Accordion>
                         </div>

@@ -11,6 +11,7 @@
 
   import utils from '@/src/utils/Utils';
   import ViewProductService from '@/src/services/ViewProductService'
+  import Logo from '@/src/services/EntityFileService';
 
   export default{
     data(){
@@ -45,12 +46,25 @@
           this.formData.state = responseData._rawValue.data.state;
           this.formData.city = responseData._rawValue.data.city;
           this.formData = responseData._rawValue.data;
+          this.handleLogo();
         }      
-      }     
+      },      
+      async handleLogo(){
+        const logo = new Logo();
+        const entityId = localStorage.getItem('entityId');
+        const responseData = await logo.findByIdAndTypeFileAndApproved(entityId, 'entityLogo');
+        const status = responseData.data._rawValue ? responseData.data._rawValue.status : [];
+        if (status === 200) {
+            const logoData = responseData.data._rawValue ? responseData.data._rawValue.data : [];
+            this.formData.file_path = logoData[0].file ?? '';
+        }
+      },
     },
     mounted () {
+      
       this.handlequeryString();
       this.handleViewProductByToken();
+      
     }
   }
 

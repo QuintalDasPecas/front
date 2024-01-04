@@ -17,4 +17,12 @@ export default class EntityService {
     public async reject(id: number){
         return await repositorie.reject(id);
     }
+
+    public async findByIdAndTypeFile(id: number, type: string ){
+        return await repositorie.findByIdAndTypeFile(id, type);
+    }
+
+    public async findByIdAndTypeFileAndApproved(id: number, type: string ){
+        return await repositorie.findByIdAndTypeFileAndApproved(id, type);
+    }
 }
