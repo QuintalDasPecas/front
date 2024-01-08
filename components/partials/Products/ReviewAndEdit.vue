@@ -63,8 +63,6 @@
 </template>
 
 <script>
-import { PhotoService } from '@/src/services/PhotoService';
-
 export default {
     props:{
         items:{
@@ -114,9 +112,6 @@ export default {
             ],
             formData: this.items
         };
-    },
-    mounted() {
-        PhotoService.getImages().then((data) => (this.images = data));
     },
     methods:{
         async handleSearch(){
