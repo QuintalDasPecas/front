@@ -26,7 +26,7 @@ export default defineNuxtConfig({
     public: {
       enviroment: {
         dev: {
-          host: 'http://localhost',
+          host: 'https://quintaldaspecas.com.br',
         },
         prod: {
           host: 'https://quintaldaspecas.com.br',
